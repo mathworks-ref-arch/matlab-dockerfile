@@ -10,7 +10,9 @@ The following steps guide you through the process of creating a Docker container
 Use the container image as a scalable and reproducible method to deploy MATLAB in a variety of situations including clouds and clusters.
 
 ## Step 1. Clone this Repository
-1. Clone this repository to your Linux client using `git clone https://github.com/mathworks-ref-arch/matlab-dockerfile.git`.
+1. Clone this repository to your Linux client using 
+
+    `git clone https://github.com/mathworks-ref-arch/matlab-dockerfile.git`
 2. Inside the cloned repository, create a subdirectory named `matlab-install`
 
 ## Step 2. Choose MATLAB Installation Method
