@@ -57,6 +57,7 @@ libxss1 \
 libxt6 \
 libxtst6 \
 libxxf86vm1 \
+procps \
 xkb-data \
 xvfb \
 x11vnc \
