@@ -7,7 +7,7 @@ FROM debian:stretch as prebuilder
 #      Keeping the previous setup, however, we should probably make this OCI compliant.
 LABEL  MAINTAINER=MathWorks
  
-#### Get Doependencies ####
+#### Get Dependencies ####
 # MAR - Changed lsb-release to lsb - wasnt working otherwise - need to understand why.
 # MAR - Added dos2unix so that it can be run on the startscript...
 #       better than relying on the user to make sure the line endings are correct, especially
