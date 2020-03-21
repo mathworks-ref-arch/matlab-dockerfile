@@ -57,6 +57,7 @@ libxss1 \
 libxt6 \
 libxtst6 \
 libxxf86vm1 \
+locales-all \
 procps \
 xkb-data \
 xvfb \
