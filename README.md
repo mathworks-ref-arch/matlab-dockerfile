@@ -54,24 +54,31 @@ To obtain the installation files, you must be an administrator for the license l
 ## Step 5. Build Image
 Use the `docker build` command to build the image, using ```.``` to specify this folder. Run the command from the root directory of the cloned repository. Use a command of the form:
 ```
-docker build . -t matlab:r2019b --build-arg MATLAB_RELEASE=R2019b --build-arg LICENSE_SERVER=27000@MyServerName
+docker build -t matlab:r2020a --build-arg LICENSE_SERVER=27000@MyServerName .
+```
+Note: The LICENSE_SERVER build argument is NOT used during the build but by supplying it here during build it gets
+incorporated into the container so that MATLAB in the container knows how to acquire a license when the container is run
+
+To build a previous version of MATLAB using one of the other `Dockerfile` use a command of the form 
+```
+docker build -f Dockerfile.R2019b -t matlab:r2019b --build-arg MATLAB_RELEASE=R2019b --build-arg LICENSE_SERVER=27000@MyServerName .
 ```
 
-You must supply a tag for the image using the `-t` option, for example, `matlab:2019b`. The tag names the repository for later use and deployment. 
+You must supply a tag for the image using the `-t` option, for example, `matlab:r2020a`. The tag names the repository for later use and deployment. 
 Specify the location of the network licence manager using `--build-arg LICENSE_SERVER=27000@MyServerName`. Replace `27000@MyServerName` with the port and location of your license manager. Alternatively, you can use a `license.dat` or `network.lic` file to provide the location of the license manager. For more information, see [Use a License File to Build Image](#use-a-license-file-to-build-image).
 
-You must specify the MATLAB release using `--build-arg MATLAB_RELEASE=R20xxx`, where `R20xxx` refers to a MATLAB release you are trying to build. 
+For the R2019b Dockerfile you must also specify the MATLAB release using `--build-arg MATLAB_RELEASE=R20xxx`, where `R20xxx` refers to a MATLAB release you are trying to build. 
 
 ## Step 6. Run Container
 Use the `docker run` command to run the container. Run the command from the root directory of the cloned repository. Use a command of the form:
 ```
-docker run -it --rm matlab:r2019b
+docker run -it --rm matlab:r2020a
 ```
 - `-it` option runs the container interactively.
 - `--rm` option automatically removes the container on exit.
 Any extra arguments after the container tag are passed directly to MATLAB. For example, the following command prints `hello world` in MATLAB and then exits MATLAB.
 ```
-docker run -it --rm matlab:r2019b -r "disp('hello world');exit"
+docker run -it --rm matlab:r2020a -r "disp('hello world');exit"
 ```
 
 ## Optional Dependencies
@@ -98,6 +105,6 @@ USE_SERVER
 5. Uncomment the line `ADD network.lic /usr/local/MATLAB/$MATLAB_RELEASE/licenses/`
 6. Run the docker build command without the `--build-arg LICENSE_SERVER=27000@MyServerName` option. Use a command of the form
 ```
-docker build . -t matlab:r2019b --build-arg MATLAB_RELEASE=R2019b
+docker build -t matlab:r2020a .
 ```
 For more information about license files, see [What are the differences between the license.lic, license.dat, network.lic, and license_info.xml license files?](https://www.mathworks.com/matlabcentral/answers/116637-what-are-the-differences-between-the-license-lic-license-dat-network-lic-and-license_info-xml-lic)
