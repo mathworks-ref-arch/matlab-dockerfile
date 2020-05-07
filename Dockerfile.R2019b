@@ -133,6 +133,14 @@ ADD matlab-install /matlab-install/
 #   Uncommented products you want to install
 ADD matlab_installer_input.txt /matlab_installer_input.txt
 
+ARG MATLAB_RELEASE
+
+# Alternatively to using the ARG LICENSE_SERVER as used in the final image (see below) 
+# you can put a license file (or license information) into the container. You should 
+# fill this file out with the details of the license server you want to use and uncomment 
+# the following line.
+# ADD network.lic /usr/local/MATLAB/$MATLAB_RELEASE/licenses/
+
 # Now install MATLAB
 RUN cd /matlab-install \
     && ./install -mode silent -inputFile /matlab_installer_input.txt
@@ -169,12 +177,6 @@ ARG LICENSE_SERVER
 # you could specify the licens server directly using
 #       ENV MLM_LICENSE_FILE=27000@flexlm-server-name
 ENV MLM_LICENSE_FILE=$LICENSE_SERVER
-
-# Alternatively you can put a license file (or license information) into the 
-# container. You should fill this file out with the details of the license 
-# server you want to use nd uncomment the following line.
-# ADD network.lic /usr/local/MATLAB/$MATLAB_RELEASE/licenses/
-
 
 # Finally clean up after apt-get
 RUN apt-get clean \

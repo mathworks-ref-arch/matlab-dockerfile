@@ -132,6 +132,11 @@ ADD matlab-install /matlab-install/
 #   Uncommented products you want to install
 ADD matlab_installer_input.txt /matlab_installer_input.txt
 
+# Alternatively you can put a license file (or license information) into the 
+# container. You should fill this file out with the details of the license 
+# server you want to use nd uncomment the following line.
+# ADD network.lic /usr/local/MATLAB/licenses/
+
 # Now install MATLAB (make sure that the install script is executable)
 RUN cd /matlab-install && \
     chmod +x ./install && \
@@ -169,11 +174,6 @@ ARG LICENSE_SERVER
 # you could specify the licens server directly using
 #       ENV MLM_LICENSE_FILE=27000@flexlm-server-name
 ENV MLM_LICENSE_FILE=$LICENSE_SERVER
-
-# Alternatively you can put a license file (or license information) into the 
-# container. You should fill this file out with the details of the license 
-# server you want to use nd uncomment the following line.
-# ADD network.lic /usr/local/MATLAB/licenses/
    
 USER matlab
 WORKDIR /home/matlab
