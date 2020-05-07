@@ -108,7 +108,7 @@ USE_SERVER
     - `licensePath` Add the destination path of the network.lic
 7. Run the docker build command without the `--build-arg LICENSE_SERVER=27000@MyServerName` option. Use a command of the form
 ```
-docker build -t matlab:r2020a --build-arg MATLAB_RELEASE=R2020a .
+docker build -t matlab:r2020a .
 ```
 resp. for R2019b
 ```
