@@ -75,7 +75,8 @@ docker run -it --rm matlab:r2020a
 ```
 - `-it` option runs the container interactively.
 - `--rm` option automatically removes the container on exit.
-Any extra arguments after the container tag are passed directly to MATLAB inside the container. For example, the following command prints `hello world` in MATLAB and then exits.
+
+Any extra arguments after the container tag are passed directly as command line arguments to the MATLAB process inside the container. For example, the following command prints `hello world` in MATLAB and then exits.
 ```
 docker run -it --rm matlab:r2020a -r "disp('hello world');exit"
 ```
