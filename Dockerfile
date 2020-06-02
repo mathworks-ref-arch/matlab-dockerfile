@@ -68,18 +68,18 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 # code generation capabilities, or if you will be compiling your own mex files
 # with gcc, g++, or gfortran.
 #
-#RUN apt-get install -y gcc g++ gfortran
+#RUN apt-get update && apt-get install --no-install-recommends -y gcc g++ gfortran
 
 # Uncomment the following RUN apt-get statement to enable running a program
 # that makes use of MATLAB's Engine API for C and Fortran
 # https://www.mathworks.com/help/matlab/matlab_external/introducing-matlab-engine.html
 #
-#RUN apt-get install -y csh
+#RUN apt-get update && apt-get install --no-install-recommends -y csh
 
 # Uncomment ALL of the following RUN apt-get statement to enable the playing of media files
 # (mp3, mp4, etc.) from within MATLAB.
 #
-#RUN apt-get install --no-install-recommends -y libgstreamer1.0-0 \
+#RUN apt-get update && apt-get install --no-install-recommends -y libgstreamer1.0-0 \
 # gstreamer1.0-tools \
 # gstreamer1.0-libav \
 # gstreamer1.0-plugins-base \
@@ -91,16 +91,16 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 # to use fuse in a container you will also need to start the container with the following
 # options (depending on your system configuration)
 #   –device /dev/fuse --cap-add SYS_ADMIN
-#RUN apt-get install --no-install-recommends -y libfuse2
+#RUN apt-get update && apt-get install --no-install-recommends -y libfuse2
 
 # Uncomment the following line if you require network tools
-#RUN apt-get install --no-install-recommends -y net-tools
+#RUN apt-get update && apt-get install --no-install-recommends -y net-tools
 
 # Uncomment the following RUN apt-get statement if you will be using the 32-bit tcc compiler
 # used in the Polyspace product line.
-#RUN apt-get install -y libc6-i386
+#RUN apt-get update && apt-get install -y libc6-i386
 
-# To avoid inadvertantly polluting the / directory, use root's home directory 
+# To avoid inadvertently polluting the / directory, use root's home directory 
 # while running MATLAB.
 WORKDIR /root
 
@@ -129,7 +129,7 @@ ADD matlab-install /matlab-install/
 # the file.
 #   fileInstallationKey
 #   agreeToLicense=yes
-#   Uncommented products you want to install
+#   Uncomment products you want to install
 ADD matlab_installer_input.txt /matlab_installer_input.txt
 
 # Now install MATLAB (make sure that the install script is executable)
@@ -166,20 +166,19 @@ ARG LICENSE_SERVER
 # if you want to bind in the license info as an environment variable. This 
 # is the preferred option for licensing. It is either possible to build with 
 # something like --build-arg LICENSE_SERVER=27000@MyServerName, alternatively
-# you could specify the licens server directly using
+# you could specify the license server directly using
 #       ENV MLM_LICENSE_FILE=27000@flexlm-server-name
 ENV MLM_LICENSE_FILE=$LICENSE_SERVER
 
 # Alternatively you can put a license file (or license information) into the 
 # container. You should fill this file out with the details of the license 
-# server you want to use nd uncomment the following line.
+# server you want to use and uncomment the following line.
 # ADD network.lic /usr/local/MATLAB/licenses/
    
 USER matlab
 WORKDIR /home/matlab
 
 # Uncomment and maybe change the following line to setup mex in your container
-# RUN /usr/local/MATLAB/bin/mex -v -setup C++
-
+#RUN /usr/local/MATLAB/bin/mex -v -setup C++
 
 ENTRYPOINT ["/opt/startscript/startmatlab.sh"]
