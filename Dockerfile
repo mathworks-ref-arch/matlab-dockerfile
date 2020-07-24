@@ -152,11 +152,14 @@ ADD startmatlab.sh /opt/startscript/
 RUN chmod +x /opt/startscript/startmatlab.sh && \
     ln -s /usr/local/MATLAB/bin/matlab /usr/local/bin/matlab
 
+ARG USERNAME=matlab
 # Add a user other than root to run MATLAB
-RUN useradd -ms /bin/bash matlab
+RUN useradd -ms /bin/bash $USERNAME
 # Add bless that user with sudo powers
-RUN echo "matlab ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/matlab \
-    && chmod 0440 /etc/sudoers.d/matlab
+RUN echo "$USERNAME ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME
+USER $USERNAME
+WORKDIR /home/$USERNAME
 
 # One of the following 2 ways of configuring the FlexLM server to use must be
 # uncommented.
@@ -174,9 +177,6 @@ ENV MLM_LICENSE_FILE=$LICENSE_SERVER
 # container. You should fill this file out with the details of the license 
 # server you want to use and uncomment the following line.
 # ADD network.lic /usr/local/MATLAB/licenses/
-   
-USER matlab
-WORKDIR /home/matlab
 
 # Uncomment and maybe change the following line to setup mex in your container
 #RUN /usr/local/MATLAB/bin/mex -v -setup C++
