@@ -1,107 +1,15 @@
-# Copyright 2019 - 2020 The MathWorks, Inc.
+# Copyright 2019 - 2021 The MathWorks, Inc.
 
-FROM ubuntu:18.04 as prebuilder
+# We use the latest dependency container for MathWorks products. You can find more 
+# info on the variety of different tags available for the dependency container and 
+# the Dockerfiles used to build them at https://github.com/mathworks-ref-arch/container-images/tree/master/matlab-deps
+FROM mathworks/matlab-deps as prebuilder
 
 LABEL  MAINTAINER=MathWorks
 
-#### Get Dependencies ####
-
-RUN apt-get update && apt-get install --no-install-recommends -y \
-        ca-certificates \
-        libasound2 \
-        libatk1.0-0 \
-        libavcodec-extra57 \
-        libavformat57 \
-        libc6 \
-        libcairo-gobject2 \
-        libcairo2 \
-        libcups2 \
-        libdbus-1-3 \
-        libfontconfig1 \
-        libgdk-pixbuf2.0-0 \
-        libgstreamer-plugins-base1.0-0 \
-        libgstreamer1.0-0 \
-        libgtk-3-0 \
-        libnspr4 \
-        libnss3 \
-        libpam0g \
-        libpango-1.0-0 \
-        libpangocairo-1.0-0 \
-        libpangoft2-1.0-0 \
-        libpython2.7 \
-        libpython3.6 \
-        libpython3.7 \
-        libselinux1 \
-        libsm6 \
-        libsndfile1 \
-        libx11-6 \
-        libx11-xcb1 \
-        libxcb1 \
-        libxcomposite1 \
-        libxcursor1 \
-        libxdamage1 \
-        libxext6 \
-        libxfixes3 \
-        libxft2 \
-        libxi6 \
-        libxinerama1 \
-        libxrandr2 \
-        libxrender1 \
-        libxt6 \
-        libxtst6 \
-        libxxf86vm1 \
-        locales \
-        locales-all \
-        procps \
-        sudo \
-        xkb-data \
-        zlib1g \
-    && apt-get clean \
-    && apt-get -y autoremove \
-    && rm -rf /var/lib/apt/lists/*
-
-# Uncomment the following RUN ln -s statement if you will be running the MATLAB 
-# license manager INSIDE the container.
-#RUN ln -s ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3
-
-# Uncomment the following RUN apt-get statement if you will be using Simulink 
-# code generation capabilities, or if you will be compiling your own mex files
-# with gcc, g++, or gfortran.
-#
-#RUN apt-get update && apt-get install --no-install-recommends -y gcc g++ gfortran
-
-# Uncomment the following RUN apt-get statement to enable running a program
-# that makes use of MATLAB's Engine API for C and Fortran
-# https://www.mathworks.com/help/matlab/matlab_external/introducing-matlab-engine.html
-#
-#RUN apt-get update && apt-get install --no-install-recommends -y csh
-
-# Uncomment ALL of the following RUN apt-get statement to enable the playing of media files
-# (mp3, mp4, etc.) from within MATLAB.
-#
-#RUN apt-get update && apt-get install --no-install-recommends -y libgstreamer1.0-0 \
-# gstreamer1.0-tools \
-# gstreamer1.0-libav \
-# gstreamer1.0-plugins-base \
-# gstreamer1.0-plugins-good \
-# gstreamer1.0-plugins-bad \
-# gstreamer1.0-plugins-ugly
-
-# Uncomment the following line if you require the fuse filesystem - but note that
-# to use fuse in a container you will also need to start the container with the following
-# options (depending on your system configuration)
-#   –device /dev/fuse --cap-add SYS_ADMIN
-#RUN apt-get update && apt-get install --no-install-recommends -y libfuse2
-
-# Uncomment the following line if you require network tools
-#RUN apt-get update && apt-get install --no-install-recommends -y net-tools
-
-# Uncomment the following RUN apt-get statement if you will be using the 32-bit tcc compiler
-# used in the Polyspace product line.
-#RUN apt-get update && apt-get install -y libc6-i386
-
 # To avoid inadvertently polluting the / directory, use root's home directory 
 # while running MATLAB.
+USER root
 WORKDIR /root
 
 #### Install MATLAB in a multi-build style ####
