@@ -1,8 +1,8 @@
-# Copyright 2019 - 2021 The MathWorks, Inc.
+# Copyright 2019 - 2022 The MathWorks, Inc.
 
 # To specify which MATLAB release to install in the container, edit the value of the MATLAB_RELEASE argument.
-# Use lower case to specify the release, for example: ARG MATLAB_RELEASE=r2020a
-ARG MATLAB_RELEASE=r2021b
+# Use lower case to specify the release, for example: ARG MATLAB_RELEASE=r2021b
+ARG MATLAB_RELEASE=r2022a
 
 # When you start the build stage, this Dockerfile by default uses the Ubuntu-based matlab-deps image.
 # To check the available matlab-deps images, see: https://hub.docker.com/r/mathworks/matlab-deps
@@ -50,6 +50,14 @@ ENV MLM_LICENSE_FILE=$LICENSE_SERVER
 # You should fill this file out with the details of the license 
 # server you want to use and uncomment the following line.
 # COPY network.lic /opt/matlab/licenses/
+
+# The following environment variable allows MathWorks to understand how this MathWorks 
+# product (MATLAB Dockerfile) is being used. This information helps us make MATLAB even better. 
+# Your content, and information about the content within your files, is not shared with MathWorks. 
+# You can opt out by deleting this variable and by going to MATLAB preferences and unselecting 
+# the Help Improve MATLAB checkbox. See the Help Make MATLAB Even Better section in the accompanying 
+# README to learn more: https://github.com/mathworks-ref-arch/matlab-dockerfile#help-make-matlab-even-better
+ENV MW_CONTEXT_TAGS=MATLAB:DOCKERFILE:V1
 
 # Set user and work directory
 USER matlab
