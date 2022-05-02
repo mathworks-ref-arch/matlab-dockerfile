@@ -51,13 +51,13 @@ ENV MLM_LICENSE_FILE=$LICENSE_SERVER
 # server you want to use and uncomment the following line.
 # COPY network.lic /opt/matlab/licenses/
 
-# The following environment variable allows MathWorks to understand how this MathWorks 
+# The following environment variables allow MathWorks to understand how this MathWorks 
 # product (MATLAB Dockerfile) is being used. This information helps us make MATLAB even better. 
 # Your content, and information about the content within your files, is not shared with MathWorks. 
-# You can opt out by deleting this variable and by going to MATLAB preferences and unselecting 
-# the Help Improve MATLAB checkbox. See the Help Make MATLAB Even Better section in the accompanying 
-# README to learn more: https://github.com/mathworks-ref-arch/matlab-dockerfile#help-make-matlab-even-better
-ENV MW_CONTEXT_TAGS=MATLAB:DOCKERFILE:V1
+# To opt out of this service, delete the environment variables defined in the following line. 
+# See the Help Make MATLAB Even Better section in the accompanying README to learn more: 
+# https://github.com/mathworks-ref-arch/matlab-dockerfile#help-make-matlab-even-better
+ENV MW_DDUX_FORCE_ENABLE=true MW_CONTEXT_TAGS=MATLAB:DOCKERFILE:V1
 
 # Set user and work directory
 USER matlab

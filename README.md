@@ -181,7 +181,12 @@ For some workflows and toolboxes, you must specify dependencies. You must do thi
     These Dockerfiles contain commented lines with the libraries that support these additional capabilities. Copy and uncomment these lines into your Dockerfile.
 
 ## Help Make MATLAB Even Better
-You can help improve MATLAB by providing user experience information on how you use MathWorks products. Your participation ensures that you are represented and helps us design better products. You can opt out of this service by going to MATLAB preferences in the VM and unselecting the `Help Improve MATLAB` checkbox. To learn more, see the documentation: [Help Make MATLAB Even Better - Frequently Asked Questions](https://www.mathworks.com/support/faq/user_experience_information_faq.html).
+You can help improve MATLAB by providing user experience information on how you use MathWorks products. Your participation ensures that you are represented and helps us design better products. To opt out of this service, delete the following line in the Dockerfile:
+```Dockerfile
+ENV MW_DDUX_FORCE_ENABLE=true MW_CONTEXT_TAGS=MATLAB:DOCKERFILE:V1
+```
+
+To learn more, see the documentation: [Help Make MATLAB Even Better - Frequently Asked Questions](https://www.mathworks.com/support/faq/user_experience_information_faq.html).
 
 ## Feedback
 We encourage you to try this repository with your environment and provide feedback. If you encounter a technical issue or have an enhancement request, create an issue [here](https://github.com/mathworks-ref-arch/matlab-dockerfile/issues).
