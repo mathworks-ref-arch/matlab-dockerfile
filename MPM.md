@@ -42,7 +42,7 @@ Install options:
 
 ### Example
 
-    mpm install --release=R2021b --destination=/home/username/matlab MATLAB Deep_Learning_Toolbox Parallel_Computing_Toolbox
+    mpm install --release=R2021b --destination=/home/username/matlab --products MATLAB Deep_Learning_Toolbox Parallel_Computing_Toolbox
 
 ## Product Availability
 
