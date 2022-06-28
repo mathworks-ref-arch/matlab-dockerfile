@@ -19,13 +19,15 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && \
         ca-certificates && \
     apt-get clean && apt-get autoremove
 
-# Run mpm to install MATLAB in the target location and delete the mpm installation afterwards
+# Run mpm to install MATLAB in the target location and delete the mpm installation afterwards.
+# If mpm fails to install successfully then output the logfile to the terminal, otherwise cleanup.
 RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm && \ 
     chmod +x mpm && \
     ./mpm install \
         --release=${MATLAB_RELEASE} \
         --destination=/opt/matlab \
-        --products MATLAB && \
+        --products MATLAB || \
+    (echo "MPM Installation Failure. See below for more information:" && cat /tmp/mathworks_root.log && false) && \
     rm -f mpm /tmp/mathworks_root.log && \
     ln -s /opt/matlab/bin/matlab /usr/local/bin/matlab
 
