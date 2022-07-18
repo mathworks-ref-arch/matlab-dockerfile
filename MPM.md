@@ -41,7 +41,7 @@ Install options:
                              The default path is `/usr/share/matlab`.
     --products arg           Specify the list of products to install using product names separated by spaces. Replace spaces within names with underscores.
                              For example: MATLAB Simulink Deep_Learning_Toolbox Parallel_Computing_Toolbox
-    --doc  				     Include documentation and examples with the MATLAB installation. By default, mpm omits documentation and examples.
+    --doc                    Include documentation and examples with the MATLAB installation. By default, mpm omits documentation and examples.
 
 ### Example
 
