@@ -17,7 +17,9 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && \
         wget \
         unzip \
         ca-certificates && \
-    apt-get clean && apt-get autoremove
+    apt-get clean && \
+    apt-get autoremove && \
+    rm -rf /var/lib/apt/lists/*
 
 # Run mpm to install MATLAB in the target location and delete the mpm installation afterwards.
 # If mpm fails to install successfully then output the logfile to the terminal, otherwise cleanup.
