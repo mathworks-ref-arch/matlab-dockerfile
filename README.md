@@ -26,14 +26,14 @@ cd matlab-dockerfile
 ### Build & Run Docker Image
 ```bash
 # Build container with a name and tag of your choice.
-docker build -t matlab:r2022a .
+docker build -t matlab:r2022b .
 
 # Run the container.
-docker run --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022a -batch "disp('Hello World!')"
+docker run --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022b -batch "disp('Hello World!')"
 ```
 For more information on running, see the section on [Run the Container](#run-the-container).
 
-The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile) defaults to building a container for MATLAB R2022a.
+The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile) defaults to building a container for MATLAB R2022b.
 
 ## Customize the Image
 ### Customize Products to Install Using MATLAB Package Manager (mpm)
@@ -61,7 +61,7 @@ The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/ma
 
 | Argument Name | Default value | Effect |
 |---|---|---|
-| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | r2022a | The MATLAB release you want to install. Must be lower-case, for example: `r2019b`.|
+| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | r2022b | The MATLAB release you want to install. Must be lower-case, for example: `r2019b`.|
 | [LICENSE_SERVER](#build-an-image-with-license-server-information) | *unset* | The port and hostname of the machine that is running the Network License Manager, using the `port@hostname` syntax. For Example: `27000@MyServerName` |
 
 Use these arguments with the the `docker build` command to customize your image.
@@ -78,10 +78,10 @@ docker build --build-arg MATLAB_RELEASE=r2019b -t matlab:r2019b .
 Including the license server information with the docker build command avoids having to pass it when running the container.
 ```bash
 # Build container with the License Server
-docker build -t matlab:r2022a --build-arg LICENSE_SERVER=27000@MyServerName .
+docker build -t matlab:r2022b --build-arg LICENSE_SERVER=27000@MyServerName .
 
 # Run the container, without needing to pass license information
-docker run matlab:r2022a -batch "disp('Hello World!')"
+docker run matlab:r2022b -batch "disp('Hello World!')"
 ```
 
 ## Use the Network License Manager
@@ -114,7 +114,7 @@ With the `docker build` command, either:
 
     ```bash
     # Example
-    docker build -t matlab:r2022a --build-arg LICENSE_SERVER=27000@MyServerName .
+    docker build -t matlab:r2022b --build-arg LICENSE_SERVER=27000@MyServerName .
     ```
 - Use the `network.lic` file:
     1. Place the `network.lic` file in the same folder as the Dockerfile.
@@ -123,13 +123,13 @@ With the `docker build` command, either:
 
     ```bash
     # Example
-    docker build -t matlab:r2022a .
+    docker build -t matlab:r2022b .
     ```
     
 With the `docker run` command, use the `MLM_LICENSE_FILE` environment variable. For example:
 
 ```bash
-docker run --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022a -batch "disp('Hello World!')"
+docker run --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022b -batch "disp('Hello World!')"
 ```
 
 ## Run the Container
@@ -137,7 +137,7 @@ If you did not provide the license server information while building the image, 
 
 ```bash
 # Launch MATLAB, print Hello World!, and exit:
-docker run --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022a -batch "disp('Hello World!')"
+docker run --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022b -batch "disp('Hello World!')"
 ```
 
 You can run the container **without** specifying `MLM_LICENSE_FILE`, if you provided the license server information when building the image, as shown in the examples below.
@@ -145,19 +145,19 @@ You can run the container **without** specifying `MLM_LICENSE_FILE`, if you prov
 ### Run MATLAB in an Interactive Command Prompt
 To start the container and run MATLAB in an interactive command prompt, execute:
 ```bash
-docker run -it --rm matlab:r2022a
+docker run -it --rm matlab:r2022b
 ```
 ### Run MATLAB in Batch Mode
 To start the container, run a MATLAB command and exit, execute:
 ```bash
 # Container runs the command RAND in MATLAB and exits.
-docker run --rm matlab:r2022a -batch rand
+docker run --rm matlab:r2022b -batch rand
 ```
 
 ### Run MATLAB with Startup Options
 To override the default behavior of the container and run MATLAB with any set of arguments, such as `-logfile`, execute:
 ```bash
-docker run -it --rm matlab:r2022a -logfile "logfilename.log"
+docker run -it --rm matlab:r2022b -logfile "logfilename.log"
 ```
 To learn more, see the documentation: [Commonly Used Startup Options](https://www.mathworks.com/help/matlab/matlab_env/commonly-used-startup-options.html)
 
@@ -176,7 +176,7 @@ For some workflows and toolboxes, you must specify dependencies. You must do thi
     * Use the MATLAB Engine API for C and Fortran
     * Use the Polyspace 32-bit tcc compiler
     
-    The [matlab-deps repository](https://github.com/mathworks-ref-arch/container-images/tree/master/matlab-deps) repository lists Dockerfiles for various releases and platforms. [Click here to view the Dockerfile for R2022a](https://github.com/mathworks-ref-arch/container-images/blob/master/matlab-deps/r2022a/ubuntu20.04/Dockerfile).
+    The [matlab-deps repository](https://github.com/mathworks-ref-arch/container-images/tree/master/matlab-deps) repository lists Dockerfiles for various releases and platforms. [Click here to view the Dockerfile for R2022b](https://github.com/mathworks-ref-arch/container-images/blob/master/matlab-deps/r2022b/ubuntu20.04/Dockerfile).
 
     These Dockerfiles contain commented lines with the libraries that support these additional capabilities. Copy and uncomment these lines into your Dockerfile.
 

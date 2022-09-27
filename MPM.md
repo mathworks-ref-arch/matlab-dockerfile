@@ -6,7 +6,7 @@ MATLAB Package Manager (**mpm**) is a command line package manager for MathWorks
 
 Example usage:
 
-    mpm install --release=R2022a --destination=/home/username/matlab --products MATLAB Simulink Deep_Learning_Toolbox Parallel_Computing_Toolbox
+    mpm install --release=R2022b --destination=/home/username/matlab --products MATLAB Simulink Deep_Learning_Toolbox Parallel_Computing_Toolbox
 
 ## Download MATLAB Package Manager
 
@@ -47,11 +47,11 @@ Install options:
 
 No documentation and examples:
 
-    mpm install --release=R2022a --destination=/home/username/matlab --products MATLAB Deep_Learning_Toolbox Parallel_Computing_Toolbox
+    mpm install --release=R2022b --destination=/home/username/matlab --products MATLAB Deep_Learning_Toolbox Parallel_Computing_Toolbox
 
 Include documentation and examples:
 
-    mpm install --release=R2022a --destination=/home/username/matlab --doc --products MATLAB Deep_Learning_Toolbox Parallel_Computing_Toolbox
+    mpm install --release=R2022b --destination=/home/username/matlab --doc --products MATLAB Deep_Learning_Toolbox Parallel_Computing_Toolbox
 
 ## Product Availability
 
