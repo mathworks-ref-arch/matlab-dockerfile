@@ -11,32 +11,34 @@ FROM mathworks/matlab-deps:${MATLAB_RELEASE}
 # Declare the global argument to use at the current build stage
 ARG MATLAB_RELEASE
 
-# Install mpm dependencies
-RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && \
-    apt-get install --no-install-recommends --yes \
-        wget \
-        unzip \
-        ca-certificates && \
-    apt-get clean && \
-    apt-get autoremove && \
-    rm -rf /var/lib/apt/lists/*
+# Install mpm dependencies & tini
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get update \
+    && apt-get install --no-install-recommends --yes \
+    wget \
+    unzip \
+    ca-certificates \
+    tini \
+    && apt-get clean \
+    && apt-get autoremove \
+    && rm -rf /var/lib/apt/lists/*
 
 # Run mpm to install MATLAB in the target location and delete the mpm installation afterwards.
 # If mpm fails to install successfully then output the logfile to the terminal, otherwise cleanup.
-RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm && \ 
-    chmod +x mpm && \
-    ./mpm install \
-        --release=${MATLAB_RELEASE} \
-        --destination=/opt/matlab \
-        --products MATLAB || \
-    (echo "MPM Installation Failure. See below for more information:" && cat /tmp/mathworks_root.log && false) && \
-    rm -f mpm /tmp/mathworks_root.log && \
-    ln -s /opt/matlab/bin/matlab /usr/local/bin/matlab
+RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \ 
+    && chmod +x mpm \
+    && ./mpm install \
+    --release=${MATLAB_RELEASE} \
+    --destination=/opt/matlab \
+    --products MATLAB \
+    || (echo "MPM Installation Failure. See below for more information:" && cat /tmp/mathworks_root.log && false) \
+    && rm -f mpm /tmp/mathworks_root.log \
+    && ln -s /opt/matlab/bin/matlab /usr/local/bin/matlab
 
 # Add "matlab" user and grant sudo permission.
-RUN adduser --shell /bin/bash --disabled-password --gecos "" matlab && \
-    echo "matlab ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/matlab && \
-    chmod 0440 /etc/sudoers.d/matlab
+RUN adduser --shell /bin/bash --disabled-password --gecos "" matlab \
+    && echo "matlab ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/matlab \
+    && chmod 0440 /etc/sudoers.d/matlab
 
 # One of the following 2 ways of configuring the license server to use must be
 # uncommented.
@@ -66,5 +68,5 @@ ENV MW_DDUX_FORCE_ENABLE=true MW_CONTEXT_TAGS=MATLAB:DOCKERFILE:V1
 # Set user and work directory
 USER matlab
 WORKDIR /home/matlab
-ENTRYPOINT ["matlab"]
+ENTRYPOINT ["/usr/bin/tini", "--", "matlab"]
 CMD [""]
