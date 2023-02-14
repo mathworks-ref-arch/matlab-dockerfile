@@ -30,10 +30,10 @@ cd matlab-dockerfile
 # Build container with a name and tag of your choice.
 docker build -t matlab:r2022b .
 
-# Run the container.
-docker run --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022b -batch "disp('Hello World!')"
+# Run the container. Test the container by running an example MATLAB command such as ver.
+docker run --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022b -batch ver
 ```
-For more information on running, see the section on [Run the Container](#run-the-container).
+The example command `ver` displays the version number of MATLAB and other installed products. For more information, see [ver](https://www.mathworks.com/help/matlab/ref/ver.html). For more information on running the container, see the section on [Run the Container](#run-the-container).
 
 The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile) defaults to building a container for MATLAB R2022b.
 
@@ -83,7 +83,7 @@ Including the license server information with the docker build command avoids ha
 docker build -t matlab:r2022b --build-arg LICENSE_SERVER=27000@MyServerName .
 
 # Run the container, without needing to pass license information
-docker run matlab:r2022b -batch "disp('Hello World!')"
+docker run matlab:r2022b -batch ver
 ```
 
 ## Use the Network License Manager
@@ -131,15 +131,15 @@ With the `docker build` command, either:
 With the `docker run` command, use the `MLM_LICENSE_FILE` environment variable. For example:
 
 ```bash
-docker run --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022b -batch "disp('Hello World!')"
+docker run --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022b -batch ver
 ```
 
 ## Run the Container
 If you did not provide the license server information while building the image, then you must provide it when running the container. Set this environment variable `MLM_LICENSE_FILE` using the `-e` flag with the  network license manager's location as `port@hostname`.
 
 ```bash
-# Launch MATLAB, print Hello World!, and exit:
-docker run --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022b -batch "disp('Hello World!')"
+# Start MATLAB, print version information, and exit:
+docker run --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022b -batch ver
 ```
 
 You can run the container **without** specifying `MLM_LICENSE_FILE`, if you provided the license server information when building the image, as shown in the examples below.
