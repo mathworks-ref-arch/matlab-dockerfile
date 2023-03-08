@@ -31,11 +31,19 @@ cd matlab-dockerfile
 docker build -t matlab:r2022b .
 
 # Run the container. Test the container by running an example MATLAB command such as ver.
-docker run --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022b -batch ver
+docker run --init --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022b -batch ver
 ```
+The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile) defaults to building a container for MATLAB R2022b.
+
 The example command `ver` displays the version number of MATLAB and other installed products. For more information, see [ver](https://www.mathworks.com/help/matlab/ref/ver.html). For more information on running the container, see the section on [Run the Container](#run-the-container).
 
-The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile) defaults to building a container for MATLAB R2022b.
+> **Note**
+>
+> Using the `--init` flag in the `docker run` command ensures that the container stops gracefully when a `docker stop` or `docker kill` command is issued.
+> For more information, see the following links:
+> * [Docker run reference page](https://docs.docker.com/engine/reference/run/#specify-an-init-process).
+> * [Blog post on the usage of init](https://www.baeldung.com/ops/docker-init-parameter).
+
 
 ## Customize the Image
 ### Customize Products to Install Using MATLAB Package Manager (mpm)
@@ -83,7 +91,7 @@ Including the license server information with the docker build command avoids ha
 docker build -t matlab:r2022b --build-arg LICENSE_SERVER=27000@MyServerName .
 
 # Run the container, without needing to pass license information
-docker run matlab:r2022b -batch ver
+docker run --init --rm matlab:r2022b -batch ver
 ```
 
 ## Use the Network License Manager
@@ -131,7 +139,7 @@ With the `docker build` command, either:
 With the `docker run` command, use the `MLM_LICENSE_FILE` environment variable. For example:
 
 ```bash
-docker run --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022b -batch ver
+docker run --init --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022b -batch ver
 ```
 
 ## Run the Container
@@ -139,7 +147,7 @@ If you did not provide the license server information while building the image, 
 
 ```bash
 # Start MATLAB, print version information, and exit:
-docker run --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022b -batch ver
+docker run --init --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2022b -batch ver
 ```
 
 You can run the container **without** specifying `MLM_LICENSE_FILE`, if you provided the license server information when building the image, as shown in the examples below.
@@ -147,19 +155,19 @@ You can run the container **without** specifying `MLM_LICENSE_FILE`, if you prov
 ### Run MATLAB in an Interactive Command Prompt
 To start the container and run MATLAB in an interactive command prompt, execute:
 ```bash
-docker run -it --rm matlab:r2022b
+docker run --init -it --rm matlab:r2022b
 ```
 ### Run MATLAB in Batch Mode
 To start the container, run a MATLAB command and exit, execute:
 ```bash
 # Container runs the command RAND in MATLAB and exits.
-docker run --rm matlab:r2022b -batch rand
+docker run --init --rm matlab:r2022b -batch rand
 ```
 
 ### Run MATLAB with Startup Options
 To override the default behavior of the container and run MATLAB with any set of arguments, such as `-logfile`, execute:
 ```bash
-docker run -it --rm matlab:r2022b -logfile "logfilename.log"
+docker run --init -it --rm matlab:r2022b -logfile "logfilename.log"
 ```
 To learn more, see the documentation: [Commonly Used Startup Options](https://www.mathworks.com/help/matlab/matlab_env/commonly-used-startup-options.html)
 

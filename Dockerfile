@@ -11,14 +11,13 @@ FROM mathworks/matlab-deps:${MATLAB_RELEASE}
 # Declare the global argument to use at the current build stage
 ARG MATLAB_RELEASE
 
-# Install mpm dependencies & tini
+# Install mpm dependencies
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
     && apt-get install --no-install-recommends --yes \
     wget \
     unzip \
     ca-certificates \
-    tini \
     && apt-get clean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
@@ -68,5 +67,5 @@ ENV MW_DDUX_FORCE_ENABLE=true MW_CONTEXT_TAGS=MATLAB:DOCKERFILE:V1
 # Set user and work directory
 USER matlab
 WORKDIR /home/matlab
-ENTRYPOINT ["/usr/bin/tini", "--", "matlab"]
+ENTRYPOINT ["matlab"]
 CMD [""]
