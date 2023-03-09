@@ -1,6 +1,6 @@
 # Create a MATLAB Container Image
 
-This repository shows you how to build and customize a Docker container for MATLAB® and its toolboxes, using the [MATLAB Package Manager (*mpm*)](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md). 
+This repository shows you how to build and customize a Docker&reg; container for MATLAB&reg; and its toolboxes, using the [MATLAB Package Manager (*mpm*)](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md). 
 
 You can use this container image as a scalable and reproducible method to deploy and test your MATLAB code.
 
