@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        matlab-release: [r2022b, r2022a, r2021b, r2021a, r2020b]
+        matlab-release: [r2023a, r2022b, r2022a, r2021b, r2021a, r2020b]
 
     steps:
       - name: Checkout repo
