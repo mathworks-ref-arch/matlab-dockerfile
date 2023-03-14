@@ -1,2 +1,4 @@
-docker==5.0.3
-pytest-testinfra==6.6.0
+# Copyright 2022-2023 The MathWorks, Inc.
+
+docker==6.0.0
+pytest-testinfra==7.0.0
