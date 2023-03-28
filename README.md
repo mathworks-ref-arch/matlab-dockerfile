@@ -59,7 +59,7 @@ For example, to build a container with `MATLAB` and `Deep Learning Toolbox` inst
 RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm && \ 
     chmod +x mpm && \
     ./mpm install \
-        --release=${MATLAB_RELEASE} \
+        --release=`ls | grep R*` \
         --destination=/tmp/matlab \
         --products MATLAB Deep_Learning_Toolbox && \
     rm -f mpm /tmp/mathworks_root.log && \
