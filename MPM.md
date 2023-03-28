@@ -6,7 +6,7 @@ MATLAB Package Manager (**mpm**) is a command line package manager for MathWorks
 
 Example usage:
 
-    mpm install --release=R2022b --destination=/home/username/matlab --products MATLAB Simulink Deep_Learning_Toolbox Parallel_Computing_Toolbox
+    mpm install --release=R2023a --destination=/home/username/matlab --products MATLAB Simulink Deep_Learning_Toolbox Parallel_Computing_Toolbox
 
 ## Download MATLAB Package Manager
 
@@ -35,23 +35,40 @@ Global options:
     -v [ --version ]      Show version and exit
 
 Install options:
+  --release arg         Specify the MATLAB release to install.
+  --doc                 Install documentation. Supported in R2022b and older 
+                        releases only. To install documentation in a newer 
+                        release, use the install-doc command.
+  --source arg          Specify the full path to the downloaded product files.
+  --destination arg     Specify the full path to the destination where you want
+                        to install MATLAB, for example /home/username/matlab 
+                        (default is /usr/share/matlab).
+  --products arg        Specify the list of products to install using product 
+                        names separated by spaces. Replace spaces within names 
+                        with underscores. For example: MATLAB Simulink 
+                        Deep_Learning_Toolbox Parallel_Computing_Toolbox.
+  --no-gpu              Do not include GPU libraries when installing products. 
+                        The no-gpu argument is supported in R2023a and newer 
+                        releases only.
 
-    --release arg            The MATLAB release you want you want to install.
-    -d [ --destination ] arg Specify the destination path where you want to install MATLAB, for example `/home/username/matlab`.
-                             The default path is `/usr/share/matlab`.
-    --products arg           Specify the list of products to install using product names separated by spaces. Replace spaces within names with underscores.
-                             For example: MATLAB Simulink Deep_Learning_Toolbox Parallel_Computing_Toolbox
-    --doc                    Include documentation and examples with the MATLAB installation. By default, mpm omits documentation and examples.
+Install-doc options:
+  --matlabroot arg      Specify the full path to the folder where MATLAB and 
+                        other products are installed.
+  --source arg          Specify the full path to the mounted documentation ISO.
+  --destination arg     Specify the full path to the folder where you want to 
+                        install the documentation.
 
 ### Example
 
 No documentation and examples:
 
-    mpm install --release=R2022b --destination=/home/username/matlab --products MATLAB Deep_Learning_Toolbox Parallel_Computing_Toolbox
+    mpm install --release=R2023a --destination=/home/username/matlab --products MATLAB Deep_Learning_Toolbox Parallel_Computing_Toolbox
 
 Include documentation and examples:
 
-    mpm install --release=R2022b --destination=/home/username/matlab --doc --products MATLAB Deep_Learning_Toolbox Parallel_Computing_Toolbox
+    mpm install --release=R2023a --destination=/home/username/matlab --products MATLAB Deep_Learning_Toolbox Parallel_Computing_Toolbox
+    
+    mpm install-doc --matlabroot=/home/username/matlab
 
 ## Product Availability
 
