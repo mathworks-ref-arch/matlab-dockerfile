@@ -64,7 +64,7 @@ Download a documentation ISO from [Install Documentation on Offline Machines](ht
 | Option          | Description                                                                                                                                                                                                                                                                                                                                                                                                                                      | Example                                                      |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------ |
 | `--release`     | Software version to install. This option supports releases and updates. To install the latest version of a release, specify the release version (for example, `R2022b`). To install a specific update release, specify the release version with an update number suffix (for example, `R2022bU4`). To a version without updates, specify the release version with an update 0 or general release suffix (for example, `R2022bU0` or `R2022bGR`). | `R2023a`, `R2022bU2`, `R2022GR`                              |
-| `--products`    | List of products to install, specified as product names separated by spaces. Replace spaces in names with underscores. MATLAB Package Manager can install most Mathworks products. For a full list of available products and their names, see [Products and Services](https://www.mathworks.com/products.html). For more information on which products MATLAB Package manager can't install, see [Limitations](#limitations).                    | `MATLAB Simulink Deep_Learning_Toolbox Fixed-Point_Designer` |
+| `--products`    | List of products to install, specified as product names separated by spaces. MATLAB Package Manager can install most MathWorks products. For the full list of correctly formatted product names, refer to the [installer_input.txt file](https://www.mathworks.com/help/install/ug/install-noninteractively-silent-installation.html) included with the MathWorks Product Installer. Alternatively, see [Products and Services](https://www.mathworks.com/products.html) for product names in the current MATLAB release and replace spaces in names with underscores. For more information on which products MATLAB Package manager can't install, see [Limitations](#limitations).                    | `MATLAB Simulink Deep_Learning_Toolbox Fixed-Point_Designer` |
 | `--destination` | Full path to the desired installation folder. Defaults to `/user/share/matlab` if unset.                                                                                                                                                                                                                                                                                                                                                         | `/path/to/destination`                                       |
 | `--source`      | Full path to downloaded product files (optional). MATLAB Package Manager downloads the product files if unset.                                                                                                                                                                                                                                                                                                                                   | `/path/to/source`                                            |
 | `--doc`         | Flag to install documentation and examples (optional). Supported for R2022b and earlier releases. To install the documentation in a later release, use the `install-doc` command.                                                                                                                                                                                                                                                                | `--doc`                                                      |
@@ -97,13 +97,16 @@ For releases R2023a and later, use the `install-doc` command to install document
 
 If you encounter a technical issue or have an enhancement request, create an issue [here](https://github.com/mathworks-ref-arch/matlab-dockerfile/issues).
 
-
-
 ## Changelog
+
+### 2023.3 - March 23, 2023
+
+- **Added:** Specify the `--no-gpu` option to prevent installation of GPU libraries when you install Parallel Computing Toolbox.
+- **Changed:** Versioning changed from [Semantic Versioning](https://semver.org/) to [Calendar Versioning](https://calver.org/). 
+
 ### 0.8.0 - December 17, 2022
 
 - **Added:** Install a specific MATLAB update level. For example, to download MATLAB R2022b Update 2, specify the `--release` option as `R2022bU2`.
-- **Added:** Specify the `--no-gpu` option to prevent installation of GPU libraries when you install Parallel Computing Toolbox.
 
 ### 0.7.0 - November 4, 2022
 
