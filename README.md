@@ -4,11 +4,11 @@ This repository shows you how to build and customize a Docker container for MATL
 
 You can use this container image as a scalable and reproducible method to deploy and test your MATLAB code.
 
-You can also download pre-built images based on this Dockerfile [here](https://github.com/mathworks-ref-arch/matlab-dockerfile/pkgs/container/matlab-dockerfile%2Fmatlab).
+You can also download pre-built images based on this Dockerfile from [here](https://github.com/mathworks-ref-arch/matlab-dockerfile/pkgs/container/matlab-dockerfile%2Fmatlab).
 
 ### Requirements
 * [A Running Network License Manager for MATLAB](https://www.mathworks.com/help/install/administer-network-licenses.html)
-    * For more information see section on [Use the Network License Manager](#use-the-network-license-manager) 
+    * For more information, see [Using the Network License Manager](#use-the-network-license-manager) 
 * Linux® Operating System
 * Docker
 * Git
@@ -18,10 +18,10 @@ You can also download pre-built images based on this Dockerfile [here](https://g
 ### Get Sources
  
 ```bash
-# Clone this repository to your machine
+# Clone this repository to your machine.
 git clone https://github.com/mathworks-ref-arch/matlab-dockerfile.git
 
-# Navigate to the downloaded folder
+# Navigate to the downloaded folder.
 cd matlab-dockerfile
 ```
 
@@ -35,7 +35,7 @@ docker run --init --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2023a -bat
 ```
 The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile) defaults to building a container for MATLAB R2023a.
 
-The example command `ver` displays the version number of MATLAB and other installed products. For more information, see [ver](https://www.mathworks.com/help/matlab/ref/ver.html). For more information on running the container, see the section on [Run the Container](#run-the-container).
+The example command `ver` displays the version number of MATLAB and other installed products. For more information, see [ver](https://www.mathworks.com/help/matlab/ref/ver.html). For more information on running the container, see the section on [Running the Container](#run-the-container).
 
 > **Note**
 >
@@ -46,14 +46,16 @@ The example command `ver` displays the version number of MATLAB and other instal
 
 
 ## Customize the Image
+
 ### Customize Products to Install Using MATLAB Package Manager (mpm)
-The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile) defaults to installing MATLAB with no additional toolboxes or products into the `/opt/matlab` folder.
+
+By default, the [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile) installs MATLAB without any additional toolboxes or products in the `/opt/matlab` folder.
 
 To customize the build, edit the **mpm** commands in the Dockerfile's usage. You can choose products, release, and destination folder.
 
 Specify products to install as a space-separated list with the `--products` flag, and specify an install path with the `--destination` flag. For more information, see [MPM.md](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md).
 
-For example, to build a container with `MATLAB` and `Deep Learning Toolbox` installed under the path `/tmp/matlab`, change the corresponding lines in the Dockerfile as follows:
+For example, to build a container with `MATLAB` and `Deep Learning Toolbox` installed on the path `/tmp/matlab`, change the corresponding lines in the Dockerfile:
 
 ```Dockerfile
 RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm && \ 
@@ -71,8 +73,8 @@ The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/ma
 
 | Argument Name | Default value | Effect |
 |---|---|---|
-| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | r2023a | The MATLAB release you want to install. Must be lower-case, for example: `r2019b`.|
-| [LICENSE_SERVER](#build-an-image-with-license-server-information) | *unset* | The port and hostname of the machine that is running the Network License Manager, using the `port@hostname` syntax. For Example: `27000@MyServerName` |
+| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | r2023a | The MATLAB release you want to install, in lower-case. For example: `r2019b`|
+| [LICENSE_SERVER](#build-an-image-with-license-server-information) | *unset* | The port and hostname of the machine that is running the Network License Manager, using the `port@hostname` syntax. For example: `27000@MyServerName` |
 
 Use these arguments with the the `docker build` command to customize your image.
 Alternatively, you can change the default values for these arguments directly in the [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile).
@@ -80,24 +82,24 @@ Alternatively, you can change the default values for these arguments directly in
 #### Build an Image for a Different Release of MATLAB
 
 ```bash
-# Builds an image for MATLAB R2019b
+# Builds an image for MATLAB R2019b.
 docker build --build-arg MATLAB_RELEASE=r2019b -t matlab:r2019b .
 ```
 
 #### Build an Image with License Server Information
-Including the license server information with the docker build command avoids having to pass it when running the container.
+Including the license server information with the `docker build` command means you do not have to pass it when running the container.
 ```bash
-# Build container with the License Server
+# Build container with the License Server.
 docker build -t matlab:r2023a --build-arg LICENSE_SERVER=27000@MyServerName .
 
-# Run the container, without needing to pass license information
+# Run the container, without needing to pass license information.
 docker run --init --rm matlab:r2023a -batch ver
 ```
 
 ## Use the Network License Manager
-This container requires a Network License Manager to license and run MATLAB. You will need either the port and hostname of the Network License Manager or a `network.lic` file.
+This container requires a Network License Manager to license and run MATLAB. You will need either the port and hostname of the Network License Manager, or a `network.lic` file.
 
-**Step 1**: Contact your system administrator who can provide one of:
+**Step 1**: Contact your system administrator, who can provide one of the following:
 
 1. The address to your server, and the port it is running on. 
     For example: `27000@MyServerName.example.com`
@@ -109,14 +111,14 @@ This container requires a Network License Manager to license and run MATLAB. You
     USE_SERVER
     ```
 
-3. A `license.dat` file. Open the `license.dat` file, find the `SERVER` line, and either extract the `port@hostname` or create a `network.lic` file by copying the `SERVER` line and adding a `USE_SERVER` line below it.
+3. A `license.dat` file. Open the `license.dat` file, find the `SERVER` line, and either extract the `port@hostname`, or create a `network.lic` file by copying the `SERVER` line and adding a `USE_SERVER` line below it.
 
     ```bash
     # snippet from sample license.dat
     SERVER MyServerName.example.com <mac-address> 27000
     ```
 ---
-**Step 2**: Use `port@hostname` or `network.lic` file with either the `docker build` **or** `docker run` commands.
+**Step 2**: Use `port@hostname` or the `network.lic` file with either the `docker build` **or** the `docker run` command.
 
 With the `docker build` command, either:
 
@@ -143,14 +145,14 @@ docker run --init --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2023a -bat
 ```
 
 ## Run the Container
-If you did not provide the license server information while building the image, then you must provide it when running the container. Set this environment variable `MLM_LICENSE_FILE` using the `-e` flag with the  network license manager's location as `port@hostname`.
+If you did not provide the license server information when building the image, then provide it when running the container. Set the environment variable `MLM_LICENSE_FILE` using the `-e` flag, with the  network license manager's location in the format `port@hostname`.
 
 ```bash
 # Start MATLAB, print version information, and exit:
 docker run --init --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2023a -batch ver
 ```
 
-You can run the container **without** specifying `MLM_LICENSE_FILE`, if you provided the license server information when building the image, as shown in the examples below.
+You can run the container **without** specifying `MLM_LICENSE_FILE` if you provided the license server information when building the image, as shown in the examples below.
 
 ### Run MATLAB in an Interactive Command Prompt
 To start the container and run MATLAB in an interactive command prompt, execute:
@@ -158,7 +160,7 @@ To start the container and run MATLAB in an interactive command prompt, execute:
 docker run --init -it --rm matlab:r2023a
 ```
 ### Run MATLAB in Batch Mode
-To start the container, run a MATLAB command and exit, execute:
+To start the container, run a MATLAB command, and then exit, execute:
 ```bash
 # Container runs the command RAND in MATLAB and exits.
 docker run --init --rm matlab:r2023a -batch rand
@@ -169,22 +171,22 @@ To override the default behavior of the container and run MATLAB with any set of
 ```bash
 docker run --init -it --rm matlab:r2023a -logfile "logfilename.log"
 ```
-To learn more, see the documentation: [Commonly Used Startup Options](https://www.mathworks.com/help/matlab/matlab_env/commonly-used-startup-options.html)
+To learn more, see the documentation: [Commonly Used Startup Options](https://www.mathworks.com/help/matlab/matlab_env/commonly-used-startup-options.html).
 
 
 ## More MATLAB Docker Resources
-* Explore pre-built MATLAB Docker Containers on Docker Hub here: https://hub.docker.com/r/mathworks
+* Explore pre-built MATLAB Docker Containers on Docker Hub: https://hub.docker.com/r/mathworks
     * [MATLAB Containers on Docker Hub](https://hub.docker.com/r/mathworks/matlab) hosts container images for multiple releases of MATLAB.
-    * [MATLAB Deep Learning Container Docker Hub repository](https://hub.docker.com/r/mathworks/matlab-deep-learning) hosts container images with toolboxes suitable for Deep Learning.
+    * [MATLAB Deep Learning Containers on Docker Hub](https://hub.docker.com/r/mathworks/matlab-deep-learning) hosts container images with toolboxes suitable for Deep Learning.
 
-* Enable additional capabilities using [matlab-deps repository](https://github.com/mathworks-ref-arch/container-images/tree/master/matlab-deps). 
+* Enable additional capabilities using the [MATLAB Dependencies repository](https://github.com/mathworks-ref-arch/container-images/tree/master/matlab-deps). 
 For some workflows and toolboxes, you must specify dependencies. You must do this if you want to do any of the following tasks:
-    * Install extended localization support for MATLAB
-    * Play media files from MATLAB
-    * Generate code from Simulink
-    * Use mex functions with gcc, g++, or gfortran
-    * Use the MATLAB Engine API for C and Fortran
-    * Use the Polyspace 32-bit tcc compiler
+    * Install extended localization support for MATLAB.
+    * Play media files from MATLAB.
+    * Generate code from Simulink.
+    * Use mex functions with gcc, g++, or gfortran.
+    * Use the MATLAB Engine API for C and Fortran.
+    * Use the Polyspace 32-bit tcc compiler.
     
     The [matlab-deps repository](https://github.com/mathworks-ref-arch/container-images/tree/master/matlab-deps) repository lists Dockerfiles for various releases and platforms. [Click here to view the Dockerfile for R2023a](https://github.com/mathworks-ref-arch/container-images/blob/master/matlab-deps/r2023a/ubuntu20.04/Dockerfile).
 
