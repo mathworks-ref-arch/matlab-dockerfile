@@ -179,6 +179,10 @@ To learn more, see the documentation: [Commonly Used Startup Options](https://ww
     * [MATLAB Containers on Docker Hub](https://hub.docker.com/r/mathworks/matlab) hosts container images for multiple releases of MATLAB.
     * [MATLAB Deep Learning Containers on Docker Hub](https://hub.docker.com/r/mathworks/matlab-deep-learning) hosts container images with toolboxes suitable for Deep Learning.
 
+* This Dockerfile builds on the matlab-deps container image and installs MATLAB. For other possibilities,
+see the examples in the [**alternates folder**](alternates) of this repository:
+    * [matlab-installer](alternates/matlab-installer) is an example of a Dockerfile that uses the matlab installer rather than mpm to install MATLAB in the container, allowing the installation of some toolboxes that are not currently supported by mpm.
+
 * Enable additional capabilities using the [MATLAB Dependencies repository](https://github.com/mathworks-ref-arch/container-images/tree/master/matlab-deps). 
 For some workflows and toolboxes, you must specify dependencies. You must do this if you want to do any of the following tasks:
     * Install extended localization support for MATLAB.
@@ -205,6 +209,6 @@ We encourage you to try this repository with your environment and provide feedba
 
 ----
 
-Copyright (c) 2021-2022 The MathWorks, Inc. All rights reserved.
+Copyright (c) 2021-2023 The MathWorks, Inc. All rights reserved.
 
 ----

@@ -1,0 +1,67 @@
+# Copyright 2023 The MathWorks, Inc.
+
+name: Build and Test the MATLAB installer Dockerfile
+
+# Trigger this workflow either manually or when a new change is pushed to the
+# repo (except .md files)
+on:
+  workflow_dispatch:
+  push:
+    # Trigger the workflow when the Dockerfile or any file under tests/ is modified
+    paths:
+      - "alternates/matlab-installer/Dockerfile"
+      - "alternates/matlab-installer/tests/**"
+      - "!alternates/matlab-installer/tests/**.md"
+  schedule:
+    # Run at 00:00 on every Monday (1st Day of the Week)
+    - cron: "0 0 * * 1"
+
+env:
+  IMAGE_NAME: matlab-installer:test
+
+jobs:
+  build-test-image:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./alternates/matlab-installer
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Move matlab-install mock to right location
+        run: |
+          cp -r ./tests/mocks/matlab-install .
+          cp ./tests/mocks/matlab_installer_input.txt .
+
+      - name: Set up Python 3
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f tests/requirements.txt ]; then pip install -r tests/requirements.txt; fi
+
+      - name: Run negative tests
+        working-directory: alternates/matlab-installer/tests
+        run: python -m unittest test_failing_build.py
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build image locally
+        uses: docker/build-push-action@v4
+        with:
+          platforms: linux/amd64
+          context: alternates/matlab-installer
+          load: true
+          build-args: MATLAB_RELEASE=latest
+          tags: ${{ env.IMAGE_NAME }}
+
+      - name: Test container
+        working-directory: alternates/matlab-installer/tests
+        run: python -m unittest test_mock_matlab_container.py
