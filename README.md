@@ -47,50 +47,47 @@ The example command `ver` displays the version number of MATLAB and other instal
 
 ## Customize the Image
 
-### Customize Products to Install Using MATLAB Package Manager (mpm)
+By default, the [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile) installs MATLAB for the latest available MATLAB release without any additional toolboxes or products in the `/opt/matlab/${MATLAB_RELEASE}` folder.
 
-By default, the [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile) installs MATLAB without any additional toolboxes or products in the `/opt/matlab` folder.
+Use the options below to customize your build.
 
-To customize the build, edit the **mpm** commands in the Dockerfile's usage. You can choose products, release, and destination folder.
-
-Specify products to install as a space-separated list with the `--products` flag, and specify an install path with the `--destination` flag. For more information, see [MPM.md](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md).
-
-For example, to build a container with `MATLAB` and `Deep Learning Toolbox` installed on the path `/tmp/matlab`, change the corresponding lines in the Dockerfile:
-
-```Dockerfile
-RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm && \ 
-    chmod +x mpm && \
-    ./mpm install \
-        --release=${MATLAB_RELEASE} \
-        --destination=/tmp/matlab \
-        --products MATLAB Deep_Learning_Toolbox && \
-    rm -f mpm /tmp/mathworks_root.log && \
-    ln -s /tmp/matlab/bin/matlab /usr/local/bin/matlab
-```
-
-### Customize MATLAB Release and License Server
+### Customize MATLAB Release, MATLAB Product List, MATLAB Install Location and License Server
 The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile) supports the following Docker build-time variables:
 
-| Argument Name | Default value | Effect |
+| Argument Name | Default value | Description |
 |---|---|---|
 | [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | r2023a | The MATLAB release you want to install, in lower-case. For example: `r2019b`|
+| [MATLAB_PRODUCT_LIST](#build-an-image-with-a-specific-set-of-products) | MATLAB | Products to install as a space-separated list. For more information, see [MPM.md](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md). For example: `MATLAB Simulink Deep_Learning_Toolbox Fixed-Point_Designer`|
+| [MATLAB_INSTALL_LOCATION](#build-an-image-with-matlab-installed-to-a-specific-location) | /opt/matlab/r2023a | The path to install MATLAB. |
 | [LICENSE_SERVER](#build-an-image-with-license-server-information) | *unset* | The port and hostname of the machine that is running the Network License Manager, using the `port@hostname` syntax. For example: `27000@MyServerName` |
 
 Use these arguments with the the `docker build` command to customize your image.
 Alternatively, you can change the default values for these arguments directly in the [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile).
 
 #### Build an Image for a Different Release of MATLAB
-
+For example, to build an image for MATLAB R2019b, use this command.
 ```bash
-# Builds an image for MATLAB R2019b.
 docker build --build-arg MATLAB_RELEASE=r2019b -t matlab:r2019b .
 ```
 
+#### Build an Image with a specific set of products
+For example, to build an image with MATLAB and Simulink, use this command.
+```bash
+docker build --build-arg MATLAB_PRODUCT_LIST='MATLAB Simulink' -t matlab:r2023a .
+```
+
+#### Build an Image with MATLAB installed to a specific location
+For example, to build an image with MATLAB installed at /opt/matlab, use this command.
+```bash
+docker build --build-arg MATLAB_INSTALL_LOCATION='/opt/matlab' -t matlab:r2023a .
+```
+
 #### Build an Image with License Server Information
+
 Including the license server information with the `docker build` command means you do not have to pass it when running the container.
 ```bash
 # Build container with the License Server.
-docker build -t matlab:r2023a --build-arg LICENSE_SERVER=27000@MyServerName .
+docker build --build-arg LICENSE_SERVER=27000@MyServerName -t matlab:r2023a .
 
 # Run the container, without needing to pass license information.
 docker run --init --rm matlab:r2023a -batch ver
