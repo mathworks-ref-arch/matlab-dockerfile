@@ -4,33 +4,34 @@ This repository shows you how to build and customize a Docker&reg; container for
 
 You can use this container image as a scalable and reproducible method to deploy and test your MATLAB code.
 
-You can also download pre-built images based on this Dockerfile from [here](https://github.com/mathworks-ref-arch/matlab-dockerfile/pkgs/container/matlab-dockerfile%2Fmatlab).
+You can also download prebuilt images based on this Dockerfile from [here](https://github.com/mathworks-ref-arch/matlab-dockerfile/pkgs/container/matlab-dockerfile%2Fmatlab).
 
 ### Requirements
 * [A Running Network License Manager for MATLAB](https://www.mathworks.com/help/install/administer-network-licenses.html)
     * For more information, see [Using the Network License Manager](#use-the-network-license-manager) 
-* Linux® Operating System
 * Docker
-* Git
 
 ## Build Instructions
 
 ### Get Sources
- 
-```bash
-# Clone this repository to your machine.
-git clone https://github.com/mathworks-ref-arch/matlab-dockerfile.git
 
-# Navigate to the downloaded folder.
+Access this Dockerfile either by directly downloading this repository from GitHub&reg;,
+or by cloning this repository and
+then navigating to the appropriate folder.
+```bash
+git clone https://github.com/mathworks-ref-arch/matlab-dockerfile.git
 cd matlab-dockerfile
 ```
 
 ### Build & Run Docker Image
-```bash
-# Build container with a name and tag of your choice.
-docker build -t matlab:r2023a .
 
-# Run the container. Test the container by running an example MATLAB command such as ver.
+Build container with a name and tag of your choice.
+```bash
+docker build -t matlab:r2023a .
+```
+
+Run the container. Test the container by running an example MATLAB command such as ver.
+```bash
 docker run --init --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:r2023a -batch ver
 ```
 The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile) defaults to building a container for MATLAB R2023a.
@@ -172,13 +173,14 @@ To learn more, see the documentation: [Commonly Used Startup Options](https://ww
 
 
 ## More MATLAB Docker Resources
-* Explore pre-built MATLAB Docker Containers on Docker Hub: https://hub.docker.com/r/mathworks
+* Explore prebuilt MATLAB Docker Containers on Docker Hub&reg;: https://hub.docker.com/r/mathworks
     * [MATLAB Containers on Docker Hub](https://hub.docker.com/r/mathworks/matlab) hosts container images for multiple releases of MATLAB.
     * [MATLAB Deep Learning Containers on Docker Hub](https://hub.docker.com/r/mathworks/matlab-deep-learning) hosts container images with toolboxes suitable for Deep Learning.
 
 * This Dockerfile builds on the matlab-deps container image and installs MATLAB. For other possibilities,
 see the examples in the [**alternates folder**](alternates) of this repository:
     * [matlab-installer](alternates/matlab-installer) is an example of a Dockerfile that uses the matlab installer rather than mpm to install MATLAB in the container, allowing the installation of some toolboxes that are not currently supported by mpm.
+    * [building-on-matlab-docker-image](alternates/building-on-matlab-docker-image) is an example of a Dockerfile that builds on top of the [MATLAB Container Image on Docker Hub](https://hub.docker.com/r/mathworks/matlab), to install extra toolboxes.
 
 * Enable additional capabilities using the [MATLAB Dependencies repository](https://github.com/mathworks-ref-arch/container-images/tree/master/matlab-deps). 
 For some workflows and toolboxes, you must specify dependencies. You must do this if you want to do any of the following tasks:
@@ -189,7 +191,7 @@ For some workflows and toolboxes, you must specify dependencies. You must do thi
     * Use the MATLAB Engine API for C and Fortran.
     * Use the Polyspace 32-bit tcc compiler.
     
-    The [matlab-deps repository](https://github.com/mathworks-ref-arch/container-images/tree/master/matlab-deps) repository lists Dockerfiles for various releases and platforms. [Click here to view the Dockerfile for R2023a](https://github.com/mathworks-ref-arch/container-images/blob/master/matlab-deps/r2023a/ubuntu20.04/Dockerfile).
+    The [matlab-deps repository](https://github.com/mathworks-ref-arch/container-images/tree/main/matlab-deps) repository lists Dockerfiles for various releases and platforms. [Click here to view the Dockerfile for R2023a](https://github.com/mathworks-ref-arch/container-images/blob/main/matlab-deps/r2023a/ubuntu20.04/Dockerfile).
 
     These Dockerfiles contain commented lines with the libraries that support these additional capabilities. Copy and uncomment these lines into your Dockerfile.
 
