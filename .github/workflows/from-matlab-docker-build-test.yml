@@ -1,6 +1,6 @@
 # Copyright 2023 The MathWorks, Inc.
 
-name: Build and Test the "MATLAB installer" Dockerfile
+name: Build and Test the "Building on MATLAB Docker Image" Dockerfile
 
 # Trigger this workflow either manually or when a new change is pushed to the
 # repo (except .md files)
@@ -9,7 +9,7 @@ on:
   push:
     # Trigger the workflow when the Dockerfile or any file under tests/ is modified
     paths:
-      - "alternates/matlab-installer/Dockerfile"
+      - "alternates/building-on-matlab-docker-image/Dockerfile"
       - "tests/**"
       - "!tests/**.md"
   schedule:
@@ -17,8 +17,9 @@ on:
     - cron: "0 0 * * 1"
 
 env:
-  IMAGE_NAME: matlab-installer:test
-  ALT_PATH: alternates/matlab-installer
+  IMAGE_NAME: from-matlab-docker:test
+  ALT_PATH: alternates/building-on-matlab-docker-image
+  LICENSE_FILE_PATH: ${{ github.workspace }}/license.lic
 
 jobs:
   build-test-image:
@@ -31,11 +32,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Move matlab-install mock to right location
-        run: |
-          cp -r tests/${{ env.ALT_PATH }}/mocks/matlab-install ./${{ env.ALT_PATH }}
-          cp tests/${{ env.ALT_PATH }}/mocks/matlab_installer_input.txt ./${{ env.ALT_PATH }}
-
       - name: Set up Python 3
         uses: actions/setup-python@v4
         with:
@@ -46,9 +42,9 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f tests/requirements.txt ]; then pip install -r tests/requirements.txt; fi
 
-      - name: Run negative tests
+      - name: Run build tests
         working-directory: tests
-        run: python -m unittest ${{ env.ALT_PATH }}/test_failing_build.py
+        run: python -m unittest ${{ env.ALT_PATH }}/test_build.py
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -59,9 +55,13 @@ jobs:
           platforms: linux/amd64
           context: ${{ env.ALT_PATH }}
           load: true
-          build-args: MATLAB_RELEASE=latest
           tags: ${{ env.IMAGE_NAME }}
+
+      - name: Generate license file
+        run: echo '${{ secrets.MATLAB_LICENSE_SECRET }}' > ${{ env.LICENSE_FILE_PATH }}
 
       - name: Test container
         working-directory: tests
-        run: python -m unittest ${{ env.ALT_PATH }}/test_mock_matlab_container.py
+        run: |
+          python -m unittest ${{ env.ALT_PATH }}/test_container.py
+          python -m unittest ${{ env.ALT_PATH }}/test_entrypoint.py

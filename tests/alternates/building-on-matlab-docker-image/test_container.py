@@ -1,9 +1,9 @@
-# Copyright 2022-2023 The MathWorks, Inc.
+# Copyright 2023 The MathWorks, Inc.
 
 """
-Test class to validate the matlab-dockerfile.
+Test class to validate the "building-on-matlab-docker-image" Dockerfile.
 
-This test class will launch the container and test some features, e.g. users
+This test suite will launch the container and test some features, e.g. users
 permissions, the apt cache, the matlab executable...
 These tests do not require a license file to run.
 """
@@ -27,7 +27,10 @@ class TestContainer(base.TestCase):
             image=image_name, detach=True, stdin_open=True, entrypoint="/bin/bash"
         )
         cls.expected_ddux_force_enable = "true"
-        cls.expected_ddux_tags = ["MATLAB:DOCKERFILE:V1"]
+        cls.expected_ddux_tags = [
+            "MATLAB:DOCKERHUB:V1",
+            "MATLAB:TOOLBOXES:DOCKERFILE:V1",
+        ]
         cls.install_dirname = "mpm"
         cls.release_tag = helpers.get_release_tag(image_name)
         super().setUpClass()
