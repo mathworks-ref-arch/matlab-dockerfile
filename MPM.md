@@ -6,7 +6,7 @@ MATLAB® Package Manager (**mpm**) is a command-line package manager for MathWor
 
 ## Download MATLAB Package Manager
 
-Use `wget` to download the latest version of MATLAB Package Manager.
+Use `wget`in your Linux terminal to download the latest version of MATLAB Package Manager.
 
     wget https://www.mathworks.com/mpm/glnxa64/mpm
 
@@ -14,9 +14,13 @@ Before you run MATLAB Package Manager, give the downloaded file executable permi
 
     chmod +x mpm
 
+`mpm` requires the following packages on your system: `unzip`, `ca-certificates`, and MATLAB Dependencies.
+
+For the MATLAB Dependencies, refer to `base-dependencies.txt` files in the [MATLAB Dependencies](https://github.com/mathworks-ref-arch/container-images/tree/master/matlab-deps) repository corresponding to your MATLAB version and operating system.
+
 ## Syntax
 
-- `mpm install --release=<release> --products <product1> ... <productn>` installs products `<product1> ... <productn>` release version `<release>` to the default installation folder. [Example](#install-matlab-simulink-and-additional-products)
+- `mpm install --release=<release> --products <product1> ... <productn>` installs products `<product1> ... <productn>` from release version `<release>` to the default installation folder. [Example](#install-matlab-simulink-and-additional-products)
 
 - `mpm install ... <installOptions>` specifies options using one or more installation option flags `<installOptions>` in addition to any of the input argument combinations in the previous syntax. For example, you can specify the install destination, whether to install documentation and examples, and whether to install the GPU libraries for use with Parallel Computing Toolbox™. [Example](#install-matlab-and-specify-installation-options)
 
@@ -57,14 +61,14 @@ Download a documentation ISO from [Install Documentation on Offline Machines](ht
 ## Global Options
 | Option              | Description                                      | Example         |
 | ------------------- | ------------------------------------------------ | --------------- |
-| `--help` or `-h`    | Flag for showing help.                           | `mpm --help`    |
-| `--version` or `-v` | Flag for showing MATLAB Package Manager version. | `mpm --version` |
+| `--help` or `-h`    | Flag for showing help.                           | `./mpm --help`    |
+| `--version` or `-v` | Flag for showing MATLAB Package Manager version. | `./mpm --version` |
 
 ## Installation Options
 | Option          | Description                                                                                                                                                                                                                                                                                                                                                                                                                                      | Example                                                      |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------ |
 | `--release`     | Software version to install. This option supports releases and updates. To install the latest version of a release, specify the release version (for example, `R2022b`). To install a specific update release, specify the release version with an update number suffix (for example, `R2022bU4`). To a version without updates, specify the release version with an update 0 or general release suffix (for example, `R2022bU0` or `R2022bGR`). | `R2023a`, `R2022bU2`, `R2022GR`                              |
-| `--products`    | List of products to install, specified as product names separated by spaces. MATLAB Package Manager can install most MathWorks products. For the full list of correctly formatted product names, refer to the [installer_input.txt file](https://www.mathworks.com/help/install/ug/install-noninteractively-silent-installation.html) included with the MathWorks Product Installer. Alternatively, see [Products and Services](https://www.mathworks.com/products.html) for product names in the current MATLAB release and replace spaces in names with underscores. For more information on which products MATLAB Package manager can't install, see [Limitations](#limitations).                    | `MATLAB Simulink Deep_Learning_Toolbox Fixed-Point_Designer` |
+| `--products`    | List of products to install, specified as product names separated by spaces. MATLAB Package Manager can install most MathWorks products. For the full list of correctly formatted product names, download the [MathWorks Product Installer](https://www.mathworks.com/help/install/ug/install-noninteractively-silent-installation.html) and refer to the `installer_input.txt` file included in it. Alternatively, see [Products and Services](https://www.mathworks.com/products.html) for product names in the current MATLAB release and replace spaces in names with underscores. For more information on which products MATLAB Package manager can not install, see [Limitations](#limitations).                    | `MATLAB Simulink Deep_Learning_Toolbox Fixed-Point_Designer` |
 | `--destination` | Full path to the desired installation folder. Defaults to `/usr/share/matlab` if unset.                                                                                                                                                                                                                                                                                                                                                         | `/path/to/destination`                                       |
 | `--source`      | Full path to downloaded product files (optional). MATLAB Package Manager downloads the product files if unset.                                                                                                                                                                                                                                                                                                                                   | `/path/to/source`                                            |
 | `--doc`         | Flag to install documentation and examples (optional). Supported for R2022b and earlier releases. To install the documentation in a later release, use the `install-doc` command.                                                                                                                                                                                                                                                                | `--doc`                                                      |
@@ -82,7 +86,7 @@ For releases R2023a and later, use the `install-doc` command to install document
 
 ## Limitations
 
-- Some Mathworks products are not available on Linux. For a list of products not available on Linux, see [Products Not Available for Linux](https://www.mathworks.com/support/requirements/matlab-linux.html).
+- Some MathWorks products are not available on Linux. For a list of products not available on Linux, see [Products Not Available for Linux](https://www.mathworks.com/support/requirements/matlab-linux.html).
 - MATLAB Package Manager cannot install the products in the table below.
 
 | Product                 |
