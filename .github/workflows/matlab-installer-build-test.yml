@@ -17,7 +17,7 @@ on:
     - cron: "0 0 * * 1"
 
 env:
-  IMAGE_NAME: matlab-installer:test
+  IMAGE_BASE_NAME: matlab-installer
   ALT_PATH: alternates/matlab-installer
 
 jobs:
@@ -26,6 +26,10 @@ jobs:
     defaults:
       run:
         shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        matlab-release: [r2023a, r2022b, r2022a, r2021b, r2021a, r2020b]
 
     steps:
       - name: Checkout repo
@@ -59,9 +63,11 @@ jobs:
           platforms: linux/amd64
           context: ${{ env.ALT_PATH }}
           load: true
-          build-args: MATLAB_RELEASE=latest
-          tags: ${{ env.IMAGE_NAME }}
+          build-args: MATLAB_RELEASE=${{ matrix.matlab-release }}
+          tags: ${{ env.IMAGE_BASE_NAME }}:${{ matrix.matlab-release }}
 
       - name: Test container
         working-directory: tests
+        env:
+          IMAGE_NAME: ${{ env.IMAGE_BASE_NAME }}:${{ matrix.matlab-release }}
         run: python -m unittest ${{ env.ALT_PATH }}/test_mock_matlab_container.py

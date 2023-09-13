@@ -9,7 +9,6 @@ These tests do require a license file to run.
 """
 
 import unittest
-import os
 from utils import helpers
 import docker
 import testinfra

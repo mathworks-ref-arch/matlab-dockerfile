@@ -24,7 +24,10 @@ class TestContainer(base.TestCase):
         cls.client = docker.from_env()
         image_name = helpers.get_image_name()
         cls.container = cls.client.containers.run(
-            image=image_name, detach=True, stdin_open=True, entrypoint="/bin/bash"
+            image=image_name,
+            detach=True,
+            stdin_open=True,
+            entrypoint="/bin/bash",
         )
         cls.expected_ddux_force_enable = "true"
         cls.expected_ddux_tags = [

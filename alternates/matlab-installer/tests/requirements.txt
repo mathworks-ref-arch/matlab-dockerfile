@@ -1,2 +1,0 @@
-docker>=6
-pytest-testinfra>=7

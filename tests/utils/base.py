@@ -4,7 +4,6 @@
 Base class for Docker tests.
 """
 
-import docker
 import stat
 import testinfra
 import unittest
