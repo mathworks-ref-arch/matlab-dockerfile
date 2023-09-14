@@ -4,7 +4,7 @@ The files in this GitHub repository refer to commercial software products and se
 
 The following license terms apply only to the files in this GitHub repository, including files in this folder and its subfolders, and do not apply to MathWorks Programs. References to “software” and “code” in the following license terms refer to the files in this GitHub repository.
 
-Copyright (c) 2020, The MathWorks, Inc.
+Copyright 2020, The MathWorks, Inc.
 
 All rights reserved.
 

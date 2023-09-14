@@ -34,24 +34,24 @@ For the MATLAB Dependencies, refer to `base-dependencies.txt` files in the [MATL
 
 ### Install MATLAB, Simulink, and Additional Products
 
-To install MATLAB R2023a, Simulink, and Signal Processing Toolbox to the default folder, navigate to the folder containing the `mpm` binary file and run the following command.
+To install MATLAB R2023b, Simulink, and Signal Processing Toolbox to the default folder, navigate to the folder containing the `mpm` binary file and run the following command.
 
-    ./mpm install --release=R2023a --products MATLAB Simulink Signal_Processing_Toolbox
+    ./mpm install --release=R2023b --products MATLAB Simulink Signal_Processing_Toolbox
     
 You can install further products later. For example, add Robotics System Toolbox to the MATLAB installation.
 
-    ./mpm install --release=R2023a --products Robotics_System_Toolbox
+    ./mpm install --release=R2023b --products Robotics_System_Toolbox
  
     
 ### Install MATLAB and Specify Installation Options
 
-Install MATLAB R2023a, specifying these installation options:
+Install MATLAB R2023b, specifying these installation options:
 
 - Set the installation destination folder to `/home/username/matlab`.
 - Install Parallel Computing Toolbox without the GPU libraries.
 
 ```
-./mpm install --release=R2023a --destination=/home/username/matlab --products MATLAB Parallel_Computing_Toolbox --no-gpu  
+./mpm install --release=R2023b --destination=/home/username/matlab --products MATLAB Parallel_Computing_Toolbox --no-gpu  
 ```
 
 Download a documentation ISO from [Install Documentation on Offline Machines](https://www.mathworks.com/help/install/ug/install-documentation-on-offline-machines.html) and mount the ISO. Install the documentation and examples, specifying the MATLAB installation folder and the path to the mounted ISO.
@@ -67,7 +67,7 @@ Download a documentation ISO from [Install Documentation on Offline Machines](ht
 ## Installation Options
 | Option          | Description                                                                                                                                                                                                                                                                                                                                                                                                                                      | Example                                                      |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------ |
-| `--release`     | Software version to install. This option supports releases and updates. To install the latest version of a release, specify the release version (for example, `R2022b`). To install a specific update release, specify the release version with an update number suffix (for example, `R2022bU4`). To a version without updates, specify the release version with an update 0 or general release suffix (for example, `R2022bU0` or `R2022bGR`). | `R2023a`, `R2022bU2`, `R2022GR`                              |
+| `--release`     | Software version to install. This option supports releases and updates. To install the latest version of a release, specify the release version (for example, `R2023b`). To install a specific update release, specify the release version with an update number suffix (for example, `R2023bU4`). To a version without updates, specify the release version with an update 0 or general release suffix (for example, `R2023bU0` or `R2023bGR`). | `R2023b`, `R2023bU2`, `R2023bGR`                              |
 | `--products`    | List of products to install, specified as product names separated by spaces. MATLAB Package Manager can install most MathWorks products. For the full list of correctly formatted product names, download the [MathWorks Product Installer](https://www.mathworks.com/help/install/ug/install-noninteractively-silent-installation.html) and refer to the `installer_input.txt` file included in it. Alternatively, see [Products and Services](https://www.mathworks.com/products.html) for product names in the current MATLAB release and replace spaces in names with underscores. For more information on which products MATLAB Package manager can not install, see [Limitations](#limitations).                    | `MATLAB Simulink Deep_Learning_Toolbox Fixed-Point_Designer` |
 | `--destination` | Full path to the desired installation folder. Defaults to `/usr/share/matlab` if unset.                                                                                                                                                                                                                                                                                                                                                         | `/path/to/destination`                                       |
 | `--source`      | Full path to downloaded product files (optional). MATLAB Package Manager downloads the product files if unset.                                                                                                                                                                                                                                                                                                                                   | `/path/to/source`                                            |

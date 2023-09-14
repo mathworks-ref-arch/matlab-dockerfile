@@ -25,6 +25,6 @@ This workflow consists of the following steps:
 
 ---
 
-Copyright (c) 2023 The MathWorks, Inc. All rights reserved.
+Copyright 2023 The MathWorks, Inc. All rights reserved.
 
 ---
