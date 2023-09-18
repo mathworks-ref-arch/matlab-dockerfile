@@ -84,7 +84,7 @@ RUN cd /matlab-install \
         exit 1; fi
 
 # If you did not specify a license server at build, comment these lines.
-RUN mkdir /usr/local/MATLAB/licenses \
+RUN mkdir -p /usr/local/MATLAB/licenses \
     && cp /tmp/network.lic /usr/local/MATLAB/licenses/
 
 # Build final container image.
