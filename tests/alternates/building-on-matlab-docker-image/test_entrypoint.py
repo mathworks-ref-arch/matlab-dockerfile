@@ -69,7 +69,6 @@ class TestEntrypoint(unittest.TestCase):
 
     def test_vnc_option(self):
         """Test that if the '-vnc' option is specified, then a vncserver is started in the container."""
-        expected_display = ":1"
         expected_port = "5901"
         self.container = self.client.containers.run(
             image=self.image_name,
@@ -78,10 +77,28 @@ class TestEntrypoint(unittest.TestCase):
             command="-vnc",
         )
         host = testinfra.get_host("docker://" + self.container.id)
-        vncResponse = host.check_output("/usr/bin/vncserver -list | tail -1")
+        helpers.wait_for_cmd(self.container, "vnc", 30)
 
-        self.assertRegex(vncResponse, expected_display)
-        self.assertRegex(vncResponse, expected_port)
+        vnc_list_cmd = f"/usr/bin/vncserver -list -rbfport {expected_port}"
+        # run "vncserver -list -rbfport 5901" in the Docker container
+        vnc_list_output = host.check_output(vnc_list_cmd)
+        # the output of "vncserver -list -rbfport 5901" is a text containing a
+        # tab-separated table, e.g.
+        #
+        # TigerVNC server sessions:
+        #
+        # X DISPLAY #     RFB PORT #      RFB UNIX PATH   PROCESS ID #    SERVER
+        # 1               5901                            34              Xtigervnc
+        #
+        # table_lines will extract the lines in the table above (including the title line)
+        table_lines = list(
+            filter(lambda line: "\t" in line, vnc_list_output.split("\n"))
+        )
+        self.assertRegex(
+            table_lines[-1],
+            expected_port,
+            f"command {vnc_list_cmd} returned:\n{vnc_list_output}",
+        )
 
     def test_browser_option(self):
         """Test that if the '-browser' option is specified, then matlab-proxy-app is running"""
