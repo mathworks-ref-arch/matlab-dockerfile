@@ -2,106 +2,165 @@
 
 ## Description
 
-MATLAB® Package Manager (**mpm**) is a command-line package manager for MathWorks® products. You can use MATLAB Package Manager to programmatically install MATLAB, Simulink®, and other MathWorks products on Linux® operating systems, or as part of a Dockerfile. MATLAB Package Manager provides options to specify the products, release, and destination for an installation.
+MATLAB® Package Manager (`mpm`) is a command-line package manager for installing MATLAB, Simulink®, and other MathWorks® products or support packages. You can run the `mpm` command from the operating system command line or from a Dockerfile.
+
+**Supported Platforms**: Linux®
 
 ## Download MATLAB Package Manager
 
-Use `wget`in your Linux terminal to download the latest version of MATLAB Package Manager.
+From your Linux terminal, use `wget` to download the latest version of `mpm`.
 
     wget https://www.mathworks.com/mpm/glnxa64/mpm
 
-Before you run MATLAB Package Manager, give the downloaded file executable permissions.
+Give the downloaded file executable permissions so that you can run `mpm`.
 
     chmod +x mpm
 
-`mpm` requires the following packages on your system: `unzip`, `ca-certificates`, and MATLAB Dependencies.
+Check that these third-party packages required to run `mpm` are installed on your system.
+* `unzip`
+* `ca-certificates`
 
-For the MATLAB Dependencies, refer to `base-dependencies.txt` files in the [MATLAB Dependencies](https://github.com/mathworks-ref-arch/container-images/tree/master/matlab-deps) repository corresponding to your MATLAB version and operating system.
+Also check the dependencies required to run MATLAB are installed. To view the list of MATLAB dependencies, from the [MATLAB Dependencies](https://github.com/mathworks-ref-arch/container-images/tree/master/matlab-deps) repository, open the `<release>/<system>/base-dependencies.txt` file, where `<release>` is the MATLAB release you are installing and `<system>` is your operating system.
 
 ## Syntax
 
-- `mpm install --release=<release> --products <product1> ... <productn>` installs products `<product1> ... <productn>` from release version `<release>` to the default installation folder. [Example](#install-matlab-simulink-and-additional-products)
+### Install Products
+`mpm install --release=<release> --products <product1> ... <productN>` installs products `<product1> ... <productN>` from release version `<release>` to the default installation folder. [Example](#install-products-to-default-folder)
 
-- `mpm install ... <installOptions>` specifies options using one or more installation option flags `<installOptions>` in addition to any of the input argument combinations in the previous syntax. For example, you can specify the install destination, whether to install documentation and examples, and whether to install the GPU libraries for use with Parallel Computing Toolbox™. [Example](#install-matlab-and-specify-installation-options)
+`mpm install --release=<release> --products <product1> ... <productN> <installOptions>` sets additional [product installation options](#product-installation-options). For example, you can specify the install source or destination, whether to install documentation and examples, and whether to install the GPU libraries for use with Parallel Computing Toolbox™. [Example](#install-products-using-optional-command-line-inputs)
 
-- `mpm install-doc --matlabroot <matlabroot>` installs documentation and examples for the MATLAB installation at `<matlabroot>`. [Example](#install-matlab-and-specify-installation-options)
+`mpm install --inputfile <fullPathToFile>` install products using the `<fullPathToFile>` input file. You can download a template input file for your desired release from the [mpm-input-files](mpm-input-files) folder. You must specify `--inputfile` without any other options. [Example](#install-products-using-input-file)
 
-- `mpm install-doc --matlabroot <matlabroot> <docOptions>` installs documentation and examples for the MATLAB installation at `<matlabroot>` and specifies options using one or more documentation installation option flags `<docOptions>`. For example, you can specify the path to a mounted ISO image of the documentation or the documentation installation destination. [Example](#install-matlab-and-specify-installation-options)
-
-- `mpm <globalOption>` specifies a global option `<globalOption>`, ignoring other input arguments. For example, you can show the help or the installed version of MATLAB Package Manager. 
-
-## Examples
-
-### Install MATLAB, Simulink, and Additional Products
-
-To install MATLAB R2023b, Simulink, and Signal Processing Toolbox to the default folder, navigate to the folder containing the `mpm` binary file and run the following command.
-
-    ./mpm install --release=R2023b --products MATLAB Simulink Signal_Processing_Toolbox
-    
-You can install further products later. For example, add Robotics System Toolbox to the MATLAB installation.
-
-    ./mpm install --release=R2023b --products Robotics_System_Toolbox
- 
-    
-### Install MATLAB and Specify Installation Options
-
-Install MATLAB R2023b, specifying these installation options:
-
-- Set the installation destination folder to `/home/username/matlab`.
-- Install Parallel Computing Toolbox without the GPU libraries.
-
-```
-./mpm install --release=R2023b --destination=/home/username/matlab --products MATLAB Parallel_Computing_Toolbox --no-gpu  
-```
-
-Download a documentation ISO from [Install Documentation on Offline Machines](https://www.mathworks.com/help/install/ug/install-documentation-on-offline-machines.html) and mount the ISO. Install the documentation and examples, specifying the MATLAB installation folder and the path to the mounted ISO.
-
-    ./mpm install-doc --matlabroot=/home/username/matlab --source=/path/to/source
-
-## Global Options
-| Option              | Description                                      | Example         |
-| ------------------- | ------------------------------------------------ | --------------- |
-| `--help` or `-h`    | Flag for showing help.                           | `./mpm --help`    |
-| `--version` or `-v` | Flag for showing MATLAB Package Manager version. | `./mpm --version` |
-
-## Installation Options
+#### Product Installation Options
 | Option          | Description                                                                                                                                                                                                                                                                                                                                                                                                                                      | Example                                                      |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------ |
 | `--release`     | Software version to install. This option supports releases and updates. To install the latest version of a release, specify the release version (for example, `R2023b`). To install a specific update release, specify the release version with an update number suffix (for example, `R2023bU4`). To install a version without updates, specify the release version with an update 0 or general release suffix (for example, `R2023bU0` or `R2023bGR`). | `R2023b`, `R2023bU2`, `R2023bGR`                              |
-| `--products`    | List of products to install, specified as product names separated by spaces. MATLAB Package Manager can install most MathWorks products. For the full list of correctly formatted product names, download the [MathWorks Product Installer](https://www.mathworks.com/help/install/ug/install-noninteractively-silent-installation.html) and refer to the `installer_input.txt` file included in it. Alternatively, see [Products and Services](https://www.mathworks.com/products.html) for product names in the current MATLAB release and replace spaces in names with underscores. For more information on which products MATLAB Package manager can not install, see [Limitations](#limitations).                    | `MATLAB Simulink Deep_Learning_Toolbox Fixed-Point_Designer` |
-| `--destination` | Full path to the desired installation folder. Defaults to `/usr/share/matlab` if unset.                                                                                                                                                                                                                                                                                                                                                         | `/path/to/destination`                                       |
-| `--source`      | Full path to downloaded product files (optional). MATLAB Package Manager downloads the product files if unset.                                                                                                                                                                                                                                                                                                                                   | `/path/to/source`                                            |
-| `--doc`         | Flag to install documentation and examples (optional). Supported for R2022b and earlier releases. To install the documentation in a later release, use the `install-doc` command.                                                                                                                                                                                                                                                                | `--doc`                                                      |
-| `--no-gpu`      | Flag to prevent installation of GPU libraries when you install Parallel Computing Toolbox (optional). If you do not intend to use GPU computing in MATLAB, specify this option to reduce the size of the install. You can install the GPU libraries later by calling a GPU function such as `gpuArray` or `gpuDevice` in MATLAB. Supported for releases R2023a and later.                                                                        | `--no-gpu`                                                   |
+| `--products`    | List of products to install, specified as product names separated by spaces. `mpm` can install most MathWorks products and support packages. For the full list of correctly formatted product names, download the template input file for your desired release from the [mpm-input-files](mpm-input-files) folder and view the product and support package lists. For more information on which products `mpm` cannot install, see [Limitations](#limitations).                    | `MATLAB Simulink Deep_Learning_Toolbox Fixed-Point_Designer` |
+| `--inputfile`   | Full path to the input file used to install products. Download a template input file for your desired release from the [mpm-input-files](mpm-input-files) folder and customize it for your installation. For example, you can specify the products and support packages to install and the desired installation folder. You must specify `--inputfile` without any other options. | `/home/$USER/matlab/mpm_input_r2023b.txt` 
+| `--destination` | Full path to the desired installation folder. If you are adding products or support packages to an existing MATLAB installation, specify the full path to where MATLAB is installed. `mpm` determines the folder to which to install support packages based on the MATLAB installation folder. Defaults to `/usr/share/matlab` if unset.                                                                                                                                                                                                                                                                                                                                                         | `/path/to/destination`                                       |
+| `--source`      | Full path to downloaded product files (supported since R2018b) or an ISO image (supported since R2021b). `mpm` downloads the product files if unset.                                                                                                                                                                                                                                                                                                                                   | `/path/to/source`                                            |
+| `--doc`         | Flag to install documentation and examples (supported for R2022b and earlier). To install the documentation in R2023a and later, use the `install-doc` command.                                                                                                                                                                                                                                                                | `--doc`                                                      |
+| `--no-gpu`      | Flag to prevent installation of GPU libraries when you install Parallel Computing Toolbox (supported since R2023a). If you do not intend to use GPU computing in MATLAB, specify this option to reduce the size of the install. You can install the GPU libraries later by calling a GPU function such as `gpuArray` or `gpuDevice` in MATLAB.                                                                        | `--no-gpu`                                                   |
 
-## Documentation Installation Options
+### Install Documentation
+*Since R2023a*
 
-For releases R2023a and later, use the `install-doc` command to install documentation and examples for an existing MATLAB installation.
+`mpm install-doc --matlabroot <matlabroot>` installs documentation and examples for the MATLAB installation at `<matlabroot>`. [Example](#install-products-using-optional-command-line-inputs)
 
+`mpm install-doc --matlabroot <matlabroot> <docOptions>` sets additional [documentation installation options](#documentation-installation-options). For example, you can specify the path to a mounted ISO image of the documentation or the documentation installation destination. [Example](#install-products-using-optional-command-line-inputs)
+
+#### Documentation Installation Options
 | Option          | Description                                                                                                                                                                                                                                               | Example               |
 | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
 | `--matlabroot`  | Full path to the folder in which MATLAB is installed.                                                                                                                                                                                                     | `/path/to/matlabroot` |
 | `--source`      | Full path to mounted documentation ISO. Defaults to `$PWD/archives` if unset. To download a documentation ISO, see [Install Documentation on Offline Machines](https://www.mathworks.com/help/install/ug/install-documentation-on-offline-machines.html). | `/path/to/source`     |
-| `--destination` | Full path to the desired installation folder (optional).                                                                                                                                                                                                  | `/path/to/docroot`    |
+| `--destination` | Full path to the desired installation folder.                                                                                                                                                                                                  | `/path/to/docroot`    |
 
+### Get Help and Version Information
+`mpm --help` or `mpm -h` displays command-line help for `mpm`. Example: `./mpm --help`
+
+`mpm --version` or `mpm -v` displays `mpm` version information. Example: `./mpm --version` 
+
+## Examples
+
+### Install Products to Default Folder
+
+Install MATLAB R2023b, Simulink, and Signal Processing Toolbox™ to the default folder. Navigate to the folder containing the `mpm` binary file and run this command.
+
+    ./mpm install --release=R2023b --products MATLAB Simulink Signal_Processing_Toolbox
+    
+You can install additional products later. For example, add Robotics System Toolbox™ to the MATLAB installation.
+
+    ./mpm install --release=R2023b --products Robotics_System_Toolbox
+ 
+    
+### Install Products Using Optional Command-Line Inputs
+
+Install MATLAB R2023b, specifying these installation options:
+
+- Set the installation destination folder to `/home/$USER/matlab`.
+- Install Parallel Computing Toolbox without the GPU libraries.
+
+```
+./mpm install --release=R2023b --destination=/home/$USER/matlab --products MATLAB Parallel_Computing_Toolbox --no-gpu  
+```
+
+Download a documentation ISO from [Install Documentation on Offline Machines](https://www.mathworks.com/help/install/ug/install-documentation-on-offline-machines.html) and mount the ISO. Install the documentation and examples, specifying the MATLAB installation folder and the path to the mounted ISO.
+
+    ./mpm install-doc --matlabroot=/home/$USER/matlab --source=/path/to/source
+
+### Install Products Using Input File
+
+Install products and support packages for MATLAB R2023b by specifying installation options in a file.
+
+From the [mpm-input-files](mpm-input-files) folder, open the `R2023b` folder and download the `mpm_input_r2023b.txt` input file.
+
+Open the file. Configure the MATLAB installation by uncommenting lines that start with a single `'#'` and updating their values. Update these sections:
+
+*SPECIFY DESTINATION FOLDER*
+
+Uncomment the `destinationFolder` line and set an installation folder. For example:
+
+```
+destinationFolder=/home/$USER/matlab
+```
+
+*INSTALL PRODUCTS*
+
+Uncomment the `product.MATLAB` and `product.Simulink` lines for installing MATLAB And Simulink.
+
+```
+product.MATLAB
+# ...
+product.Simulink
+```
+
+*INSTALL SUPPORT PACKAGES*
+
+Uncomment the `product.Deep_Learning_Toolbox_Model_for_AlexNet_Network` line to install a Deep Learning Toolbox™ support package. `mpm` will automatically install this support package's required product, Deep Learning Toolbox.
+```
+product.Deep_Learning_Toolbox_Model_for_AlexNet_Network
+```
+Save the file.
+
+Install the products and support package.
+```
+./mpm install --inputfile /path/to/file/mpm_input_r2023b.txt
+```
 ## Limitations
 
-- Some MathWorks products are not available on Linux. For a list of products not available on Linux, see [Products Not Available for Linux](https://www.mathworks.com/support/requirements/matlab-linux.html).
-- MATLAB Package Manager cannot install the products in the table below.
+- `mpm` supports installing products and support pacakges for these releases only:
+  - Products - R2017b or later
+  - Support Packages - R2019a or later
+- Some MathWorks products are not available on Linux. For the full list, see [Products Not Available for Linux](https://www.mathworks.com/support/requirements/matlab-linux.html).
+- `mpm` cannot install these products:
 
-| Product                 |
-| ----------------------- |
-| IEC Certification Kit   |
-| DO Qualification Kit    |
-| Simulink Code Inspector |
+  - IEC Certification Kit
+  - DO Qualification Kit
+  - Simulink Code Inspector™
 
-- R2017b is the oldest release that MATLAB Package Manager supports.
+- `mpm` cannot install these support packages:
+
+  - Image Acquisition Toolbox™ Support Package for GenICam™ Interface
+  - Image Acquisition Toolbox Support Package for GigE Vision® Hardware
+  - Simulink Coder™ Support Package for BBC micro:bit
+  - MATLAB Support Package for IP Cameras
+  - New Desktop for MATLAB
+  - MATLAB Support Package for Parrot® Drones
+  - MATLAB Support Package for Ryze Tello Drones
+  - Simulink Real-Time™ Target Support Package
 
 ## Feedback and Support
 
 If you encounter a technical issue or have an enhancement request, create an issue [here](https://github.com/mathworks-ref-arch/matlab-dockerfile/issues).
 
 ## Changelog
+
+### 2023.10.0.1 - October 26, 2023
+**Added:** Major new features
+  - Install hardware and software support packages.
+  - Install required products automatically. For example, if you specify `--product Simulink`, then `mpm` installs both Simulink and the required product MATLAB.
+  - Install products by specifying options in an input file.
 
 ### 2023.9 - September 13, 2023
 
