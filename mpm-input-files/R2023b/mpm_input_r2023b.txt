@@ -79,7 +79,6 @@
 #product.Control_System_Toolbox
 #product.Curve_Fitting_Toolbox
 #product.DDS_Blockset
-#product.DO_Qualification_Kit
 #product.DSP_HDL_Toolbox
 #product.DSP_System_Toolbox
 #product.Data_Acquisition_Toolbox
@@ -98,7 +97,6 @@
 #product.Global_Optimization_Toolbox
 #product.HDL_Coder
 #product.HDL_Verifier
-#product.IEC_Certification_Kit
 #product.Image_Acquisition_Toolbox
 #product.Image_Processing_Toolbox
 #product.Industrial_Communication_Toolbox
@@ -158,7 +156,6 @@
 #product.Simulink
 #product.Simulink_3D_Animation
 #product.Simulink_Check
-#product.Simulink_Code_Inspector
 #product.Simulink_Coder
 #product.Simulink_Compiler
 #product.Simulink_Control_Design
