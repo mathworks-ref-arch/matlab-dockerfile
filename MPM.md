@@ -117,9 +117,9 @@ product.Simulink
 
 *INSTALL SUPPORT PACKAGES*
 
-Uncomment the `product.Deep_Learning_Toolbox_Model_for_AlexNet_Network` line to install a Deep Learning Toolbox™ support package. `mpm` will automatically install this support package's required product, Deep Learning Toolbox.
+Uncomment the `product.Deep_Learning_Toolbox_Model_for_ResNet-50_Network` line to install a Deep Learning Toolbox™ support package. `mpm` will automatically install this support package's required product, Deep Learning Toolbox.
 ```
-product.Deep_Learning_Toolbox_Model_for_AlexNet_Network
+product.Deep_Learning_Toolbox_Model_for_ResNet-50_Network
 ```
 Save the file.
 
@@ -129,7 +129,7 @@ Install the products and support package.
 ```
 ## Limitations
 
-- `mpm` supports installing products and support pacakges for these releases only:
+- `mpm` supports installing products and support packages for these releases only:
   - Products - R2017b or later
   - Support Packages - R2019a or later
 - Some MathWorks products are not available on Linux. For the full list, see [Products Not Available for Linux](https://www.mathworks.com/support/requirements/matlab-linux.html).
@@ -138,6 +138,8 @@ Install the products and support package.
   - IEC Certification Kit
   - DO Qualification Kit
   - Simulink Code Inspector™
+
+  For alternative ways to install these products, see [Install Products](https://www.mathworks.com/help/install/install-products.html).
 
 - `mpm` cannot install these support packages:
 
@@ -149,6 +151,8 @@ Install the products and support package.
   - MATLAB Support Package for Parrot® Drones
   - MATLAB Support Package for Ryze Tello Drones
   - Simulink Real-Time™ Target Support Package
+
+  To install these support packages within MATLAB, see [Get and Manage Add-Ons](https://www.mathworks.com/help/matlab/matlab_env/get-add-ons.html).
 
 ## Feedback and Support
 
