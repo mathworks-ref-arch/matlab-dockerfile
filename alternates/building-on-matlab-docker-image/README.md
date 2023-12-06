@@ -1,7 +1,7 @@
 # Building on MATLAB Docker image
 
 The Dockerfile in this subfolder builds on the [MATLAB Container Image on Docker&reg; Hub&reg;](https://hub.docker.com/r/mathworks/matlab)
-by installing MATLAB&reg; toolboxes using [MATLAB Package Manager (*mpm*)](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md).
+by installing MATLAB&reg; toolboxes and support packages using [MATLAB Package Manager (*mpm*)](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md).
 
 Use the Dockerfile as an example of how to build a custom image that contains the features of the MATLAB image on Docker Hub.
 These features include accessing the dockerised MATLAB through a browser, batch mode, or an interactive command prompt.
@@ -25,35 +25,38 @@ cd matlab-dockerfile/alternates/building-on-matlab-docker-image
 ### Quick start
 Build a container with a name and tag.
 ```bash
-docker build -t matlab_with_toolboxes:r2023b .
+docker build -t matlab_with_add_ons:r2023b .
 ```
 
 You can then run the container with the "batch" option. Test the container by running an example MATLAB command such as `ver` to display the installed toolboxes.
 ```bash
-docker run --init --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab_with_toolboxes:r2023b -batch ver
+docker run --init --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab_with_add_ons:r2023b -batch ver
 ```
+You can check the installed support packages using the MATLAB command `matlabshared.supportpkg.getInstalled`.
 
 You can also run the container with the "browser" option to access MATLAB in a browser.
 ```bash
-docker run --init --rm -it -p 8888:8888 matlab_with_toolboxes:r2023b -browser
+docker run --init --rm -it -p 8888:8888 matlab_with_add_ons:r2023b -browser
 ```
 For more information, see [Run the Container](#run-the-container).
 
 ## Customize the Image
 ### Customize Products to Install Using MATLAB Package Manager (mpm)
-This Dockerfile installs any specified toolboxes or products
+This Dockerfile installs any specified products
 into the MATLAB installation on the MATLAB Docker Hub image.
 
-To customize the build, either pass a list of toolboxes into the `ADDITIONAL_PRODUCTS`
+To customize the build, either pass a list of products into the `ADDITIONAL_PRODUCTS`
 argument when building the Docker image, or edit the default value of that argument in the Dockerfile.
 The `ADDITIONAL_PRODUCTS` argument must be a space separated list surrounded by quotes.
-By default, `ADDITIONAL_PRODUCTS` includes two example toolboxes, which you can replace.
+By default, `ADDITIONAL_PRODUCTS` includes example products, which you can replace.
 For example, to build an image containing MATLAB and the Deep Learning Toolbox:
 ```bash
-docker build --build-arg ADDITIONAL_PRODUCTS="Deep_Learning_Toolbox" -t matlab_with_toolboxes:r2023b .
+docker build --build-arg ADDITIONAL_PRODUCTS="Deep_Learning_Toolbox" -t matlab_with_add_ons:r2023b .
 ```
 
 For a successful build, include at least one product.
+`mpm` automatically installs any toolboxes and support packages
+required by the products specified in `ADDITIONAL_PRODUCTS`.
 For more information, see [MATLAB Package Manager (*mpm*)](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md).
 
 You can modify the products argument of `mpm`, but not the destination folder default value, as this is
@@ -65,7 +68,7 @@ The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/ma
 | Argument Name | Default value | Effect |
 |---|---|---|
 | [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | r2023b | The MATLAB release to install. Must be lower-case, for example: `r2020b`.|
-| [ADDITIONAL_PRODUCTS](#customize-products-to-install-using-matlab-package-manager-mpm) | "Symbolic_Math_Toolbox Statistics_and_Machine_Learning_Toolbox" | A space separated list of toolboxes to install. |
+| [ADDITIONAL_PRODUCTS](#customize-products-to-install-using-matlab-package-manager-mpm) | "Symbolic_Math_Toolbox Deep_Learning_Toolbox_Model_for_ResNet-50_Network" | A space separated list of toolboxes and support packages to install. For more details, see  [MATLAB Package Manager](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md)|
 | [LICENSE_SERVER](#build-an-image-with-license-server-information) | *unset* | The port and hostname of a machine that is running a Network License Manager, using the `port@hostname` syntax. For example: `27000@MyServerName`. To use this build argument, the corresponding lines must be uncommented in the Dockerfile. |
 
 Use these arguments with the `docker build` command to customize the image.
@@ -76,7 +79,7 @@ directly in the Dockerfile.
 
 For example, to build an image for MATLAB R2020b, use the following command.
 ```bash
-docker build --build-arg MATLAB_RELEASE=r2020b -t matlab_with_toolboxes:r2020b .
+docker build --build-arg MATLAB_RELEASE=r2020b -t matlab_with_add_ons:r2020b .
 ```
 For supported releases see [MATLAB Container Image on Docker Hub](https://hub.docker.com/r/mathworks/matlab).
 ### Build an Image with License Server Information
@@ -87,12 +90,12 @@ server or browser mode will not start successfully.
 
 Build container with the License Server.
 ```bash
-docker build -t matlab_with_toolboxes:r2023b --build-arg LICENSE_SERVER=27000@MyServerName .
+docker build -t matlab_with_add_ons:r2023b --build-arg LICENSE_SERVER=27000@MyServerName .
 ```
 
 Run the container, without needing to pass license information.
 ```bash
-docker run --init matlab_with_toolboxes:r2023b -batch ver
+docker run --init matlab_with_add_ons:r2023b -batch ver
 ```
 ## Run the Container
 The Docker container you build using this Dockerfile inherits run options from its base image.

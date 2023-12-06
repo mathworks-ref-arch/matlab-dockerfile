@@ -4,19 +4,19 @@
 # Use lower case to specify the release, for example: ARG MATLAB_RELEASE=r2021b
 ARG MATLAB_RELEASE=r2023b
 
-# Specify the extra toolboxes to install into the image.
-ARG ADDITIONAL_PRODUCTS="Symbolic_Math_Toolbox Statistics_and_Machine_Learning_Toolbox"
+# Specify the extra products to install into the image. These products can either be toolboxes or support packages.
+ARG ADDITIONAL_PRODUCTS="Symbolic_Math_Toolbox Deep_Learning_Toolbox_Model_for_ResNet-50_Network"
 
 # This Dockerfile builds on the Ubuntu-based mathworks/matlab image.
 # To check the available matlab images, see: https://hub.docker.com/r/mathworks/matlab
 FROM mathworks/matlab:$MATLAB_RELEASE
 
-# By default, the MATLAB container runs as user "matlab". To modify the MATLAB installation in the image, switch to root.
-USER root
-
 # Declare the global argument to use at the current build stage
 ARG MATLAB_RELEASE
 ARG ADDITIONAL_PRODUCTS
+
+# By default, the MATLAB container runs as user "matlab". To install mpm dependencies, switch to root.
+USER root
 
 # Install mpm dependencies
 RUN export DEBIAN_FRONTEND=noninteractive \
@@ -29,21 +29,25 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
-# Run mpm to install MathWorks products and toolboxes into the existing MATLAB installation directory,
+# Run mpm to install MathWorks products into the existing MATLAB installation directory,
 # and delete the mpm installation afterwards.
 # Modify it by setting the ADDITIONAL_PRODUCTS defined above,
 # e.g. ADDITIONAL_PRODUCTS="Statistics_and_Machine_Learning_Toolbox Parallel_Computing_Toolbox MATLAB_Coder".
 # If mpm fails to install successfully then output the logfile to the terminal, otherwise cleanup.
+
+# Switch to user matlab, and pass in $HOME variable to mpm,
+# so that mpm can set the correct root folder for the support packages.
 WORKDIR /tmp
+USER matlab
 RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \
     && chmod +x mpm \
     && EXISTING_MATLAB_LOCATION=$(dirname $(dirname $(readlink -f $(which matlab)))) \
-    && ./mpm install \
+    && sudo HOME=${HOME} ./mpm install \
         --destination=${EXISTING_MATLAB_LOCATION} \
         --release=${MATLAB_RELEASE} \
         --products ${ADDITIONAL_PRODUCTS} \
     || (echo "MPM Installation Failure. See below for more information:" && cat /tmp/mathworks_root.log && false) \
-    && rm -f mpm /tmp/mathworks_root.log
+    && sudo rm -f mpm /tmp/mathworks_root.log
 
 # When running the container a license file can be mounted,
 # or a license server can be provided as an environment variable.
@@ -68,7 +72,5 @@ RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \
 # https://github.com/mathworks-ref-arch/matlab-dockerfile#help-make-matlab-even-better
 ENV MW_DDUX_FORCE_ENABLE=true MW_CONTEXT_TAGS=$MW_CONTEXT_TAGS,MATLAB:TOOLBOXES:DOCKERFILE:V1
 
-# Now that the installation is complete, switch back to user "matlab"
-USER matlab
 WORKDIR /home/matlab
 # Inherit ENTRYPOINT and CMD from base image.
