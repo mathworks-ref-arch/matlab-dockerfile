@@ -67,4 +67,4 @@ jobs:
         run: |
           python -m unittest ${{ env.ALT_PATH }}/test_container.py
           python -m unittest ${{ env.ALT_PATH }}/test_entrypoint.py
-          python -m unittest ${{ env.ALT_PATH }}/test_installed_toolboxes.py
+          python -m unittest ${{ env.ALT_PATH }}/test_installed_products.py
