@@ -44,22 +44,27 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
-# Run mpm to install MATLAB in the target location and delete the mpm installation afterwards.
-# If mpm fails to install successfully, then print the logfile in the terminal, otherwise clean up.
-RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \ 
-    && chmod +x mpm \
-    && ./mpm install \
-    --release=${MATLAB_RELEASE} \
-    --destination=${MATLAB_INSTALL_LOCATION} \
-    --products ${MATLAB_PRODUCT_LIST} \
-    || (echo "MPM Installation Failure. See below for more information:" && cat /tmp/mathworks_root.log && false) \
-    && rm -f mpm /tmp/mathworks_root.log \
-    && ln -s ${MATLAB_INSTALL_LOCATION}/bin/matlab /usr/local/bin/matlab
-
 # Add "matlab" user and grant sudo permission.
 RUN adduser --shell /bin/bash --disabled-password --gecos "" matlab \
     && echo "matlab ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/matlab \
     && chmod 0440 /etc/sudoers.d/matlab
+
+# Set user and work directory.
+USER matlab
+WORKDIR /home/matlab
+
+# Run mpm to install MATLAB in the target location and delete the mpm installation afterwards.
+# If mpm fails to install successfully, then print the logfile in the terminal, otherwise clean up.
+# Pass in $HOME variable to install support packages into the user's HOME folder.
+RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \ 
+    && chmod +x mpm \
+    && sudo HOME=${HOME} ./mpm install \
+    --release=${MATLAB_RELEASE} \
+    --destination=${MATLAB_INSTALL_LOCATION} \
+    --products ${MATLAB_PRODUCT_LIST} \
+    || (echo "MPM Installation Failure. See below for more information:" && cat /tmp/mathworks_root.log && false) \
+    && sudo rm -f mpm /tmp/mathworks_root.log \
+    && sudo ln -s ${MATLAB_INSTALL_LOCATION}/bin/matlab /usr/local/bin/matlab
 
 # Note: Uncomment one of the following two ways to configure the license server.
 
@@ -82,8 +87,5 @@ ENV MLM_LICENSE_FILE=$LICENSE_SERVER
 # https://github.com/mathworks-ref-arch/matlab-dockerfile#help-make-matlab-even-better
 ENV MW_DDUX_FORCE_ENABLE=true MW_CONTEXT_TAGS=MATLAB:DOCKERFILE:V1
 
-# Set user and work directory.
-USER matlab
-WORKDIR /home/matlab
 ENTRYPOINT ["matlab"]
 CMD [""]
