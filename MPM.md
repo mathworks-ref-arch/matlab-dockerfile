@@ -34,12 +34,15 @@ From a macOS terminal, use `curl` to download the latest version of `mpm` for yo
 
 * macOS (Intel processor):
 
-      curl -L -o https://www.mathworks.com/mpm/maci64/mpm
+      curl -L -o ~/Downloads/mpm https://www.mathworks.com/mpm/maci64/mpm
 
 * macOS (Apple silicon):
 
-      curl -L -o https://www.mathworks.com/mpm/maca64/mpm
+      curl -L -o ~/Downloads/mpm https://www.mathworks.com/mpm/maca64/mpm
 
+`mpm` is downloaded to your `Downloads` folder. Navigate to that folder.
+
+    cd ~/Downloads
 
 Give the downloaded file executable permissions so that you can run `mpm`.
 
