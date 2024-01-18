@@ -192,7 +192,7 @@
 ##
 ## Uncomment the lines for the support packages you want to install.
 
-#product._Automated_Driving_Toolbox_Model_for_Lidar_Lane_Detection
+#product.Automated_Driving_Toolbox_Model_for_Lidar_Lane_Detection
 #product.ASIC_Testbench_for_HDL_Verifier
 #product.Aerospace_Blockset_Interface_for_Unreal_Engine_Projects
 #product.Automated_Driving_Toolbox_Importer_for_Zenrin_Japan_Map_API_3.0_(Itsumo_NAVI_API_3.0)_Service
@@ -320,7 +320,7 @@
 #product.MATLAB_Support_Package_for_Raspberry_Pi_Hardware
 #product.MATLAB_Support_Package_for_USB_Webcams
 #product.MATLAB_Support_for_MinGW-w64_C/C++_Compiler
-#product.Medical_Imaging_Toolbox_Interface_for_Cellpose_
+#product.Medical_Imaging_Toolbox_Interface_for_Cellpose
 #product.Mixed-Signal_Blockset_Models
 #product.Modelscape_for_MATLAB
 #product.Powertrain_Blockset_Drive_Cycle_Data
