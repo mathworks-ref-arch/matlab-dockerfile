@@ -72,7 +72,7 @@ docker build --build-arg MATLAB_RELEASE=r2019b -t matlab:r2019b .
 ```
 
 #### Build an Image with a specific set of products
-For example, to build an image with MATLAB and Simulink, use this command.
+For example, to build an image with MATLAB and Simulink&reg;, use this command.
 ```bash
 docker build --build-arg MATLAB_PRODUCT_LIST='MATLAB Simulink' -t matlab:r2023b .
 ```
@@ -173,7 +173,7 @@ To learn more, see the documentation: [Commonly Used Startup Options](https://ww
 
 
 ## More MATLAB Docker Resources
-* Explore prebuilt MATLAB Docker Containers on Docker Hub&reg;: https://hub.docker.com/r/mathworks
+* Explore prebuilt MATLAB Docker Containers on Docker Hub: https://hub.docker.com/r/mathworks
     * [MATLAB Containers on Docker Hub](https://hub.docker.com/r/mathworks/matlab) hosts container images for multiple releases of MATLAB.
     * [MATLAB Deep Learning Containers on Docker Hub](https://hub.docker.com/r/mathworks/matlab-deep-learning) hosts container images with toolboxes suitable for Deep Learning.
 
@@ -188,10 +188,10 @@ For some workflows and toolboxes, you must specify dependencies. You must do thi
     * Play media files from MATLAB.
     * Generate code from Simulink.
     * Use mex functions with gcc, g++, or gfortran.
-    * Use the MATLAB Engine API for C and Fortran.
-    * Use the Polyspace 32-bit tcc compiler.
+    * Use the MATLAB Engine API for C and Fortran&reg;.
+    * Use the Polyspace&reg; 32-bit tcc compiler.
     
-    The [matlab-deps repository](https://github.com/mathworks-ref-arch/container-images/tree/main/matlab-deps) repository lists Dockerfiles for various releases and platforms. [Click here to view the Dockerfile for R2023b](https://github.com/mathworks-ref-arch/container-images/blob/main/matlab-deps/r2023b/ubuntu22.04/Dockerfile).
+    The [matlab-deps repository](https://github.com/mathworks-ref-arch/container-images/tree/main/matlab-deps) repository lists Dockerfiles for various releases and platforms. To view the Dockerfile for R2023b, click [here](https://github.com/mathworks-ref-arch/container-images/blob/main/matlab-deps/r2023b/ubuntu22.04/Dockerfile).
 
     These Dockerfiles contain commented lines with the libraries that support these additional capabilities. Copy and uncomment these lines into your Dockerfile.
 
@@ -208,6 +208,6 @@ We encourage you to try this repository with your environment and provide feedba
 
 ----
 
-Copyright 2021-2023 The MathWorks, Inc. All rights reserved.
+Copyright 2021-2024 The MathWorks, Inc.
 
 ----

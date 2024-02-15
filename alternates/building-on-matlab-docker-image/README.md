@@ -1,9 +1,9 @@
 # Building on MATLAB Docker image
 
-The Dockerfile in this subfolder builds on the [MATLAB Container Image on Docker&reg; Hub&reg;](https://hub.docker.com/r/mathworks/matlab)
+The Dockerfile in this subfolder builds on the [MATLAB Container Image on Docker Hub](https://hub.docker.com/r/mathworks/matlab)
 by installing MATLAB&reg; toolboxes and support packages using [MATLAB Package Manager (*mpm*)](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md).
 
-Use the Dockerfile as an example of how to build a custom image that contains the features of the MATLAB image on Docker Hub.
+Use the Dockerfile as an example of how to build a custom image that contains the features of the MATLAB image on Docker&reg; Hub.
 These features include accessing the dockerised MATLAB through a browser, batch mode, or an interactive command prompt.
 For details of the features in that image, see [MATLAB Container Image on Docker Hub](https://hub.docker.com/r/mathworks/matlab).
 
@@ -49,7 +49,7 @@ To customize the build, either pass a list of products into the `ADDITIONAL_PROD
 argument when building the Docker image, or edit the default value of that argument in the Dockerfile.
 The `ADDITIONAL_PRODUCTS` argument must be a space separated list surrounded by quotes.
 By default, `ADDITIONAL_PRODUCTS` includes example products, which you can replace.
-For example, to build an image containing MATLAB and the Deep Learning Toolbox:
+For example, to build an image containing MATLAB and the Deep Learning Toolbox&trade;:
 ```bash
 docker build --build-arg ADDITIONAL_PRODUCTS="Deep_Learning_Toolbox" -t matlab_with_add_ons:r2023b .
 ```
@@ -77,9 +77,14 @@ directly in the Dockerfile.
 
 ### Build an Image for a Different Release of MATLAB
 
-For example, to build an image for MATLAB R2020b, use the following command.
+For example, to build an image for MATLAB R2022b, use the following command.
 ```bash
-docker build --build-arg MATLAB_RELEASE=r2020b -t matlab_with_add_ons:r2020b .
+docker build --build-arg MATLAB_RELEASE=r2022b -t matlab_with_add_ons:r2022b .
+```
+
+To build an image for MATLAB R2022b with Deep Learning Toolbox and Parallel Computing Toolbox&trade;, use the following command.
+```bash
+docker build --build-arg MATLAB_RELEASE=r2022b --build-arg ADDITIONAL_PRODUCTS="Deep_Learning_Toolbox Parallel_Computing_Toolbox" -t matlab_with_add_ons:r2022b .
 ```
 For supported releases see [MATLAB Container Image on Docker Hub](https://hub.docker.com/r/mathworks/matlab).
 ### Build an Image with License Server Information
@@ -120,6 +125,6 @@ We encourage you to try this repository with your environment and provide feedba
 
 ----
 
-Copyright 2023 The MathWorks, Inc. All rights reserved.
+Copyright 2023-2024 The MathWorks, Inc.
 
 ----

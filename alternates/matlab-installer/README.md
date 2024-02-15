@@ -1,6 +1,6 @@
 # Create a MATLAB Container Image using the MATLAB installer
 
-This repository demonstrates how to create a Docker® container image for MATLAB® from local files using the MATLAB installer on a Linux® Operating System. For other operating systems, use the appropriate commands. This method uses the MATLAB installer rather than [MATLAB Package Manager (mpm)](../../MPM.md). The MATLAB installer is the default graphical installer for MATLAB. The Dockerfile in this subfolder shows you how to use the MATLAB installer with the `-mode silent` flag to install MATLAB without a graphical user interface. Use this Dockerfile if:
+This repository demonstrates how to create a Docker&reg; container image for MATLAB&reg; from local files using the MATLAB installer on a Linux&reg; Operating System. For other operating systems, use the appropriate commands. This method uses the MATLAB installer rather than [MATLAB Package Manager (mpm)](../../MPM.md). The MATLAB installer is the default graphical installer for MATLAB. The Dockerfile in this subfolder shows you how to use the MATLAB installer with the `-mode silent` flag to install MATLAB without a graphical user interface. Use this Dockerfile if:
 1) You need toolboxes that mpm cannot install.
 1) You prefer using the MATLAB installer workflow, for example, if you have already set it up in your CI/CD pipeline.
 
@@ -10,7 +10,7 @@ Use the container image as a scalable and reproducible method to deploy MATLAB i
 
 ## Requirements
 * Docker
-* Git™
+* Git&trade;
 
 ## Step 1. Clone this Repository
 1. Clone this repository using the command:
@@ -24,10 +24,10 @@ git clone https://github.com/mathworks-ref-arch/matlab-dockerfile.git
 To install MATLAB into the container image, choose a MATLAB installation method. You can either use MATLAB installation files or a MATLAB ISO image. 
 
 ### MATLAB Installation Files
-To obtain the installation files, you must be an administrator for the license linked with your MathWorks® account.
+To obtain the installation files, you must be an administrator for the license linked with your MathWorks&reg; account.
 1. From the [MathWorks Downloads](https://www.mathworks.com/downloads/) page, select the desired version of MATLAB.
 1. Download the Installer for Linux.
-1. Follow the steps at [Download Products Without Installation](https://www.mathworks.com/help/install/ug/download-only.html). 
+1. Follow the steps at [Download Products Without Installation](https://www.mathworks.com/help/install/ug/download-without-installing.html). 
 1. Specify the location of the `matlab-install` subfolder of the cloned repository as the path to the download folder. 
 1. Select the installation files for the Linux (64-bit) version of MATLAB. 
 1. Select the products you want to install in the container image.
@@ -142,7 +142,7 @@ For more information about license files, see [What are the differences between 
 
 ## More MATLAB Docker Resources
 
-For more information about running MATLAB in a docker container see the top level [README](../../README.md#more-matlab-docker-resources) of this repository
+For more information about running MATLAB in a docker container, see the top level [README](../../README.md#more-matlab-docker-resources) of this repository
 
 ## Help Make MATLAB Even Better
 
@@ -160,6 +160,6 @@ We encourage you to try this Dockerfile with your environment and provide feedba
 
 ---
 
-Copyright 2023 The MathWorks, Inc. All rights reserved.
+Copyright 2023-2024 The MathWorks, Inc.
 
 ---
