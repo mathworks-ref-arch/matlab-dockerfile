@@ -181,6 +181,7 @@ To learn more, see the documentation: [Commonly Used Startup Options](https://ww
 see the examples in the [**alternates folder**](alternates) of this repository:
     * [matlab-installer](alternates/matlab-installer) is an example of a Dockerfile that uses the matlab installer rather than mpm to install MATLAB in the container, allowing the installation of some toolboxes that are not currently supported by mpm.
     * [building-on-matlab-docker-image](alternates/building-on-matlab-docker-image) is an example of a Dockerfile that builds on top of the [MATLAB Container Image on Docker Hub](https://hub.docker.com/r/mathworks/matlab), to install extra toolboxes.
+    * [non-interactive](alternates/non-interactive) is an example of a Dockerfile that licenses MATLAB using MATLAB batch licensing tokens, facilitating the execution of MATLAB in non-interactive environments.
 
 * Enable additional capabilities using the [MATLAB Dependencies repository](https://github.com/mathworks-ref-arch/container-images/tree/master/matlab-deps). 
 For some workflows and toolboxes, you must specify dependencies. You must do this if you want to do any of the following tasks:
