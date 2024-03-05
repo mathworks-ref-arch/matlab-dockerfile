@@ -8,7 +8,7 @@ The MATLAB batch licensing project is still in the pilot phase. To inquire about
 
 ### Linux
 
-From a Linux terminal, use `wget` to download the latest version of `matlab-batch`.
+From a Linux&reg; terminal, use `wget` to download the latest version of `matlab-batch`.
 
     wget https://ssd.mathworks.com/supportfiles/ci/matlab-batch/v1/glnxa64/matlab-batch
 
@@ -18,7 +18,7 @@ Give the downloaded file executable permissions so that you can run `matlab-batc
 
 ### Windows
 
-From a Windows PowerShell command prompt, use `Invoke-WebRequest` to download the latest version of `matlab-batch`.
+From a Windows&reg; PowerShell command prompt, use `Invoke-WebRequest` to download the latest version of `matlab-batch`.
 
     Invoke-WebRequest https://ssd.mathworks.com/supportfiles/ci/matlab-batch/v1/win64/matlab-batch.exe -OutFile matlab-batch.exe
 
@@ -29,6 +29,10 @@ From a macOS terminal, use `curl` to download the latest version of `matlab-batc
 * macOS (Intel processor)
 
       curl -L -o ~/Downloads/matlab-batch https://ssd.mathworks.com/supportfiles/ci/matlab-batch/v1/maci64/matlab-batch
+
+* macOS (Apple silicon processor)
+
+      curl -L -o ~/Downloads/matlab-batch https://ssd.mathworks.com/supportfiles/ci/matlab-batch/v1/maca64/matlab-batch
 
 `matlab-batch` is downloaded to your `Downloads` folder. Navigate to that folder.
 
@@ -93,10 +97,13 @@ MATLAB batch licensing tokens come in two formats:
 
 These tokens can be used instead of, or in addition to, other types of licensing.
 
+If your batch licensing token expires in less than 30 days, **matlab-batch** prints a warning message. To suppress this message, you can set the environment variable MW_DISABLE_TOKEN_EXPIRY_WARNING to 1.
+
 ## Limitations
 
- - **R2020b** is the oldest release that **matlab-batch** supports on **Linux** and **Mac (intel)**.
- - **R2021a** is the oldest release that **matlab-batch** supports on **Windows**.
+ - R2020b is the oldest release that **matlab-batch** supports on Linux and macOS with Intel&reg;.
+ - R2021a is the oldest release that **matlab-batch** supports on Windows.
+ - R2023b is the oldest release that **matlab-batch** supports on macOS with Apple silicon.
 
 ## Feedback and Support
 To inquire about eligibility requirements for the MATLAB batch licensing pilot, contact <batch-tokens@mathworks.com>.
@@ -104,6 +111,18 @@ To inquire about eligibility requirements for the MATLAB batch licensing pilot, 
 For support, contact [MathWorks Technical Support](https://www.mathworks.com/support/contact_us.html).
 
 ## Changelog
+
+### v2024.02.1
+
+- **Added:** Support for macOS with Apple silicon.
+
+### v2024.02.0
+
+- **Added:** Support for MATLAB R2024a prerelease.
+- **Added:** Notifications when tokens are close to expiring.
+- **Added:** File details (including application version) integrated with Windows Explorer.
+- **Fixed:** **matlab-batch** supports Parallel Computing workflows.
+- **Fixed:** Improved ability to detect valid MATLAB installations.
 
 ### v2023.10.1
 
