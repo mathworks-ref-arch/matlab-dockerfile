@@ -4,14 +4,14 @@
 # version of MATLAB, list of products to install, and the location at which to install MATLAB.
 
 # Here is an example docker build command with the optional build arguments.
-# docker build --build-arg MATLAB_RELEASE=r2023b
+# docker build --build-arg MATLAB_RELEASE=r2024a
 #              --build-arg MATLAB_PRODUCT_LIST="MATLAB Deep_Learning_Toolbox Symbolic_Math_Toolbox"
-#              --build-arg MATLAB_INSTALL_LOCATION="/opt/matlab/R2023b"
+#              --build-arg MATLAB_INSTALL_LOCATION="/opt/matlab/R2024a"
 #              -t my_matlab_image_name .
 
 # To specify which MATLAB release to install in the container, edit the value of the MATLAB_RELEASE argument.
 # Use lowercase to specify the release, for example: ARG MATLAB_RELEASE=r2021b
-ARG MATLAB_RELEASE=r2023b
+ARG MATLAB_RELEASE=r2024a
 
 # Specify the list of products to install into MATLAB.
 ARG MATLAB_PRODUCT_LIST="MATLAB"
@@ -58,7 +58,7 @@ RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \
     --destination=${MATLAB_INSTALL_LOCATION} \
     --products ${MATLAB_PRODUCT_LIST} \
     || (echo "MPM Installation Failure. See below for more information:" && cat /tmp/mathworks_root.log && false) \
-    && sudo rm -f mpm /tmp/mathworks_root.log \
+    && sudo rm -rf mpm /tmp/mathworks_root.log ${HOME}/.MathWorks \
     && sudo ln -s ${MATLAB_INSTALL_LOCATION}/bin/matlab /usr/local/bin/matlab
 
 # Install matlab-batch to enable the use of MATLAB batch licensing tokens.

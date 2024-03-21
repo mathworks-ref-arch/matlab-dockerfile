@@ -74,7 +74,7 @@ The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/ma
 
 | Argument Name                                                       | Default value | Effect                                                                                                                                                |
 | ------------------------------------------------------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | latest        | The MATLAB release you want to install. Must be lower-case, for example: `r2023b`.                                                                    |
+| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | latest        | The MATLAB release you want to install. Must be lower-case, for example: `r2024a`.                                                                    |
 | [LICENSE_SERVER](#build-an-image-with-license-server-information)   | _unset_       | The port and hostname of the machine running the Network License Manager, using the `port@hostname` syntax. For example: `27000@MyServerName` |
 
 Use these arguments with the `docker build` command to customize your image. Run a command from the `alternates/matlab-installer` of the cloned repository of the form:

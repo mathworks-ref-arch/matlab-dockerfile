@@ -1,8 +1,8 @@
-# Copyright 2023 The MathWorks, Inc.
+# Copyright 2023-2024 The MathWorks, Inc.
 
 # To specify which MATLAB release to install in the container, edit the value of the MATLAB_RELEASE argument.
 # Use lower case to specify the release, for example: ARG MATLAB_RELEASE=r2021b
-ARG MATLAB_RELEASE=r2023b
+ARG MATLAB_RELEASE=r2024a
 
 # Specify the extra products to install into the image. These products can either be toolboxes or support packages.
 ARG ADDITIONAL_PRODUCTS="Symbolic_Math_Toolbox Deep_Learning_Toolbox_Model_for_ResNet-50_Network"
@@ -47,7 +47,7 @@ RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \
         --release=${MATLAB_RELEASE} \
         --products ${ADDITIONAL_PRODUCTS} \
     || (echo "MPM Installation Failure. See below for more information:" && cat /tmp/mathworks_root.log && false) \
-    && sudo rm -f mpm /tmp/mathworks_root.log
+    && sudo rm -rf mpm /tmp/mathworks_root.log ${HOME}/.MathWorks
 
 # When running the container a license file can be mounted,
 # or a license server can be provided as an environment variable.

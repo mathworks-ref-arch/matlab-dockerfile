@@ -1,4 +1,4 @@
-# Copyright 2023 The MathWorks, Inc.
+# Copyright 2023-2024 The MathWorks, Inc.
 
 name: Build and Test the "Building on MATLAB Docker Image" Dockerfile
 
@@ -27,7 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        matlab-release: [r2023b, r2023a, r2022b, r2022a]
+        matlab-release: [r2024a, r2023b, r2023a, r2022b, r2022a]
 
     steps:
       - name: Checkout repo
