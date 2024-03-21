@@ -26,20 +26,6 @@
 
 
 ########################################################################
-## RELEASE
-########################################################################
-##
-## By default, mpm installs the latest versions of R2020a 
-## MathWorks products and support packages.
-##
-## To install a specific update for R2020a, set the desired update
-## number (for example, 1, 2, 3, and so on) and uncomment the
-## following line. An updateLevel of 0 installs the general release.
-
-# updateLevel=0
-
-
-########################################################################
 ## SPECIFY DESTINATION FOLDER
 ########################################################################
 ##

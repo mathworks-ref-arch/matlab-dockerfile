@@ -62,9 +62,9 @@ Give the downloaded file executable permissions so that you can run `mpm`.
 
 | Option | Description |
 | ------ | ----------- |
-`--release <release>` | <p>Release to install.</p><ul><li>To install the latest version of a release, specify the release name. Example: `R2023b`</li><li>To install a specific update release, specify the release name with an update number suffix. Example: `R2023bU4`</li><li>To install a release without updates, specify the release name with an update 0 or general release suffix. Example: `R2023bU0`, `R2023bGR`</li></ul><p>**Example**: `--release R2023b`</p>
+`--release <release>` | <p>Release to install.</p><ul><li>To install the latest version of a release, specify the release name. Example: `R2024a`</li><li>To install a specific update release, specify the release name with an update number suffix. Example: `R2024aU4`</li><li>To install a release without updates, specify the release name with an update 0 or general release suffix. Example: `R2024aU0`, `R2024aGR`</li></ul><p>**Example**: `--release R2024a`</p>
 `--products <product1 ... productN>` | <p>Products to install, specified as a list of product names separated by spaces.</p><p>`mpm` can install most MathWorks products and support packages. For the full list of correctly formatted product names, download the template input file for your desired release from the [mpm-input-files](mpm-input-files) folder and view the product and support package lists.</p><p>You do not need to specify all required products. If a product or support package requires another product to be installed, `mpm` installs it automatically.</p><p>For information on products `mpm` cannot install, see [Limitations](#limitations).</p><p>**Example:** `--products MATLAB Simulink Fixed-Point_Designer` installs MATLAB, Simulink, and Fixed-Point Designer.</p><p>**Example:** `--products Deep_Learning_Toolbox` installs Deep Learning Toolbox and also installs its required product, MATLAB, automatically.</p>
-`--inputfile </full/path/to/file>` | <p>Full path to the input file used to install products.</p><p>Download a template input file for your desired release from the [mpm-input-files](mpm-input-files) folder and customize it for your installation. For example, you can specify the products and support packages to install and the desired installation folder.</p><p>You must specify `--inputfile` without any other options.</p><p>**Example:** `--inputfile /home/<USER>/matlab/mpm_input_r2023b.txt`</p>
+`--inputfile </full/path/to/file>` | <p>Full path to the input file used to install products.</p><p>Download a template input file for your desired release from the [mpm-input-files](mpm-input-files) folder and customize it for your installation. For example, you can specify the products and support packages to install and the desired installation folder.</p><p>You must specify `--inputfile` without any other options.</p><p>**Example:** `--inputfile /home/<USER>/matlab/mpm_input_r2024a.txt`</p>
 `--destination </full/path/to/destination>` | <p>Full path to the installation destination folder.</p><p>If you are adding products or support packages to an existing MATLAB installation, specify the full path to where MATLAB is installed. `mpm` determines the folder to which to install support packages based on the MATLAB installation folder.</p><p>If you do not set `--destination`, then `mpm` installs to these locations by default, where `<release>` is the specified `--release` option.</p><p>**Linux:** `/usr/share/matlab`</p><p>**Windows:** `C:\Program Files\MATLAB\<release>`<ul><li>If the Windows machine already includes a MATLAB installation for the specified release, then `mpm` uses the installation folder of that MATLAB release as the default destination.</li></ul></p><p>**macOS:** `/Applications/MATLAB/<release>`</p> 
 `--source </full/path/to/source>` | <p>Full path to the installation source. You can specify one of these sources:</p><ul><li>**Downloaded product files.** For more details, see [Download Products Without Installing](https://www.mathworks.com/help/install/ug/download-without-installing.html). *(R2018b and later releases)*</li><li>**An ISO or DMG image.** You can download images from [MathWorks Downloads](https://www.mathworks.com/downloads). *(R2021b and later releases)*</li></ul><p>If you do not set `--source`, then `mpm` downloads the the product files from MathWorks.</p>
 `--doc` | <p>Flag to install documentation and examples. *(R2022b and earlier releases)*</p><p>To install the documentation in R2023a and later, see [Install Documentation](#install-documentation).</p>
@@ -95,37 +95,37 @@ Give the downloaded file executable permissions so that you can run `mpm`.
 
 ### Install Products to Default Folder
 
-Install MATLAB R2023b, Simulink, and Signal Processing Toolbox™ to the default folder. Navigate to the folder containing the `mpm` binary file and run this command.
+Install MATLAB R2024a, Simulink, and Signal Processing Toolbox™ to the default folder. Navigate to the folder containing the `mpm` binary file and run this command.
 
 * Linux or macOS:
 
-      ./mpm install --release=R2023b --products MATLAB Simulink Signal_Processing_Toolbox
+      ./mpm install --release=R2024a --products MATLAB Simulink Signal_Processing_Toolbox
 * Windows *(run as administrator)*:
 
-      .\mpm.exe install --release=R2023b --products MATLAB Simulink Signal_Processing_Toolbox
+      .\mpm.exe install --release=R2024a --products MATLAB Simulink Signal_Processing_Toolbox
 
 
 You can install additional products later. For example, add Robotics System Toolbox™ to the MATLAB installation.
 
 * Linux or macOS:
 
-      ./mpm install --release=R2023b --products Robotics_System_Toolbox
+      ./mpm install --release=R2024a --products Robotics_System_Toolbox
 
 * Windows *(run as administrator)*:
 
-      .\mpm.exe install --release=R2023b --products Robotics_System_Toolbox
+      .\mpm.exe install --release=R2024a --products Robotics_System_Toolbox
     
 ### Install Products Using Optional Command-Line Inputs
 
-Install MATLAB R2023b and specify the installation destination folder. Also install Parallel Computing Toolbox but without the GPU libraries.
+Install MATLAB R2024a and specify the installation destination folder. Also install Parallel Computing Toolbox but without the GPU libraries.
 
 * Linux or macOS:
       
-      ./mpm install --release=R2023b --destination=/home/<USER>/matlab --products MATLAB Parallel_Computing_Toolbox --no-gpu  
+      ./mpm install --release=R2024a --destination=/home/<USER>/matlab --products MATLAB Parallel_Computing_Toolbox --no-gpu  
 
 * Windows *(run as administrator)*:
 
-      .\mpm.exe install --release=R2023b --destination=\users\<USER>\matlab --products MATLAB Parallel_Computing_Toolbox --no-gpu
+      .\mpm.exe install --release=R2024a --destination=\users\<USER>\matlab --products MATLAB Parallel_Computing_Toolbox --no-gpu
 
 Download a documentation ISO from [Install Documentation on Offline Machines](https://www.mathworks.com/help/install/ug/install-documentation-on-offline-machines.html) and mount the ISO. Install the documentation and examples, specifying the MATLAB installation folder and the path to the mounted ISO.
 
@@ -139,9 +139,9 @@ Download a documentation ISO from [Install Documentation on Offline Machines](ht
 
 ### Install Products Using Input File
 
-Install products and support packages for MATLAB R2023b by specifying installation options in a file.
+Install products and support packages for MATLAB R2024a by specifying installation options in a file.
 
-From the [mpm-input-files](mpm-input-files) folder, open the `R2023b` folder and download the `mpm_input_r2023b.txt` input file.
+From the [mpm-input-files](mpm-input-files) folder, open the `R2024a` folder and download the `mpm_input_r2024a.txt` input file.
 
 Open the file. Configure the MATLAB installation by uncommenting lines that start with a single `'#'` and updating their values. Update these sections:
 
@@ -180,11 +180,11 @@ Install the products and support package.
 
 * Linux or macOS:
 
-      ./mpm install --inputfile /path/to/file/mpm_input_r2023b.txt
+      ./mpm install --inputfile /path/to/file/mpm_input_r2024a.txt
 
 * Windows *(run as administrator)*:
 
-      .\mpm.exe install --inputfile \path\to\file\mpm_input_r2023b.txt
+      .\mpm.exe install --inputfile \path\to\file\mpm_input_r2024a.txt
 
 ## Limitations
 
@@ -215,6 +215,8 @@ Install the products and support package.
   - Simulink Real-Time™ Target Support Package
 
   To install these support packages within MATLAB, see [Get and Manage Add-Ons](https://www.mathworks.com/help/matlab/matlab_env/get-add-ons.html).
+
+- `mpm` supports installing specific update releases only for R2021b and later. For R2021a and earlier, `mpm` always installs the latest update release.
 
 - On Windows, uninstalling products that were installed using `mpm` is not supported.
 
