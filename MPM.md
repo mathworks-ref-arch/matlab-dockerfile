@@ -67,8 +67,9 @@ Give the downloaded file executable permissions so that you can run `mpm`.
 `--inputfile </full/path/to/file>` | <p>Full path to the input file used to install products.</p><p>Download a template input file for your desired release from the [mpm-input-files](mpm-input-files) folder and customize it for your installation. For example, you can specify the products and support packages to install and the desired installation folder.</p><p>You must specify `--inputfile` without any other options.</p><p>**Example:** `--inputfile /home/<USER>/matlab/mpm_input_r2024a.txt`</p>
 `--destination </full/path/to/destination>` | <p>Full path to the installation destination folder.</p><p>If you are adding products or support packages to an existing MATLAB installation, specify the full path to where MATLAB is installed. `mpm` determines the folder to which to install support packages based on the MATLAB installation folder.</p><p>If you do not set `--destination`, then `mpm` installs to these locations by default, where `<release>` is the specified `--release` option.</p><p>**Linux:** `/usr/share/matlab`</p><p>**Windows:** `C:\Program Files\MATLAB\<release>`<ul><li>If the Windows machine already includes a MATLAB installation for the specified release, then `mpm` uses the installation folder of that MATLAB release as the default destination.</li></ul></p><p>**macOS:** `/Applications/MATLAB/<release>`</p> 
 `--source </full/path/to/source>` | <p>Full path to the installation source. You can specify one of these sources:</p><ul><li>**Downloaded product files.** For more details, see [Download Products Without Installing](https://www.mathworks.com/help/install/ug/download-without-installing.html). *(R2018b and later releases)*</li><li>**An ISO or DMG image.** You can download images from [MathWorks Downloads](https://www.mathworks.com/downloads). *(R2021b and later releases)*</li></ul><p>If you do not set `--source`, then `mpm` downloads the the product files from MathWorks.</p>
-`--doc` | <p>Flag to install documentation and examples. *(R2022b and earlier releases)*</p><p>To install the documentation in R2023a and later, see [Install Documentation](#install-documentation).</p>
-`--no-gpu` | <p>Flag to skip installation of GPU libraries when you install Parallel Computing Toolbox. *(R2023a and later releases)*</p><p>If you do not intend to use GPU computing in MATLAB, specify this option to reduce the size of the install. You can install the GPU libraries later by calling a GPU function such as `gpuArray` or `gpuDevice` in MATLAB.</p>
+`--doc` | <p>Install documentation and examples. *(R2022b and earlier releases)*</p><p>To install the documentation in R2023a and later, see [Install Documentation](#install-documentation).</p>
+`--no-gpu` | <p>Skip installation of GPU libraries when you install Parallel Computing Toolbox. *(R2023a and later releases)*</p><p>If you do not intend to use GPU computing in MATLAB, specify this option to reduce the size of the install. You can install the GPU libraries later by calling a GPU function such as `gpuArray` or `gpuDevice` in MATLAB.</p>
+`--no-jre` | <p>Skip installation of the default Java Runtime Environment (JRE) used by MATLAB so that you can set a custom JRE. You must set a supported JRE or MATLAB will not run. For details, see:<ul><li>[Set Custom JRE for MATLAB on Linux](https://www.mathworks.com/matlabcentral/answers/130360)</li><li>[Set Custom JRE for MATLAB on Windows](https://www.mathworks.com/matlabcentral/answers/130359)</li><li>[Set Custom JRE for MATLAB on macOS](https://www.mathworks.com/matlabcentral/answers/103056)</li></ul></p>
 
 ### Install Documentation
 *R2023a and later releases*
@@ -225,6 +226,9 @@ Install the products and support package.
 If you encounter a technical issue or have an enhancement request, create an issue [here](https://github.com/mathworks-ref-arch/matlab-dockerfile/issues).
 
 ## Changelog
+
+### 2024.1.1 - March 27, 2024
+- **Added**: Specify the `--no-jre` option to skip installation of the default Java Runtime Environment (JRE) used by MATLAB so that you can set a custom JRE.
 
 ### 2023.12.1 - December 14, 2023
 - **Added**: Support for Windows
