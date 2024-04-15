@@ -59,7 +59,7 @@ class TestContainer(base.TestCase):
             with self.subTest(package=pkg):
                 self.assertTrue(
                     self.host.package(pkg).is_installed,
-                    f"package {pkg} is not installed",
+                    f"Package {pkg} is not installed",
                 )
 
 

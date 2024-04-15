@@ -1,6 +1,6 @@
-# Copyright 2023 The MathWorks, Inc.
+# Copyright 2024 The MathWorks, Inc.
 
-name: Build and Test the "Building on MATLAB Docker Image" Dockerfile
+name: Build and Test the "Non-Interactive" Dockerfile
 
 # Trigger this workflow either manually or when a new change is pushed to the
 # repo (except .md files)
@@ -9,7 +9,7 @@ on:
   push:
     # Trigger the workflow when the Dockerfile or any file under tests/ is modified
     paths:
-      - "alternates/building-on-matlab-docker-image/Dockerfile"
+      - "alternates/non-interactive/Dockerfile"
       - "tests/**"
       - "!tests/**.md"
   schedule:
@@ -17,9 +17,8 @@ on:
     - cron: "0 0 * * 1"
 
 env:
-  IMAGE_BASE_NAME: from-matlab-docker
-  ALT_PATH: alternates/building-on-matlab-docker-image
-  LICENSE_FILE_PATH: ${{ github.workspace }}/license.lic
+  IMAGE_BASE_NAME: matlab-non-interactive
+  ALT_PATH: alternates/non-interactive
 
 jobs:
   build-test-image:
@@ -27,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        matlab-release: [r2024a, r2023b, r2023a, r2022b, r2022a]
+        matlab-release: [r2024a, r2023b, r2023a, r2022b, r2022a, r2021b, r2021a, r2020b]
 
     steps:
       - name: Checkout repo
@@ -57,14 +56,10 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f tests/requirements.txt ]; then pip install -r tests/requirements.txt; fi
 
-      - name: Generate license file
-        run: echo '${{ secrets.MATLAB_LICENSE_FILE_R2024A }}' > ${{ env.LICENSE_FILE_PATH }}
-
       - name: Test container
         working-directory: tests
         env:
           IMAGE_NAME: ${{ env.IMAGE_BASE_NAME }}:${{ matrix.matlab-release }}
+          BATCH_TOKEN: ${{ secrets.MATLAB_BATCH_TOKEN_EXPIRES_03_2025 }}
         run: |
-          python -m unittest ${{ env.ALT_PATH }}/test_container.py
-          python -m unittest ${{ env.ALT_PATH }}/test_entrypoint.py
-          python -m unittest ${{ env.ALT_PATH }}/test_installed_products.py
+          python -m unittest ${{ env.ALT_PATH }}/test_matlabbatch.py

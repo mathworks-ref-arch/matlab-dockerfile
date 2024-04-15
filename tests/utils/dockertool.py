@@ -85,7 +85,7 @@ class MATLABTestRunner:
         """run the tests in the docker container and report the logs"""
         client = docker.from_env()
         logging.info(
-            f"running command:\n\t{self.command}\nin a '{self.image_name}' container"
+            f"Running command:\n\t{self.command}\nin a '{self.image_name}' container"
         )
         container = client.containers.run(
             image=self.image_name,

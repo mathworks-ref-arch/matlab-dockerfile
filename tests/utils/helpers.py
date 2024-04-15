@@ -1,9 +1,10 @@
-# Copyright 2023 The MathWorks, Inc.
+# Copyright 2023-2024 The MathWorks, Inc.
 
 """
 Set of helpers functions for Docker tests.
 """
 
+from . import mdparser
 import re
 import os
 import time
@@ -13,7 +14,7 @@ def _getenv_(key):
     try:
         return os.environ.get(key)
     except:
-        raise ValueError(f"environment variable {key} not defined")
+        raise ValueError(f"Environment variable {key} not defined")
 
 
 def get_image_name():
@@ -23,11 +24,11 @@ def get_image_name():
 def get_license_filepath():
     filepath = _getenv_("LICENSE_FILE_PATH")
     if filepath == "":
-        raise ValueError("environment variable 'LICENSE_FILE_PATH' is empty")
+        raise ValueError("Environment variable 'LICENSE_FILE_PATH' is empty")
     if not os.path.exists(filepath):
-        raise ValueError(f"license file {filepath} does not exist")
+        raise ValueError(f"License file {filepath} does not exist")
     if os.stat(filepath).st_size <= 1:
-        raise ValueError(f"license file {filepath} is empty")
+        raise ValueError(f"License file {filepath} is empty")
     return filepath
 
 
@@ -58,6 +59,34 @@ def remove_file(filepath):
         os.remove(filepath)
     except OSError:
         pass
+
+def get_changelog_mb_version(filepath):
+    """Get the latest version of matlab-batch from a .md file"""
+    ## look for the vYYYY.MM.N pattern, where
+    # YYYY is the year
+    # MM is the month
+    # N is the patch number
+    pattern = "v(20[2-9][0-9]\.[0-9]{1,2}\.[0-9]+)"
+    ver_regexp = re.compile(pattern)
+
+    headings_tree=mdparser.get_headings_tree(filepath)
+    
+    target_heading = "Changelog"
+    path_to_target = mdparser.find_element(headings_tree, target_heading)
+    if not path_to_target:
+        raise ValueError(f"Unable to find '{target_heading}' in the heading tree of {filepath}")
+    
+    version_list = mdparser.get_children(headings_tree, path_to_target)
+    if not version_list:
+        raise ValueError(f"The heading '{target_heading}' does not have sub-headings")
+    
+    latest_version=version_list[0]
+    match = ver_regexp.search(latest_version)
+    if match is None:
+        raise ValueError(
+            f"The pattern '{pattern}' cannot be found in the content of {filepath}"
+        )
+    return match.group(1)
 
 
 ## Wait functions ##

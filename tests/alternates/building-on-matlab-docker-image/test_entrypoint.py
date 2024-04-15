@@ -97,7 +97,7 @@ class TestEntrypoint(unittest.TestCase):
         self.assertRegex(
             table_lines[-1],
             expected_port,
-            f"command {vnc_list_cmd} returned:\n{vnc_list_output}",
+            f"Command {vnc_list_cmd} returned:\n{vnc_list_output}",
         )
 
     def test_browser_option(self):

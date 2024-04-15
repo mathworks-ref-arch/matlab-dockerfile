@@ -8,7 +8,6 @@ import stat
 import testinfra
 import unittest
 
-
 class TestCase(unittest.TestCase):
     """Base test class for Docker tests"""
 

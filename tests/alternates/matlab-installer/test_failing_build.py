@@ -79,7 +79,7 @@ class TestBrokenBuild(unittest.TestCase):
 
         self.assertTrue(
             any([expected_fail_msg in l.get("stream", "") for l in build_log]),
-            f"expected error message '{expected_fail_msg}' not found in build log\n{build_log}",
+            f"Expected error message '{expected_fail_msg}' not found in build log\n{build_log}",
         )
 
     def test_install_error_message(self):

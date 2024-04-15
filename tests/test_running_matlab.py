@@ -85,7 +85,7 @@ class TestMatlab(unittest.TestCase):
     def test_matlab_version(self):
         """Test that the release number written to VER_OUTPUT_FILE and
         the one from the image name coincide."""
-        helpers.wait_for_file(self.host, self.diaryfullpath, timeout=10)
+        helpers.wait_for_file(self.host, self.diaryfullpath, timeout=30)
         ver_from_mat = self.host.file(self.diaryfullpath).content_string.rstrip("\n")
         self.assertEqual(
             helpers.get_release_from_string(self.image_name).upper().lstrip("R"),
