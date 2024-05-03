@@ -112,6 +112,12 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 
 ## Changelog
 
+### v2024.05.0
+
+- **Added:** Notification when **matlab-batch** requires redownloading.
+- **Added:** Trimming of whitespace from front and back of tokens.
+- **Fixed:** Robustness against poor network conditions.
+
 ### v2024.02.1
 
 - **Added:** Support for macOS with Apple silicon.
