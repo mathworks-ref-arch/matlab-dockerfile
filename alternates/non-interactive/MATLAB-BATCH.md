@@ -2,7 +2,8 @@
 
 MATLAB&reg; batch licensing executable (**matlab-batch**) is a command line tool that starts MATLAB non-interactively using a batch licensing token and any MATLAB startup options. Specify a MATLAB statement to run as the final argument. **matlab-batch** requires a valid MATLAB executable.
 
-The MATLAB batch licensing project is still in the pilot phase. To inquire about eligibility requirements for the MATLAB batch licensing pilot, contact <batch-tokens@mathworks.com>.
+The MATLAB batch licensing project is still in the pilot phase. To inquire about eligibility requirements, fill out this form on the MathWorks&reg; website: [Batch Licensing Pilot Eligibility](https://www.mathworks.com/support/batch-tokens.html).
+
 
 ## Download MATLAB Batch Licensing Executable
 
@@ -106,7 +107,7 @@ If your batch licensing token expires in less than 30 days, **matlab-batch** pri
  - R2023b is the oldest release that **matlab-batch** supports on macOS with Apple silicon.
 
 ## Feedback and Support
-To inquire about eligibility requirements for the MATLAB batch licensing pilot, contact <batch-tokens@mathworks.com>.
+To inquire about eligibility requirements for the MATLAB batch licensing pilot, fill out this form on the MathWorks website: [Batch Licensing Pilot Eligibility](https://www.mathworks.com/support/batch-tokens.html).
 
 For support, contact [MathWorks Technical Support](https://www.mathworks.com/support/contact_us.html).
 

@@ -228,7 +228,7 @@ If you encounter a technical issue or have an enhancement request, create an iss
 ## Changelog
 
 ### 2024.1.1 - March 27, 2024
-- **Added**: Specify the `--no-jre` option to skip installation of the default Java Runtime Environment (JRE) used by MATLAB so that you can set a custom JRE.
+- **Added**: Specify the `--no-jre` option that allows you to skip installing the default Java Runtime Environment (JRE) used by MATLAB and set a custom JRE instead. For information on which JREs are supported, see [Versions of OpenJDK Compatible with MATLAB by Release](https://www.mathworks.com/support/requirements/openjdk.html) on the MathWorks website.
 
 ### 2023.12.1 - December 14, 2023
 - **Added**: Support for Windows

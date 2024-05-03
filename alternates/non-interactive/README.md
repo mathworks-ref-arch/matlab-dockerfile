@@ -2,7 +2,7 @@
 
 The Dockerfile in this subfolder shows you how to build and customize a Docker&reg; container for MATLAB&reg; and its toolboxes, using the [MATLAB Package Manager (*mpm*)](../../MPM.md), and [MATLAB Batch Licensing (via **matlab-batch**)](MATLAB-BATCH.md). Use this Dockerfile if you have a MATLAB batch licensing token to license MATLAB in your container.
 
-The MATLAB batch licensing project is still in the pilot phase. To inquire about eligibility requirements for the MATLAB batch licensing pilot, contact <batch-tokens@mathworks.com>.
+The MATLAB batch licensing project is still in the pilot phase. To inquire about eligibility requirements, fill out this form on the MathWorks&reg; website: [Batch Licensing Pilot Eligibility](https://www.mathworks.com/support/batch-tokens.html).
 
 You can use this container image as a scalable and reproducible method to deploy and test your MATLAB code in non-interactive environments.
 
