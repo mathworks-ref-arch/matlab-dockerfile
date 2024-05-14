@@ -33,7 +33,7 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Move matlab-install mock to right location
         run: |
@@ -41,7 +41,7 @@ jobs:
           cp tests/${{ env.ALT_PATH }}/mocks/matlab_installer_input.txt ./${{ env.ALT_PATH }}
 
       - name: Set up Python 3
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
@@ -55,10 +55,10 @@ jobs:
         run: python -m unittest ${{ env.ALT_PATH }}/test_failing_build.py
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Build image locally
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           platforms: linux/amd64
           context: ${{ env.ALT_PATH }}
