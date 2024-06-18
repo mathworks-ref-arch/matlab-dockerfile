@@ -63,20 +63,22 @@ Give the downloaded file executable permissions so that you can run `mpm`.
 | Option | Description |
 | ------ | ----------- |
 `--release <release>` | <p>Release to install.</p><ul><li>To install the latest version of a release, specify the release name. Example: `R2024a`</li><li>To install a specific update release, specify the release name with an update number suffix. Example: `R2024aU4`</li><li>To install a release without updates, specify the release name with an update 0 or general release suffix. Example: `R2024aU0`, `R2024aGR`</li></ul><p>**Example**: `--release R2024a`</p>
-`--products <product1 ... productN>` | <p>Products to install, specified as a list of product names separated by spaces.</p><p>`mpm` can install most MathWorks products and support packages. For the full list of correctly formatted product names, download the template input file for your desired release from the [mpm-input-files](mpm-input-files) folder and view the product and support package lists.</p><p>You do not need to specify all required products. If a product or support package requires another product to be installed, `mpm` installs it automatically.</p><p>For information on products `mpm` cannot install, see [Limitations](#limitations).</p><p>**Example:** `--products MATLAB Simulink Fixed-Point_Designer` installs MATLAB, Simulink, and Fixed-Point Designer.</p><p>**Example:** `--products Deep_Learning_Toolbox` installs Deep Learning Toolbox and also installs its required product, MATLAB, automatically.</p>
+`--products <product1 ... productN>` | <p>Products to install, specified as a list of product names separated by spaces.</p><p>`mpm` can install most MathWorks products and support packages. For the full list of correctly formatted product names, download the template input file for your desired release from the [mpm-input-files](mpm-input-files) folder and view the product and support package lists.</p><p>You do not need to specify all required products. If a product or support package requires another product to be installed, `mpm` installs it automatically.</p><p>For information on products `mpm` cannot install, see [Limitations](#limitations).</p><p>**Example:** `--products MATLAB Simulink Fixed-Point_Designer` installs MATLAB, Simulink, and Fixed-Point Designer.</p><p>**Example:** `--products Deep_Learning_Toolbox` installs Deep Learning Toolbox and its required product, MATLAB, automatically.</p>
 `--inputfile </full/path/to/file>` | <p>Full path to the input file used to install products.</p><p>Download a template input file for your desired release from the [mpm-input-files](mpm-input-files) folder and customize it for your installation. For example, you can specify the products and support packages to install and the desired installation folder.</p><p>You must specify `--inputfile` without any other options.</p><p>**Example:** `--inputfile /home/<USER>/matlab/mpm_input_r2024a.txt`</p>
 `--destination </full/path/to/destination>` | <p>Full path to the installation destination folder.</p><p>If you are adding products or support packages to an existing MATLAB installation, specify the full path to where MATLAB is installed. `mpm` determines the folder to which to install support packages based on the MATLAB installation folder.</p><p>If you do not set `--destination`, then `mpm` installs to these locations by default, where `<release>` is the specified `--release` option.</p><p>**Linux:** `/usr/share/matlab`</p><p>**Windows:** `C:\Program Files\MATLAB\<release>`<ul><li>If the Windows machine already includes a MATLAB installation for the specified release, then `mpm` uses the installation folder of that MATLAB release as the default destination.</li></ul></p><p>**macOS:** `/Applications/MATLAB/<release>`</p> 
-`--source </full/path/to/source>` | <p>Full path to the installation source. You can specify one of these sources:</p><ul><li>**Downloaded product files.** For more details, see [Download Products Without Installing](https://www.mathworks.com/help/install/ug/download-without-installing.html). *(R2018b and later releases)*</li><li>**An ISO or DMG image.** You can download images from [MathWorks Downloads](https://www.mathworks.com/downloads). *(R2021b and later releases)*</li></ul><p>If you do not set `--source`, then `mpm` downloads the the product files from MathWorks.</p>
-`--doc` | <p>Install documentation and examples. *(R2022b and earlier releases)*</p><p>To install the documentation in R2023a and later, see [Install Documentation](#install-documentation).</p>
+`--source </full/path/to/source>` | <p>Full path to the installation source. You can specify one of these sources:</p><ul><li>**Downloaded product files.** For more details, see [Download Products Without Installing](https://www.mathworks.com/help/install/ug/download-without-installing.html). *(R2018b and later releases)*</li><li>**A mounted ISO or DMG image.** For an example, see [Install Products from Mounted ISO or DMG Image](#install-products-from-mounted-iso-or-dmg-image). *(R2022a and later releases)*</li></ul><p>If you do not set `--source`, then `mpm` downloads the product files from MathWorks.</p>
+`--doc` | <p>Include documentation with the MATLAB installation. *(R2022a and R2022b only)*</p><p>In R2022a and later releases, the documentation is not included by default, and MATLAB defaults to the web documentation. To include the documentation in R2022a and R2022b releases, use the `--doc` option. In R2021b and earlier releases, the documentation is included by default, and the `--doc` option is not required.</p><p>To include the documentation in R2023a and later releases, use [mpm install-doc](#install-documentation).</li></ul></li></ul></p>
 `--no-gpu` | <p>Skip installation of GPU libraries when you install Parallel Computing Toolbox. *(R2023a and later releases)*</p><p>If you do not intend to use GPU computing in MATLAB, specify this option to reduce the size of the install. You can install the GPU libraries later by calling a GPU function such as `gpuArray` or `gpuDevice` in MATLAB.</p>
 `--no-jre` | <p>Skip installation of the default Java Runtime Environment (JRE) used by MATLAB so that you can set a custom JRE. You must set a supported JRE or MATLAB will not run. For details, see:<ul><li>[Set Custom JRE for MATLAB on Linux](https://www.mathworks.com/matlabcentral/answers/130360)</li><li>[Set Custom JRE for MATLAB on Windows](https://www.mathworks.com/matlabcentral/answers/130359)</li><li>[Set Custom JRE for MATLAB on macOS](https://www.mathworks.com/matlabcentral/answers/103056)</li></ul></p>
 
 ### Install Documentation
 *R2023a and later releases*
 
-`mpm install-doc --matlabroot <matlabroot>` installs documentation and examples for the MATLAB installation at `<matlabroot>`. [Example](#install-products-using-optional-command-line-inputs)
+`mpm install-doc --matlabroot <matlabroot> --source </full/path/to/source>` installs documentation and examples for the MATLAB installation at `<matlabroot>` from the ISO or DMG image mounted at `</full/path/to/source>`. [Example](#install-documentation-and-examples)
 
-`mpm install-doc --matlabroot <matlabroot> <docOptions>` sets additional [documentation installation options](#documentation-installation-options). For example, you can specify the path to a mounted ISO image of the documentation or the documentation installation destination. [Example](#install-products-using-optional-command-line-inputs)
+`mpm install-doc --matlabroot <matlabroot>` installs documentation and examples by calling the `mpm` executable included within mounted documentation ISO or DMG images. For details on this workflow, see [Install Documentation on Permanently Offline Computers](https://www.mathworks.com/help/install/ug/install-documentation-on-offline-machines.html).
+
+`mpm install-doc ... --destination </full/path/to/destination>` sets the documentation installation folder to `</full/path/to/destination>`, using either of the previous syntaxes. 
 
 #### Documentation Installation Options
 
@@ -84,7 +86,7 @@ Give the downloaded file executable permissions so that you can run `mpm`.
 | ------ | ----------- |
 `--matlabroot </full/path/to/matlabroot>` | <p>Full path to the folder in which MATLAB is installed.</p>
 `--source </full/path/to/source>` | <p>Full path to the mounted documentation ISO.</p><p>If you do not set `--source`, then `mpm` installs the documentation to `$PWD/archives`.</p><p>To download a documentation ISO, see [Install Documentation on Offline Machines](https://www.mathworks.com/help/install/ug/install-documentation-on-offline-machines.html).</p>
-`--docroot </full/path/to/docroot>` | <p>Full path to the documentation installation folder.</p>
+`--destination </full/path/to/destination>` | <p>Full path to the documentation installation folder.</p>
 
 ### Get Help and Version Information
 
@@ -126,17 +128,8 @@ Install MATLAB R2024a and specify the installation destination folder. Also inst
 
 * Windows *(run as administrator)*:
 
-      .\mpm.exe install --release=R2024a --destination=\users\<USER>\matlab --products MATLAB Parallel_Computing_Toolbox --no-gpu
+      .\mpm.exe install --release=R2024a --destination="C:\Users\<USER>\matlab" --products MATLAB Parallel_Computing_Toolbox --no-gpu
 
-Download a documentation ISO from [Install Documentation on Offline Machines](https://www.mathworks.com/help/install/ug/install-documentation-on-offline-machines.html) and mount the ISO. Install the documentation and examples, specifying the MATLAB installation folder and the path to the mounted ISO.
-
-* Linux or macOS:
-
-      ./mpm install-doc --matlabroot=/home/<USER>/matlab --source=/path/to/source
-
-* Windows *(run as administrator)*:
-
-      .\mpm.exe install-doc --matlabroot=\users\<USER>\matlab --source=\path\to\source
 
 ### Install Products Using Input File
 
@@ -156,7 +149,7 @@ destinationFolder=/home/<USER>/matlab
 ```
 Windows:
 ```
-destinationFolder=\users\<USER>\matlab
+destinationFolder="C:\Users\<USER>\matlab"
 ```
 
 *INSTALL PRODUCTS*
@@ -187,6 +180,39 @@ Install the products and support package.
 
       .\mpm.exe install --inputfile \path\to\file\mpm_input_r2024a.txt
 
+### Install Products from Mounted ISO or DMG Image
+
+From [MathWorks Downloads](https://www.mathworks.com/downloads), get an ISO or DMG image containing MATLAB and Simulink products.
+
+Mount the image. For instructions, see [this MATLAB Answers post](https://www.mathworks.com/support/search.html/answers/94021-how-do-i-install-mathworks-products-using-an-iso-image.html).
+
+Install products from this image by specifying the path to the image in the `source` option. For example:
+
+* Linux or macOS:
+
+      ./mpm install --release=R2024a --source=/path/to/mounted/image --products MATLAB Simulink
+
+* Windows *(run as administrator)*:
+
+      .\mpm.exe install --release=R2024a --source="\path\to\mounted\image" --products MATLAB Simulink
+
+
+### Install Documentation and Examples
+
+Download a documentation ISO or DMG image from [Install Documentation on Permanently Offline Machines](https://www.mathworks.com/help/install/ug/install-documentation-on-offline-machines.html).
+
+Mount the ISO. For instructions, see [this MATLAB Answers post](https://www.mathworks.com/support/search.html/answers/94021-how-do-i-install-mathworks-products-using-an-iso-image.html).
+
+Install the documentation and examples, specifying the MATLAB installation folder and the path to the mounted ISO or DMG image.
+
+* Linux or macOS:
+
+      ./mpm install-doc --matlabroot=/home/<USER>/matlab --source=/path/to/mounted/doc/image
+
+* Windows *(run as administrator)*:
+
+      .\mpm.exe install-doc --matlabroot=\users\<USER>\matlab --source="\path\to\mounted\doc\image"
+
 ## Limitations
 
 - `mpm` supports installing products and support packages for these releases only:
@@ -197,7 +223,6 @@ Install the products and support package.
   - [Products Not Available for Mac](https://www.mathworks.com/support/requirements/matlab-mac.html)
   - [Products Not Available for Apple silicon Macs](https://www.mathworks.com/support/requirements/apple-silicon.html)
 - `mpm` cannot install these products:
-
   - IEC Certification Kit
   - DO Qualification Kit
   - Simulink Code Inspector™
@@ -205,7 +230,6 @@ Install the products and support package.
   For alternative ways to install these products, see [Install Products](https://www.mathworks.com/help/install/install-products.html).
 
 - `mpm` cannot install these support packages:
-
   - Image Acquisition Toolbox™ Support Package for GenICam™ Interface
   - Image Acquisition Toolbox Support Package for GigE Vision® Hardware
   - Simulink Coder™ Support Package for BBC micro:bit
