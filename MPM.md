@@ -23,11 +23,11 @@ Give the downloaded file executable permissions so that you can run `mpm`.
     chmod +x mpm
 
 ### Windows
-From a Windows PowerShell command prompt, use `wget` to download the latest version of `mpm`.
+From a Windows PowerShell prompt, use `Invoke-WebRequest` to download the latest version of `mpm`.
 
-    wget https://www.mathworks.com/mpm/win64/mpm -outfile mpm.exe
+    Invoke-WebRequest -Uri https://www.mathworks.com/mpm/win64/mpm -OutFile mpm.exe
 
-> **Note**: You must run `mpm` from the Windows command prompt as an administrator or you get an error during installation.
+> **Note**: You must run `mpm` from the Windows PowerShell prompt as an administrator or you get an error during installation.
 
 ### macOS
 From a macOS terminal, use `curl` to download the latest version of `mpm` for your macOS architecture.
