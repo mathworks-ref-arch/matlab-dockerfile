@@ -190,11 +190,11 @@ Install products from this image by specifying the path to the image in the `sou
 
 * Linux or macOS:
 
-      ./mpm install --release=R2024a --source=/path/to/mounted/image --products MATLAB Simulink
+      ./mpm install --source=/path/to/mounted/image --products MATLAB Simulink
 
 * Windows *(run as administrator)*:
 
-      .\mpm.exe install --release=R2024a --source="\path\to\mounted\image" --products MATLAB Simulink
+      .\mpm.exe install --source="\path\to\mounted\image" --products MATLAB Simulink
 
 
 ### Install Documentation and Examples
