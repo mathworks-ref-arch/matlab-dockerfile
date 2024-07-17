@@ -251,6 +251,12 @@ If you encounter a technical issue or have an enhancement request, create an iss
 
 ## Changelog
 
+### 2024.2 - July 17, 2024
+- **Added**: Use `mpm download` to download products and support packages without installing them.
+- **Added**: Install support packages that were downloaded using `mpm download`.
+- **Added**: Support for installing IEC Certification Kit, DO Qualification Kit, and Simulink Code Inspector from a downloaded archive.
+- **Changed**: `mpm` now omits installing products that are already installed instead of issuing an error.
+
 ### 2024.1.1 - March 27, 2024
 - **Added**: Specify the `--no-jre` option that allows you to skip installing the default Java Runtime Environment (JRE) used by MATLAB and set a custom JRE instead. For information on which JREs are supported, see [Versions of OpenJDK Compatible with MATLAB by Release](https://www.mathworks.com/support/requirements/openjdk.html) on the MathWorks website.
 
