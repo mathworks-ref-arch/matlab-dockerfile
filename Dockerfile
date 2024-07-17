@@ -1,4 +1,4 @@
-# Copyright 2019 - 2024 The MathWorks, Inc.
+# Copyright 2019-2024 The MathWorks, Inc.
 # This Dockerfile allows you to build a Docker® image with MATLAB® installed using the MATLAB Package 
 # Manager. Use the optional build arguments to customize the version of MATLAB, list of products to 
 # install, and the location at which to install MATLAB.
@@ -38,7 +38,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
     && apt-get install --no-install-recommends --yes \
     wget \
-    unzip \
     ca-certificates \
     && apt-get clean \
     && apt-get autoremove \

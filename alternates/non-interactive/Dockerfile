@@ -33,7 +33,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
     && apt-get install --no-install-recommends --yes \
     wget \
-    unzip \
     ca-certificates \
     && apt-get clean \
     && apt-get autoremove \

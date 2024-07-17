@@ -11,7 +11,7 @@ To get started:
 ## Download MATLAB Package Manager
 ### Linux
 Verify that this required software is installed:
-* All third-party packages required to run the `mpm` command: `unzip`, `ca-certificates`
+* All third-party packages required to run the `mpm` command: `ca-certificates`
 * All MATLAB dependencies. To view the list of dependencies, in the [MATLAB Dependencies](https://github.com/mathworks-ref-arch/container-images/tree/master/matlab-deps) repository, open the `<release>/<system>/base-dependencies.txt` file for your MATLAB release and operating system.
 
 From a Linux terminal, use `wget` to download the latest version of `mpm`.
