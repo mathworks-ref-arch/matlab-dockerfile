@@ -255,6 +255,9 @@ If you encounter a technical issue or have an enhancement request, create an iss
 
 ## Changelog
 
+### 2024.2.1 - July 24, 2024
+- **Fixed:** Resolved an issue that causes `mpm` to fail on some Linux distributions.
+
 ### 2024.2 - July 17, 2024
 - **Added**: Use `mpm download` to download products and support packages without installing them.
 - **Added**: Install support packages that were downloaded using `mpm download`.
