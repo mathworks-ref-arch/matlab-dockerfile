@@ -113,10 +113,10 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 
 ## Changelog
 
-## v2024.06.1
+### v2024.06.1
 - **Added:** Support for MATLAB R2024b Prerelease.
 
-## v2024.06.0
+### v2024.06.0
 - **Fixed:** Error message on finding an unsupported old MATLAB release.
 - **Added:** Warning messages when **matlab-batch** will soon expire.
 
