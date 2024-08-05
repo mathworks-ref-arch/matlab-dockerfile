@@ -8,7 +8,7 @@ The workflow in this folder builds and tests the Dockerfile found in `alternates
 
 The workflow is scheduled to run every Monday at 00:00.
 
-Additionally, the workflow is triggered each time you push a change in the [`Dockerfile`](../../alternates/matlab-installer/Dockerfile) or in the [`tests` directory](../../tests/alternates/matlab-installer) to the repository.
+Additionally, the workflow is triggered each time you push a change in the [`Dockerfile`](../../alternates/matlab-installer/Dockerfile) or in the [`tests` directory](../../tests) to the repository.
 
 You can also trigger the workflow from the "Actions" tab.
 
@@ -25,6 +25,6 @@ This workflow consists of the following steps:
 
 ---
 
-Copyright 2023 The MathWorks, Inc. All rights reserved.
+Copyright 2023-2024 The MathWorks, Inc. All rights reserved.
 
 ---

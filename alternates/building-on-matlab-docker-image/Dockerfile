@@ -46,7 +46,7 @@ RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \
         --release=${MATLAB_RELEASE} \
         --products ${ADDITIONAL_PRODUCTS} \
     || (echo "MPM Installation Failure. See below for more information:" && cat /tmp/mathworks_root.log && false) \
-    && sudo rm -rf mpm /tmp/mathworks_root.log ${HOME}/.MathWorks
+    && sudo rm -rf mpm /tmp/mathworks_root.log
 
 # When running the container a license file can be mounted,
 # or a license server can be provided as an environment variable.

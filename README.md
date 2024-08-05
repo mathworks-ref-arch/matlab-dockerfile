@@ -4,11 +4,11 @@ This repository shows you how to build and customize a Docker&reg; container for
 
 You can use this container image as a scalable and reproducible method to deploy and test your MATLAB code.
 
-You can also download prebuilt images based on this Dockerfile from [here](https://github.com/mathworks-ref-arch/matlab-dockerfile/pkgs/container/matlab-dockerfile%2Fmatlab).
+You can also download prebuilt images based on this Dockerfile from [here](https://github.com/mathworks-ref-arch/matlab-dockerfile/pkgs/container/matlab-dockerfile%2Fmatlab). For alternative resources, see [More MATLAB Docker Resources](#more-matlab-docker-resources).
 
 ### Requirements
 * [A Running Network License Manager for MATLAB](https://www.mathworks.com/help/install/administer-network-licenses.html)
-    * For more information, see [Using the Network License Manager](#use-the-network-license-manager) 
+    * For more information, see [Using the Network License Manager](#use-the-network-license-manager)
 * Docker
 
 ## Build Instructions
@@ -60,7 +60,7 @@ The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/ma
 | [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | r2024a | The MATLAB release you want to install, in lower-case. For example: `r2019b`|
 | [MATLAB_PRODUCT_LIST](#build-an-image-with-a-specific-set-of-products) | MATLAB | Products to install as a space-separated list. For more information, see [MPM.md](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md). For example: `MATLAB Simulink Deep_Learning_Toolbox Fixed-Point_Designer`|
 | [MATLAB_INSTALL_LOCATION](#build-an-image-with-matlab-installed-to-a-specific-location) | /opt/matlab/r2024a | The path to install MATLAB. |
-| [LICENSE_SERVER](#build-an-image-with-license-server-information) | *unset* | The port and hostname of the machine that is running the Network License Manager, using the `port@hostname` syntax. For example: `27000@MyServerName` |
+| [LICENSE_SERVER](#build-an-image-configured-to-use-a-license-server) | *unset* | The port and hostname of the machine that is running the Network License Manager, using the `port@hostname` syntax. For example: `27000@MyServerName` |
 
 Use these arguments with the the `docker build` command to customize your image.
 Alternatively, you can change the default values for these arguments directly in the [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile).
@@ -83,7 +83,7 @@ For example, to build an image with MATLAB installed at /opt/matlab, use this co
 docker build --build-arg MATLAB_INSTALL_LOCATION='/opt/matlab' -t matlab:r2024a .
 ```
 
-#### Build an Image with License Server Information
+#### Build an Image Configured to Use a License Server
 
 Including the license server information with the `docker build` command means you do not have to pass it when running the container.
 ```bash
@@ -182,6 +182,7 @@ see the examples in the [**alternates folder**](alternates) of this repository:
     * [matlab-installer](alternates/matlab-installer) is an example of a Dockerfile that uses the matlab installer rather than mpm to install MATLAB in the container, allowing the installation of some toolboxes that are not currently supported by mpm.
     * [building-on-matlab-docker-image](alternates/building-on-matlab-docker-image) is an example of a Dockerfile that builds on top of the [MATLAB Container Image on Docker Hub](https://hub.docker.com/r/mathworks/matlab), to install extra toolboxes.
     * [non-interactive](alternates/non-interactive) is an example of a Dockerfile that licenses MATLAB using MATLAB batch licensing tokens, facilitating the execution of MATLAB in non-interactive environments.
+    * [matlab-container-offline-install](alternates/matlab-container-offline-install/) shows you how to build and customize a Docker container for MATLAB and its toolboxes in an offline environment.
 
 * Enable additional capabilities using the [MATLAB Dependencies repository](https://github.com/mathworks-ref-arch/container-images/tree/master/matlab-deps). 
 For some workflows and toolboxes, you must specify dependencies. You must do this if you want to do any of the following tasks:

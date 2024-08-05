@@ -1,6 +1,6 @@
-# Copyright 2023 The MathWorks, Inc.
+# Copyright 2024 The MathWorks, Inc.
 
-name: Build and Test the "Building on MATLAB Docker Image" Dockerfile
+name: Build and Test the "MATLAB Container Offline Install" Dockerfiles
 
 # Trigger this workflow either manually or when a new change is pushed to the
 # repo (except .md files)
@@ -9,8 +9,9 @@ on:
   push:
     # Trigger the workflow when the Dockerfile or any file under tests/ is modified
     paths:
-      - "alternates/building-on-matlab-docker-image/Dockerfile"
-      - "tests/alternates/building-on-matlab-docker-image/*"
+      - "alternates/matlab-container-offline-install/archive.Dockerfile"
+      - "alternates/matlab-container-offline-install/Dockerfile"
+      - "tests/alternates/matlab-container-offline-install/*"
       - "tests/utils/**"
       - "!**.md"
   schedule:
@@ -18,17 +19,19 @@ on:
     - cron: "0 0 * * 1"
 
 env:
-  IMAGE_BASE_NAME: from-matlab-docker
-  ALT_PATH: alternates/building-on-matlab-docker-image
+  ARCHIVE_BASE_NAME: mpm-archive
+  IMAGE_BASE_NAME: matlab
+  ALT_PATH: alternates/matlab-container-offline-install
+  MATLAB_PRODUCT_LIST: "MATLAB Symbolic_Math_Toolbox Deep_Learning_Toolbox_Model_for_ResNet-50_Network"
   LICENSE_FILE_PATH: ${{ github.workspace }}/license.lic
-
+  
 jobs:
   build-test-image:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        matlab-release: [r2024a, r2023b, r2023a, r2022b, r2022a]
+        matlab-release: [r2024a, r2023b, r2023a, r2022b, r2022a, r2021b, r2021a, r2020b]
 
     steps:
       - name: Checkout repo
@@ -36,15 +39,33 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+        with:
+          driver: docker
 
-      - name: Build image locally
+      - name: Build archive image
+        uses: docker/build-push-action@v5
+        with:
+          platforms: linux/amd64
+          context: ${{ env.ALT_PATH }}
+          file: ${{ env.ALT_PATH }}/archive.Dockerfile
+          load: true
+          build-args: |
+            MATLAB_RELEASE=${{ matrix.matlab-release }}
+            MATLAB_PRODUCT_LIST=${{ env.MATLAB_PRODUCT_LIST }}
+          tags: |
+            ${{ env.ARCHIVE_BASE_NAME }}:${{ matrix.matlab-release }}
+
+      - name: Build final image offline
         uses: docker/build-push-action@v5
         with:
           platforms: linux/amd64
           context: ${{ env.ALT_PATH }}
           load: true
+          network: none
           build-args: |
             MATLAB_RELEASE=${{ matrix.matlab-release }}
+            MATLAB_PRODUCT_LIST=${{ env.MATLAB_PRODUCT_LIST }}
+            ARCHIVE_BASE_IMAGE=${{ env.ARCHIVE_BASE_NAME }}:${{ matrix.matlab-release }}
           tags: |
             ${{ env.IMAGE_BASE_NAME }}:${{ matrix.matlab-release }}
 
@@ -58,6 +79,7 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f tests/requirements.txt ]; then pip install -r tests/requirements.txt; fi
 
+          
       - name: Generate license file
         run: echo '${{ secrets.MATLAB_LICENSE_FILE_R2024A }}' > ${{ env.LICENSE_FILE_PATH }}
 
@@ -67,5 +89,4 @@ jobs:
           IMAGE_NAME: ${{ env.IMAGE_BASE_NAME }}:${{ matrix.matlab-release }}
         run: |
           python -m unittest ${{ env.ALT_PATH }}/test_container.py
-          python -m unittest ${{ env.ALT_PATH }}/test_entrypoint.py
           python -m unittest ${{ env.ALT_PATH }}/test_installed_products.py

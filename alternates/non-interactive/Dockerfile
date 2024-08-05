@@ -57,7 +57,7 @@ RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \
     --destination=${MATLAB_INSTALL_LOCATION} \
     --products ${MATLAB_PRODUCT_LIST} \
     || (echo "MPM Installation Failure. See below for more information:" && cat /tmp/mathworks_root.log && false) \
-    && sudo rm -rf mpm /tmp/mathworks_root.log ${HOME}/.MathWorks \
+    && sudo rm -rf mpm /tmp/mathworks_root.log \
     && sudo ln -s ${MATLAB_INSTALL_LOCATION}/bin/matlab /usr/local/bin/matlab
 
 # Install matlab-batch to enable the use of MATLAB batch licensing tokens.

@@ -10,8 +10,9 @@ on:
     # Trigger the workflow when the Dockerfile or any file under tests/ is modified
     paths:
       - "alternates/non-interactive/Dockerfile"
-      - "tests/**"
-      - "!tests/**.md"
+      - "tests/alternates/non-interactive/*"
+      - "tests/utils/**"
+      - "!**.md"
   schedule:
     # Run at 00:00 on every Monday (1st Day of the Week)
     - cron: "0 0 * * 1"
