@@ -113,6 +113,9 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 
 ## Changelog
 
+### v2024.07.0
+- **Added:** Internal changes to support upcoming features.
+
 ### v2024.06.1
 - **Added:** Support for MATLAB R2024b Prerelease.
 

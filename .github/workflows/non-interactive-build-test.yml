@@ -10,8 +10,8 @@ on:
     # Trigger the workflow when the Dockerfile or any file under tests/ is modified
     paths:
       - "alternates/non-interactive/Dockerfile"
-      - "tests/alternates/non-interactive/*"
-      - "tests/utils/**"
+      - "alternates/non-interactive/MATLAB-BATCH.md"
+      - "tests/**"
       - "!**.md"
   schedule:
     # Run at 00:00 on every Monday (1st Day of the Week)
@@ -27,7 +27,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        matlab-release: [r2024a, r2023b, r2023a, r2022b, r2022a, r2021b, r2021a, r2020b]
+        matlab-release:
+          [r2024a, r2023b, r2023a, r2022b, r2022a, r2021b, r2021a, r2020b]
 
     steps:
       - name: Checkout repo
