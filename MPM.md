@@ -21,6 +21,9 @@ If you encounter a technical issue or have an enhancement request, create an iss
 
 ## Changelog
 
+### 2024.2.2 - August 14, 2024
+- **Security:** Patched CVE-2023-45853.
+
 ### 2024.2.1 - July 24, 2024
 - **Fixed:** Resolved an issue that causes `mpm` to fail on some Linux distributions.
 
