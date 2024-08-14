@@ -88,7 +88,6 @@
 #product.MATLAB_Compiler
 #product.MATLAB_Compiler_SDK
 #product.MATLAB_Parallel_Server
-#product.MATLAB_Production_Server
 #product.MATLAB_Report_Generator
 #product.Mapping_Toolbox
 #product.Mixed-Signal_Blockset
@@ -100,8 +99,6 @@
 #product.Parallel_Computing_Toolbox
 #product.Partial_Differential_Equation_Toolbox
 #product.Phased_Array_System_Toolbox
-#product.Polyspace_Bug_Finder
-#product.Polyspace_Bug_Finder_Server
 #product.Polyspace_Code_Prover
 #product.Polyspace_Code_Prover_Server
 #product.Powertrain_Blockset
