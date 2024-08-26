@@ -42,7 +42,7 @@ The example command `ver` displays the version number of MATLAB and other instal
 >
 > Using the `--init` flag in the `docker run` command ensures that the container stops gracefully when a `docker stop` or `docker kill` command is issued.
 > For more information, see the following links:
-> * [Docker run reference page](https://docs.docker.com/engine/reference/run/#specify-an-init-process).
+> * [Docker run reference page](https://docs.docker.com/reference/cli/docker/container/run/#init).
 > * [Blog post on the usage of init](https://www.baeldung.com/ops/docker-init-parameter).
 
 
