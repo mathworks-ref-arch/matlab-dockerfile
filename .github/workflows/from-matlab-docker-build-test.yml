@@ -66,7 +66,4 @@ jobs:
         working-directory: tests
         env:
           IMAGE_NAME: ${{ env.IMAGE_BASE_NAME }}:${{ matrix.matlab-release }}
-        run: |
-          python -m unittest ${{ env.ALT_PATH }}/test_container.py
-          python -m unittest ${{ env.ALT_PATH }}/test_entrypoint.py
-          python -m unittest ${{ env.ALT_PATH }}/test_installed_products.py
+        run: python -m unittest -v ${{ env.ALT_PATH }}/*.py
