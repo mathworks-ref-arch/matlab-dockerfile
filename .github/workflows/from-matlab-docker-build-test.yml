@@ -12,6 +12,7 @@ on:
       - "alternates/building-on-matlab-docker-image/Dockerfile"
       - "tests/alternates/building-on-matlab-docker-image/*"
       - "tests/utils/**"
+      - ".github/workflows/from-matlab-docker-build-test.yml"
       - "!**.md"
   schedule:
     # Run at 00:00 on every Monday (1st Day of the Week)
@@ -28,7 +29,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        matlab-release: [r2024a, r2023b, r2023a, r2022b, r2022a]
+        matlab-release: [R2024a, R2023b, R2023a, R2022b, R2022a]
 
     steps:
       - name: Checkout repo

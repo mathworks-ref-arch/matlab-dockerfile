@@ -12,6 +12,7 @@ on:
       - "Dockerfile"
       - "tests/*"
       - "tests/utils/**"
+      - ".github/workflows/build-test-publish.yml"
       - "!**.md"
   schedule:
     # Run at 00:00 on every Monday (1st Day of the Week)
@@ -27,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        matlab-release: [r2024a, r2023b, r2023a, r2022b, r2022a, r2021b, r2021a, r2020b]
+        matlab-release: [R2024a, R2023b, R2023a, R2022b, R2022a, R2021b, R2021a, R2020b]
 
     steps:
       - name: Checkout repo
@@ -70,7 +71,15 @@ jobs:
         env:
           IMAGE_NAME: ${{ env.IMAGE_BASE_NAME }}:${{ matrix.matlab-release }}
         working-directory: tests
-        run: python -m unittest
+        run: python -m unittest -v
 
       - name: Push the image to ghcr.io
-        run: docker push ${{ env.IMAGE_BASE_NAME }}:${{ matrix.matlab-release }}
+        env:
+          MATLAB_RELEASE: ${{ matrix.matlab-release }}
+        run: |
+          LOWERCASE_RELEASE=${MATLAB_RELEASE,,}
+          UPPERCASE_RELEASE=${LOWERCASE_RELEASE^}
+          docker tag ${{ env.IMAGE_BASE_NAME }}:${MATLAB_RELEASE} ${{ env.IMAGE_BASE_NAME }}:${LOWERCASE_RELEASE}
+          docker tag ${{ env.IMAGE_BASE_NAME }}:${MATLAB_RELEASE} ${{ env.IMAGE_BASE_NAME }}:${UPPERCASE_RELEASE}
+          docker push ${{ env.IMAGE_BASE_NAME }}:${LOWERCASE_RELEASE}
+          docker push ${{ env.IMAGE_BASE_NAME }}:${UPPERCASE_RELEASE}

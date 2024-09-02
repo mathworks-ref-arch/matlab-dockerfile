@@ -10,15 +10,16 @@ on:
     # Trigger the workflow when the Dockerfile or any file under tests/ is modified
     paths:
       - "alternates/non-interactive/Dockerfile"
-      - "alternates/non-interactive/MATLAB-BATCH.md"
-      - "tests/**"
+      - "tests/alternates/non-interactive/*"
+      - "tests/utils/**"
+      - ".github/workflows/non-interactive-build-test.yml"
       - "!**.md"
   schedule:
     # Run at 00:00 on every Monday (1st Day of the Week)
     - cron: "0 0 * * 1"
 
 env:
-  IMAGE_BASE_NAME: matlab-non-interactive
+  IMAGE_BASE_NAME: ghcr.io/${{ github.repository }}/matlab-non-interactive
   ALT_PATH: alternates/non-interactive
 
 jobs:
@@ -28,7 +29,7 @@ jobs:
       fail-fast: false
       matrix:
         matlab-release:
-          [r2024a, r2023b, r2023a, r2022b, r2022a, r2021b, r2021a, r2020b]
+          [R2024a, R2023b, R2023a, R2022b, R2022a, R2021b, R2021a, R2020b]
 
     steps:
       - name: Checkout repo
@@ -63,5 +64,15 @@ jobs:
         env:
           IMAGE_NAME: ${{ env.IMAGE_BASE_NAME }}:${{ matrix.matlab-release }}
           BATCH_TOKEN: ${{ secrets.MATLAB_BATCH_TOKEN_EXPIRES_03_2025 }}
+        run: python -m unittest -v ${{ env.ALT_PATH }}/*.py
+
+      - name: Push the image to ghcr.io
+        env:
+          MATLAB_RELEASE: ${{ matrix.matlab-release }}
         run: |
-          python -m unittest ${{ env.ALT_PATH }}/test_matlabbatch.py
+          LOWERCASE_RELEASE=${MATLAB_RELEASE,,}
+          UPPERCASE_RELEASE=${LOWERCASE_RELEASE^}
+          docker tag ${{ env.IMAGE_BASE_NAME }}:${MATLAB_RELEASE} ${{ env.IMAGE_BASE_NAME }}:${LOWERCASE_RELEASE}
+          docker tag ${{ env.IMAGE_BASE_NAME }}:${MATLAB_RELEASE} ${{ env.IMAGE_BASE_NAME }}:${UPPERCASE_RELEASE}
+          docker push ${{ env.IMAGE_BASE_NAME }}:${LOWERCASE_RELEASE}
+          docker push ${{ env.IMAGE_BASE_NAME }}:${UPPERCASE_RELEASE}

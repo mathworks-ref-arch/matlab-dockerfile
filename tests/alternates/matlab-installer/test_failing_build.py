@@ -19,7 +19,7 @@ class TestBrokenBuild(unittest.TestCase):
         # set a matlab release different from the one set in VersionInfo.xml (latest)
         # matlab_release should be a valid tag for the matlab-deps image.
         # E.g., matlab-deps:latest is valid, matlab-deps:r1999b is not
-        cls.old_matlab_release = "r2019b"
+        cls.old_matlab_release = "R2019b"
         cls.dockerfile_dirpath = str(
             Path(__file__).parents[3] / helpers.get_alternates_path()
         )

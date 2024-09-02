@@ -1,8 +1,8 @@
 # Copyright 2023-2024 The MathWorks, Inc.
 
 # To specify which MATLAB release to install in the container, edit the value of the MATLAB_RELEASE argument.
-# Use lower case to specify the release, for example: ARG MATLAB_RELEASE=r2021b
-ARG MATLAB_RELEASE=r2024a
+# Use uppercase to specify the release, for example: ARG MATLAB_RELEASE=R2021b
+ARG MATLAB_RELEASE=R2024a
 
 # Specify the extra products to install into the image. These products can either be toolboxes or support packages.
 ARG ADDITIONAL_PRODUCTS="Symbolic_Math_Toolbox Deep_Learning_Toolbox_Model_for_ResNet-50_Network"

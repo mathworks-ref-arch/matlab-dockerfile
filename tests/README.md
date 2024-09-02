@@ -20,7 +20,7 @@ To run the tests, set the following environment variables:
 
 | Environment Variable | Example                                 | Notes                                                                                                                                                                                                                  |
 | -------------------- | --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `IMAGE_NAME`         | `IMAGE_NAME=matlab-docker-image:r2020a` | The tests will run against the Docker image named `${IMAGE_NAME}`. If no such image is found, the tests will fail.                                                                                         |
+| `IMAGE_NAME`         | `IMAGE_NAME=matlab-docker-image:R2020a` | The tests will run against the Docker image named `${IMAGE_NAME}`. If no such image is found, the tests will fail.                                                                                         |
 | `LICENSE_FILE_PATH`  | `LICENSE_FILE_PATH=path/to/license.lic` | Some tests will attempt to run MATLAB&reg; in the Docker container and require a license file. Store the path to the license file in `${LICENSE_FILE_PATH}` |
 
 ## Structure of the Tests
@@ -75,7 +75,7 @@ To run the tests:
    ```
 3. Build the Docker image that you want to test.
    ```bash
-   docker build -t <your_image_name> --build-args MATLAB_RELASE=<r20xxx> .
+   docker build -t <your_image_name> --build-args MATLAB_RELASE=<R20xxx> .
    ```
    This operation might take a few minutes.
 4. Change current working folder to the tests folder.

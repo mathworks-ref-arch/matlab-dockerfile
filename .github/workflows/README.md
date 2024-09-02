@@ -18,11 +18,11 @@ Each time the image passes the qualification, it is pushed to the GitHub Contain
 
 `ghcr.io/mathworks-ref-arch/matlab-dockerfile/matlab:${matlab-release}`
 
-where `${matlab-release}` is a matlab release (e.g. `r2021a`, `r2021b`, etc..) .
+where `${matlab-release}` is a matlab release (e.g. `R2021a`, `R2021b`, etc..) .
 
 ## Workflow Description
 
-The workflow consists of a one-dimensional matrix of jobs. Each job builds, tests and publishes the container image for a different MATLAB release, starting from `r2020b`. To ensure that a failure in any job does not cancel other jobs, the `fail-fast` option is set to `false`.
+The workflow consists of a one-dimensional matrix of jobs. Each job builds, tests and publishes the container image for a different MATLAB release, starting from `R2020b`. To ensure that a failure in any job does not cancel other jobs, the `fail-fast` option is set to `false`.
 
 Each job consists of the following steps:
 

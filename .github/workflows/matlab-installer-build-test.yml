@@ -12,6 +12,7 @@ on:
       - "alternates/matlab-installer/Dockerfile"
       - "tests/alternates/matlab-installer/*"
       - "tests/utils/**"
+      - ".github/workflows/matlab-installer-build-test.yml"
       - "!**.md"
   schedule:
     # Run at 00:00 on every Monday (1st Day of the Week)
@@ -30,7 +31,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        matlab-release: [r2024a, r2023b, r2023a, r2022b, r2022a, r2021b, r2021a, r2020b]
+        matlab-release: [R2024a, R2023b, R2023a, R2022b, R2022a, R2021b, R2021a, R2020b]
 
     steps:
       - name: Checkout repo
@@ -71,4 +72,4 @@ jobs:
         working-directory: tests
         env:
           IMAGE_NAME: ${{ env.IMAGE_BASE_NAME }}:${{ matrix.matlab-release }}
-        run: python -m unittest ${{ env.ALT_PATH }}/test_mock_matlab_container.py
+        run: python -m unittest -v ${{ env.ALT_PATH }}/*.py

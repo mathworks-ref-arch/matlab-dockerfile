@@ -38,7 +38,7 @@ def get_alternates_path():
 
 def get_release_from_string(string):
     """Get the release from a string"""
-    match = re.search("r20[2-9][0-9][ab]", string, re.IGNORECASE)
+    match = re.search("R20[2-9][0-9][ab]", string, re.IGNORECASE)
     if match:
         return match.group(0)
     else:
@@ -60,6 +60,7 @@ def remove_file(filepath):
     except OSError:
         pass
 
+
 def get_changelog_mb_version(filepath):
     """Get the latest version of matlab-batch from a .md file"""
     ## look for the vYYYY.MM.N pattern, where
@@ -69,18 +70,20 @@ def get_changelog_mb_version(filepath):
     pattern = "v(20[2-9][0-9]\.[0-9]{1,2}\.[0-9]+)"
     ver_regexp = re.compile(pattern)
 
-    headings_tree=mdparser.get_headings_tree(filepath)
-    
+    headings_tree = mdparser.get_headings_tree(filepath)
+
     target_heading = "Changelog"
     path_to_target = mdparser.find_element(headings_tree, target_heading)
     if not path_to_target:
-        raise ValueError(f"Unable to find '{target_heading}' in the heading tree of {filepath}")
-    
+        raise ValueError(
+            f"Unable to find '{target_heading}' in the heading tree of {filepath}"
+        )
+
     version_list = mdparser.get_children(headings_tree, path_to_target)
     if not version_list:
         raise ValueError(f"The heading '{target_heading}' does not have sub-headings")
-    
-    latest_version=version_list[0]
+
+    latest_version = version_list[0]
     match = ver_regexp.search(latest_version)
     if match is None:
         raise ValueError(
