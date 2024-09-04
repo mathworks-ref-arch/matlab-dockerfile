@@ -18,7 +18,7 @@ CUSTOM_CMD = "-some -flags"
 ################################################################################
 
 
-class TestMockMatlabContainer(base.TestCase):
+class TestMockMATLABContainer(base.TestCase):
     """Test class to test the non-MATLAB related features of the Docker image"""
 
     @classmethod

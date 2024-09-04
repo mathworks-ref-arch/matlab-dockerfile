@@ -13,7 +13,7 @@ import unittest
 ################################################################################
 
 
-class TestMatlabBatch(base.TestCase):
+class TestMATLABBatch(base.TestCase):
     """Extend the test methods of the base TestCase class."""
 
     @classmethod
@@ -25,7 +25,7 @@ class TestMatlabBatch(base.TestCase):
             image=image_name,
             detach=True,
             stdin_open=True,
-            environment = {"MLM_LICENSE_TOKEN": os.getenv("BATCH_TOKEN")},
+            environment={"MLM_LICENSE_TOKEN": os.getenv("BATCH_TOKEN")},
         )
         cls.expected_ddux_force_enable = "true"
         cls.expected_ddux_tags = [
@@ -46,13 +46,13 @@ class TestMatlabBatch(base.TestCase):
 
     def test_matlabbatch_runs(self):
         """Test that matlab-batch runs successfully and that the matlab release is the correct one."""
-        matlabbatch_cmd = 'matlab-batch "disp(version(\'-release\'))"'
+        matlabbatch_cmd = "matlab-batch \"disp(version('-release'))\""
         cmd_output = self.host.run(matlabbatch_cmd)
         self.assertTrue(
             cmd_output.succeeded,
             f"Unable to run matlab-batch correctly: {cmd_output.stdout}",
         )
-        expectedRelease=self.release_tag.strip().lstrip("Rr")
+        expectedRelease = self.release_tag.strip().lstrip("Rr")
         self.assertRegex(cmd_output.stdout, expectedRelease)
 
     def test_matlabbatch_version(self):

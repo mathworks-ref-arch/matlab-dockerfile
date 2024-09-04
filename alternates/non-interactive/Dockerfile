@@ -34,6 +34,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get install --no-install-recommends --yes \
     wget \
     ca-certificates \
+    xvfb \
     && apt-get clean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
@@ -72,3 +73,6 @@ RUN wget -q https://ssd.mathworks.com/supportfiles/ci/matlab-batch/v1/glnxa64/ma
 # To learn more, see the Help Make MATLAB Even Better section in the accompanying README:
 # https://github.com/mathworks-ref-arch/matlab-dockerfile#help-make-matlab-even-better
 ENV MW_DDUX_FORCE_ENABLE=true MW_CONTEXT_TAGS=MATLAB:BATCHLICENSING:DOCKERFILE:V1
+
+ENTRYPOINT ["xvfb-run"]
+CMD ["/bin/bash"]

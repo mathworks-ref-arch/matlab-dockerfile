@@ -15,7 +15,7 @@ import testinfra
 
 
 ################################################################################
-class TestMatlab(unittest.TestCase):
+class TestMATLAB(unittest.TestCase):
     """Test that MATLAB gets launched correctly"""
 
     undesired_status = ["removing", "exited", "dead"]

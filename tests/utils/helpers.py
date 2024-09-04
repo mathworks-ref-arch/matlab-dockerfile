@@ -45,6 +45,10 @@ def get_release_from_string(string):
         return ""
 
 
+def get_release():
+    return get_release_from_string(get_image_name())
+
+
 def get_release_tag(string):
     """Get the docker tag from a string containing a release"""
     tag = get_release_from_string(string)
