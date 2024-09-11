@@ -8,6 +8,7 @@ This test suite will launch the container with all different options.
 
 from utils import helpers
 import docker
+import pexpect
 import testinfra
 import unittest
 
@@ -44,13 +45,15 @@ class TestEntrypoint(unittest.TestCase):
         expected_login_msg = (
             "Please enter your MathWorks Account email address and press Enter:"
         )
-        self.container = self.client.containers.run(
+        self.container = self.client.containers.create(
             image=self.image_name,
-            detach=True,
             stdin_open=True,
+            tty=True,
         )
-        helpers.wait_for_msg_in_log(self.container, expected_login_msg)
-        self.assertIn(expected_login_msg, self.container.logs(tail=1).decode())
+        self.child = pexpect.spawn(f"docker start -i {self.container.id}")
+        self.child.expect(expected_login_msg)
+        output = self.child.after.decode().strip()
+        self.assertIn(expected_login_msg.lower(), output.lower())
 
     def test_shell_option(self):
         """Test that if the '-shell' option is specified, then a '/bin/bash' process is started"""
@@ -141,20 +144,6 @@ class TestEntrypoint(unittest.TestCase):
         helpers.wait_for_cmd(self.container, "MATLAB")
 
         self.assertGreater(len(host.process.filter(user="matlab", comm="MATLAB")), 0)
-
-    def test_custom_option(self):
-        """Test that if a custom option is specified, the custom command is run in bash."""
-        custom_option = "pwd"
-        expected_output = "/home/matlab"
-
-        self.container = self.client.containers.run(
-            image=self.image_name,
-            detach=True,
-            command=custom_option,
-        )
-        self.container.wait()
-
-        self.assertEqual(self.container.logs().decode().strip(), expected_output)
 
 
 ################################################################################

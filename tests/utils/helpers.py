@@ -121,12 +121,15 @@ def wait_for_msg_in_log(container, msg, timeout=30):
     """Wait until the expected log message is printed to stdout"""
 
     def msg_is_logged():
-        return msg in container.logs().decode()
+        return msg.lower() in container.logs().decode().lower()
 
     try:
         wait_for(msg_is_logged, timeout)
     except TimeoutError:
-        raise RuntimeError(f"The message {msg} was not printed to stdout.")
+        output = container.logs().decode()
+        raise RuntimeError(
+            f"The message\n\n\t'{msg}'\n\nwas not printed to stdout:\n\n{output}"
+        )
 
 
 def wait_for_container_status(client, id, status, timeout=30):

@@ -2,4 +2,5 @@
 
 docker
 markdown-it-py
+pexpect
 pytest-testinfra

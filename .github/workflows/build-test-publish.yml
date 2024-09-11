@@ -81,5 +81,4 @@ jobs:
           UPPERCASE_RELEASE=${LOWERCASE_RELEASE^}
           docker tag ${{ env.IMAGE_BASE_NAME }}:${MATLAB_RELEASE} ${{ env.IMAGE_BASE_NAME }}:${LOWERCASE_RELEASE}
           docker tag ${{ env.IMAGE_BASE_NAME }}:${MATLAB_RELEASE} ${{ env.IMAGE_BASE_NAME }}:${UPPERCASE_RELEASE}
-          docker push ${{ env.IMAGE_BASE_NAME }}:${LOWERCASE_RELEASE}
-          docker push ${{ env.IMAGE_BASE_NAME }}:${UPPERCASE_RELEASE}
+          docker push --all-tags ${{ env.IMAGE_BASE_NAME }}
