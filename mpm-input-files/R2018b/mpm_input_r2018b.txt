@@ -70,7 +70,7 @@
 #product.Filter_Design_HDL_Coder
 #product.Financial_Instruments_Toolbox
 #product.Financial_Toolbox
-#product.Fixed_Point_Designer
+#product.Fixed-Point_Designer
 #product.Fuzzy_Logic_Toolbox
 #product.GPU_Coder
 #product.Global_Optimization_Toolbox
@@ -89,7 +89,7 @@
 #product.MATLAB_Report_Generator
 #product.Mapping_Toolbox
 #product.Model_Predictive_Control_Toolbox
-#product.Model_Based_Calibration_Toolbox
+#product.Model-Based_Calibration_Toolbox
 #product.OPC_Toolbox
 #product.Optimization_Toolbox
 #product.Parallel_Computing_Toolbox
@@ -121,9 +121,9 @@
 #product.Simulink_Coverage
 #product.Simulink_Design_Optimization
 #product.Simulink_Design_Verifier
-#product.Simulink_Desktop_Real_Time
+#product.Simulink_Desktop_Real-Time
 #product.Simulink_PLC_Coder
-#product.Simulink_Real_Time
+#product.Simulink_Real-Time
 #product.Simulink_Report_Generator
 #product.Simulink_Requirements
 #product.Simulink_Test
