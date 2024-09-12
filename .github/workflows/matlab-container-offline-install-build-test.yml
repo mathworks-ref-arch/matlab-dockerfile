@@ -25,14 +25,23 @@ env:
   ALT_PATH: alternates/matlab-container-offline-install
   MATLAB_PRODUCT_LIST: "MATLAB Symbolic_Math_Toolbox Deep_Learning_Toolbox_Model_for_ResNet-50_Network"
   LICENSE_FILE_PATH: ${{ github.workspace }}/license.lic
-  
+
 jobs:
   build-test-image:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        matlab-release: [R2024a, R2023b, R2023a, R2022b, R2022a, R2021b, R2021a, R2020b]
+        matlab-release:
+          - R2024b
+          - R2024a
+          - R2023b
+          - R2023a
+          - R2022b
+          - R2022a
+          - R2021b
+          - R2021a
+          - R2020b
 
     steps:
       - name: Checkout repo
@@ -80,9 +89,8 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f tests/requirements.txt ]; then pip install -r tests/requirements.txt; fi
 
-          
       - name: Generate license file
-        run: echo '${{ secrets.MATLAB_LICENSE_FILE_R2024A }}' > ${{ env.LICENSE_FILE_PATH }}
+        run: echo '${{ secrets.MATLAB_LICENSE_FILE_R2024B }}' > ${{ env.LICENSE_FILE_PATH }}
 
       - name: Test container
         working-directory: tests

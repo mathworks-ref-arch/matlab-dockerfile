@@ -28,7 +28,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        matlab-release: [R2024a, R2023b, R2023a, R2022b, R2022a, R2021b, R2021a, R2020b]
+        matlab-release:
+          - R2024b
+          - R2024a
+          - R2023b
+          - R2023a
+          - R2022b
+          - R2022a
+          - R2021b
+          - R2021a
+          - R2020b
 
     steps:
       - name: Checkout repo
@@ -65,7 +74,7 @@ jobs:
           if [ -f tests/requirements.txt ]; then pip install -r tests/requirements.txt; fi
 
       - name: Generate license file
-        run: echo '${{ secrets.MATLAB_LICENSE_FILE_R2024A }}' > ${{ env.LICENSE_FILE_PATH }}
+        run: echo '${{ secrets.MATLAB_LICENSE_FILE_R2024B }}' > ${{ env.LICENSE_FILE_PATH }}
 
       - name: Test container
         env:

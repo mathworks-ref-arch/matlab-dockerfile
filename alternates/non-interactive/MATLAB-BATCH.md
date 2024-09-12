@@ -53,7 +53,7 @@ Give the downloaded file executable permissions so that you can run `matlab-batc
 
 > **Note: Selecting the MATLAB executable to start**
 >
->  If the **matlab-batch** executable is in a folder containing a **matlab** (case-sensitive) executable, it starts that MATLAB. 
+>  If the **matlab-batch** executable is in a folder containing a **matlab** (case-sensitive) executable, it starts that MATLAB.
 > Otherwise, it starts the first MATLAB on your PATH environment variable.
 
 ## Examples
@@ -90,11 +90,11 @@ To learn more, see the documentation: [Commonly Used Startup Options](https://ww
 
 ## MATLAB Batch Licensing Token
 
-MATLAB batch licensing tokens are strings that enable MATLAB to start in non-interactive environments. A token is a unique identifier that grants access to your MATLAB products. 
+MATLAB batch licensing tokens are strings that enable MATLAB to start in non-interactive environments. A token is a unique identifier that grants access to your MATLAB products.
 
-MATLAB batch licensing tokens come in two formats: 
+MATLAB batch licensing tokens come in two formats:
  - `user@email.com|encodedToken`
- - `user@email.com|label|encodedToken`    
+ - `user@email.com|label|encodedToken`
 
 These tokens can be used instead of, or in addition to, other types of licensing.
 
@@ -135,7 +135,7 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 
 ### v2024.02.0
 
-- **Added:** Support for MATLAB R2024a.
+- **Added:** Support for MATLAB R2024b.
 - **Added:** Notifications when tokens are close to expiring.
 - **Added:** File details (including application version) integrated with Windows Explorer.
 - **Fixed:** **matlab-batch** supports Parallel Computing workflows.

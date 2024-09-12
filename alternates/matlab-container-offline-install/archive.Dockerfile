@@ -1,19 +1,19 @@
 # Copyright 2024 The MathWorks, Inc.
 
 # Here is an example docker build command with the optional build arguments.
-# docker build --build-arg MATLAB_RELEASE=R2024a 
+# docker build --build-arg MATLAB_RELEASE=R2024b
 #              --build-arg MATLAB_PRODUCT_LIST="MATLAB Deep_Learning_Toolbox Symbolic_Math_Toolbox"
 #              -f archive.Dockerfile
 #              -t mpm-archive .
 
 # To specify which MATLAB release to install in the container, edit the value of the MATLAB_RELEASE argument.
 # Use uppercase to specify the release, for example: ARG MATLAB_RELEASE=R2021b
-ARG MATLAB_RELEASE=R2024a
+ARG MATLAB_RELEASE=R2024b
 
 # Specify the list of products to install into MATLAB.
 ARG MATLAB_PRODUCT_LIST="MATLAB"
 
-# The staging location used to store the downloaded mpm archives 
+# The staging location used to store the downloaded mpm archives
 ARG MPM_DOWNLOAD_DESTINATION="/usr/local/src"
 
 # Download MPM and installation files in a mathworks/matlab-deps Docker image
@@ -37,7 +37,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 
 # Run mpm to install MATLAB in the target location.
 # If mpm fails to install successfully, then print the logfile in the terminal, otherwise clean up.
-RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \ 
+RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \
     && chmod +x mpm \
     && ./mpm download \
     --release=${MATLAB_RELEASE} \

@@ -29,7 +29,15 @@ jobs:
       fail-fast: false
       matrix:
         matlab-release:
-          [R2024a, R2023b, R2023a, R2022b, R2022a, R2021b, R2021a, R2020b]
+          - R2024b
+          - R2024a
+          - R2023b
+          - R2023a
+          - R2022b
+          - R2022a
+          - R2021b
+          - R2021a
+          - R2020b
 
     steps:
       - name: Checkout repo

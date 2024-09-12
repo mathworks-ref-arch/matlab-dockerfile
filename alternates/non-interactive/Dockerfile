@@ -4,14 +4,14 @@
 # version of MATLAB, list of products to install, and the location at which to install MATLAB.
 
 # Here is an example docker build command with the optional build arguments.
-# docker build --build-arg MATLAB_RELEASE=R2024a
+# docker build --build-arg MATLAB_RELEASE=R2024b
 #              --build-arg MATLAB_PRODUCT_LIST="MATLAB Deep_Learning_Toolbox Symbolic_Math_Toolbox"
-#              --build-arg MATLAB_INSTALL_LOCATION="/opt/matlab/R2024a"
+#              --build-arg MATLAB_INSTALL_LOCATION="/opt/matlab/R2024b"
 #              -t my_matlab_image_name .
 
 # To specify which MATLAB release to install in the container, edit the value of the MATLAB_RELEASE argument.
 # Use uppercase to specify the release, for example: ARG MATLAB_RELEASE=R2021b
-ARG MATLAB_RELEASE=R2024a
+ARG MATLAB_RELEASE=R2024b
 
 # Specify the list of products to install into MATLAB.
 ARG MATLAB_PRODUCT_LIST="MATLAB"
@@ -51,7 +51,7 @@ WORKDIR /home/matlab
 # Run mpm to install MATLAB in the target location and delete the mpm installation afterwards.
 # If mpm fails to install successfully, then print the logfile in the terminal, otherwise clean up.
 # Pass in $HOME variable to install support packages into the user's HOME folder.
-RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \ 
+RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \
     && chmod +x mpm \
     && sudo HOME=${HOME} ./mpm install \
     --release=${MATLAB_RELEASE} \

@@ -2,7 +2,7 @@
 
 # To specify which MATLAB release to install in the container, edit the value of the MATLAB_RELEASE argument.
 # Use uppercase to specify the release, for example: ARG MATLAB_RELEASE=R2021b
-ARG MATLAB_RELEASE=R2024a
+ARG MATLAB_RELEASE=R2024b
 
 # Specify the extra products to install into the image. These products can either be toolboxes or support packages.
 ARG ADDITIONAL_PRODUCTS="Symbolic_Math_Toolbox Deep_Learning_Toolbox_Model_for_ResNet-50_Network"
@@ -22,8 +22,8 @@ USER root
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
     && apt-get install --no-install-recommends --yes \
-    wget \
-    ca-certificates \
+        wget \
+        ca-certificates \
     && apt-get clean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
@@ -54,7 +54,7 @@ RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \
 
 # Alternatively, you can provide a license server to use
 # with the docker image while building the image.
-# Specify the host and port of the machine that serves the network licenses 
+# Specify the host and port of the machine that serves the network licenses
 # if you want to bind in the license info as an environment variable.
 # You can also build with something like --build-arg LICENSE_SERVER=27000@MyServerName,
 # in which case you should uncomment the following two lines.
@@ -63,11 +63,11 @@ RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \
 # ARG LICENSE_SERVER
 # ENV MLM_LICENSE_FILE=$LICENSE_SERVER
 
-# The following environment variables allow MathWorks to understand how this MathWorks 
-# product is being used. This information helps us make MATLAB even better. 
-# Your content, and information about the content within your files, is not shared with MathWorks. 
+# The following environment variables allow MathWorks to understand how this MathWorks
+# product is being used. This information helps us make MATLAB even better.
+# Your content, and information about the content within your files, is not shared with MathWorks.
 # To opt out of this service, delete the environment variables defined in the following line.
-# See the Help Make MATLAB Even Better section in the accompanying README to learn more: 
+# See the Help Make MATLAB Even Better section in the accompanying README to learn more:
 # https://github.com/mathworks-ref-arch/matlab-dockerfile#help-make-matlab-even-better
 ENV MW_DDUX_FORCE_ENABLE=true MW_CONTEXT_TAGS=$MW_CONTEXT_TAGS,MATLAB:TOOLBOXES:DOCKERFILE:V1
 

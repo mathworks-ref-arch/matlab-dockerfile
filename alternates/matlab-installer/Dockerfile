@@ -2,7 +2,7 @@
 
 # To specify which MATLAB release you wish to install in the container, edit the value of the MATLAB_RELEASE argument.
 # Use lower case to specify the release.
-ARG MATLAB_RELEASE=r2024a
+ARG MATLAB_RELEASE=r2024b
 
 FROM ubuntu as versioner
 
@@ -76,12 +76,13 @@ RUN sed -i 's/# destinationFolder=$/destinationFolder=\/usr\/local\/MATLAB/' /ma
 # Now install MATLAB
 RUN cd /matlab-install \
     && chmod +x ./install \
-    && ./install    -mode silent \
-                    -inputFile /matlab_installer_input.txt \
+    && ./install \
+    -mode silent \
+    -inputFile /matlab_installer_input.txt \
     && if ! [ -f /usr/local/MATLAB/bin/matlab ]; then \
         cat /tmp/install.log \
         && echo "Installation failed and MATLAB was not installed. See the build log above for more information"; \
-        exit 1; fi
+    exit 1; fi
 
 # If you did not specify a license server at build, comment these lines.
 RUN mkdir -p /usr/local/MATLAB/licenses \
