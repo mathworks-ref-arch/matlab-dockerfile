@@ -50,7 +50,7 @@
 ## Example:
 ## (Windows) destinationFolder=C:\Program Files\MATLAB\RXXXX
 ## (Linux) destinationFolder=/usr/local/RXXXX
-## (macOS) destinationFolder=/Applications
+## (macOS) destinationFolder=/Applications/MATLAB_RXXXX.app
 ##
 ## Set the desired value for destinationFolder and
 ## uncomment the following line.
