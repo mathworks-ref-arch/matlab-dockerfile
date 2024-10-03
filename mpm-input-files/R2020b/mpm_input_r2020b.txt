@@ -1,14 +1,12 @@
 ########################################################################
-## Configuration File for Installing R2020b MathWorks Products
+## Configuration File for Installing or Downloading R2020b MathWorks Products
 ########################################################################
 ##
-## Use this file to configure an installation of MathWorks products
-## and support packages from the command line using the
-## MATLAB Package Manager (mpm). For example, you can set the
-## products and support packages you want to install and the 
-## folder where you want to install them.
+## Use this file to configure the installation or download of MathWorks 
+## products and support packages from the command line using the
+## MATLAB Package Manager (mpm).
 ##
-## To configure your MATLAB installation:
+## To configure your MATLAB installation or download:
 ##
 ## 1. Set configuration parameters by uncommenting lines that
 ##    start with a single '#' and updating the values. The
@@ -16,8 +14,12 @@
 ##
 ## 2. Run mpm from the command line, using the --inputfile option
 ##    to specify the full path to this configuration file.
-##
+##    
+##    Install products:
 ##    mpm install --inputfile <full_path_to_this_file>
+##
+##    Download products without installing:
+##    mpm download --inputfile <full_path_to_this_file>
 ##
 ## You can download template input files for all supported releases from
 ## https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md
@@ -26,17 +28,29 @@
 
 
 ########################################################################
-## SPECIFY DESTINATION FOLDER
+## INSTALLATION OR DOWNLOAD FOLDER
 ########################################################################
 ##
-## Specify the full path to the folder where you want to install MATLAB.
-## If you are adding products or support packages to an existing MATLAB
-## installation, specify the full path to the folder where MATLAB is installed.
+## When installing products using 'mpm install':
 ##
-## Example:
-## (Windows) destinationFolder=C:\Program Files\MATLAB\RXXXX
-## (Linux) destinationFolder=/usr/local/MATLAB/RXXXX
-## (macOS) destinationFolder=/Applications/MATLAB_RXXXX.app
+##   Specify the full path to the folder where you want to install the
+##   products. When adding products or support packages to an 
+##   existing MATLAB installation, specify the full path to the folder
+##   where MATLAB is installed.
+##
+##   Example:
+##   (Linux) destinationFolder=/usr/local/MATLAB/RXXXX
+##   (Windows) destinationFolder=C:\Program Files\MATLAB\RXXXX
+##   (Mac) destinationFolder=/Applications/MATLAB_RXXXX.app
+##
+## When downloading products using 'mpm download':
+##
+##   Specify the full path to the folder where you want to download the
+##   products. For 'mpm download', this option is required.
+##
+##   Example:
+##   (Linux/Mac) destinationFolder=/home/<USER>/downloads/mathworks
+##   (Windows) destinationFolder=C:\Users\<USER>\Downloads\MathWorks
 ##
 ## Set the desired value for destinationFolder and
 ## uncomment the following line.
@@ -45,10 +59,10 @@
 
 
 ########################################################################
-## INSTALL PRODUCTS
+## PRODUCTS
 ########################################################################
 ##
-## Uncomment the lines for the products you want to install.
+## Uncomment the lines for the products you want to install or download.
 
 #product.5G_Toolbox
 #product.AUTOSAR_Blockset
@@ -157,10 +171,10 @@
 
 
 ########################################################################
-## INSTALL SUPPORT PACKAGES
+## SUPPORT PACKAGES
 ########################################################################
 ##
-## Uncomment the lines for the support packages you want to install.
+## Uncomment the lines for the support packages you want to install or download.
 
 #product._GPU_Coder_Support_Package_for_NVIDIA_GPUs_
 #product.Aerospace_Blockset_CubeSat_Simulation_Library

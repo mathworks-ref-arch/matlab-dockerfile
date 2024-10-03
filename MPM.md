@@ -21,6 +21,10 @@ If you encounter a technical issue or have an enhancement request, create an iss
 
 ## Changelog
 
+### 2024.3 - October 2, 2024
+- **Added**: Use the `--inputfile` option of `mpm download` downloads products by specifying options in an input file. Using this file, you can select the products and support packages you want to download without having to enter them at the command line.
+- **Added**: Use the `--platforms` option of `mpm download` to download products for multiple platforms. Previously, `mpm download` downloaded products only for the platform of the computer performing the download.
+
 ### 2024.2.2 - August 14, 2024
 - **Security:** Patched CVE-2023-45853.
 
@@ -30,11 +34,12 @@ If you encounter a technical issue or have an enhancement request, create an iss
 ### 2024.2 - July 17, 2024
 - **Added**: Use `mpm download` to download products and support packages without installing them.
 - **Added**: Install support packages that were downloaded using `mpm download`.
-- **Added**: Support for installing IEC Certification Kit, DO Qualification Kit, and Simulink Code Inspector from a downloaded archive.
+- **Added**: Support for installing IEC Certification Kit, DO Qualification Kit, and Simulink Code Inspector from a mounted ISO image. For an example, see [Install Products from Mounted ISO Image](https://www.mathworks.com/help/install/ug/mpminstall.html#mw_3a3793a5-4576-464b-adf9-24c714709e6c).
 - **Changed**: `mpm` now omits installing products that are already installed instead of issuing an error.
 
 ### 2024.1.1 - March 27, 2024
 - **Added:** Specify the `--no-jre` option that allows you to skip installing the default Java Runtime Environment (JRE) used by MATLAB and set a custom JRE instead. For information on which JREs are supported, see [Versions of OpenJDK Compatible with MATLAB by Release](https://www.mathworks.com/support/requirements/openjdk.html) on the MathWorks website.
+- **Changed:** Versioning changed from YYYY.MM.MINOR.MICRO to YYYY.MINOR.MICRO [Calendar Versioning](https://calver.org/).
 
 ### 2023.12.1 - December 14, 2023
 - **Added:** Support for Windows
