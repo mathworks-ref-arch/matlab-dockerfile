@@ -22,7 +22,7 @@ If you encounter a technical issue or have an enhancement request, create an iss
 ## Changelog
 
 ### 2024.3 - October 2, 2024
-- **Added**: Use the `--inputfile` option of `mpm download` downloads products by specifying options in an input file. Using this file, you can select the products and support packages you want to download without having to enter them at the command line.
+- **Added**: Use the `--inputfile` option of `mpm download` to download products by specifying options in an input file. Using this file, you can select the products and support packages you want to download without having to enter them at the command line.
 - **Added**: Use the `--platforms` option of `mpm download` to download products for multiple platforms. Previously, `mpm download` downloaded products only for the platform of the computer performing the download.
 
 ### 2024.2.2 - August 14, 2024
