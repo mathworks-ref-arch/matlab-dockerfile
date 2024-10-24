@@ -54,7 +54,7 @@ The [archive.Dockerfile](archive.Dockerfile) supports the following Docker build
 
 | Argument Name | Default value | Effect |
 |---|---|---|
-| [MATLAB_RELEASE](#build-an-archive-image-for-a-different-release-of-matlab) | R2024b | The MATLAB release you want to install, in lower-case. For example: `R2022a` |
+| [MATLAB_RELEASE](#build-an-archive-image-for-a-different-release-of-matlab) | R2024b | The MATLAB release to install, for example, `R2023b`. |
 | [MATLAB_PRODUCT_LIST](#build-an-archive-image-with-a-specific-set-of-products) | MATLAB | Products to install as a space-separated list. For more information, see [MPM.md](../../MPM.md). For example: `MATLAB Simulink Deep_Learning_Toolbox Fixed-Point_Designer` |
 
 Use these arguments with the `docker build` command to customize your image.

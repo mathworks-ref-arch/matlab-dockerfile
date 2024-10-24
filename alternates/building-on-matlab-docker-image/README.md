@@ -67,7 +67,7 @@ The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/ma
 
 | Argument Name | Default value | Effect |
 |---|---|---|
-| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | R2024b | The MATLAB release to install. Must be lower-case, for example: `R2020b`.|
+| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | R2024b | The MATLAB release to install, for example, `R2023b`.|
 | [ADDITIONAL_PRODUCTS](#customize-products-to-install-using-matlab-package-manager-mpm) | "Symbolic_Math_Toolbox Deep_Learning_Toolbox_Model_for_ResNet-50_Network" | A space separated list of toolboxes and support packages to install. For more details, see  [MATLAB Package Manager](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md)|
 | [LICENSE_SERVER](#build-an-image-with-license-server-information) | *unset* | The port and hostname of a machine that is running a Network License Manager, using the `port@hostname` syntax. For example: `27000@MyServerName`. To use this build argument, the corresponding lines must be uncommented in the Dockerfile. |
 

@@ -66,7 +66,7 @@ The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/ma
 
 | Argument Name | Default value | Description |
 |---|---|---|
-| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | R2024b | The MATLAB release you want to install, in lower-case. For example: `R2019b`|
+| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | R2024b | The MATLAB release to install, for example, `R2023b`.|
 | [MATLAB_PRODUCT_LIST](#build-an-image-with-a-specific-set-of-products) | MATLAB | Products to install as a space-separated list. For more information, see [MPM.md](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md). For example: `MATLAB Simulink Deep_Learning_Toolbox Fixed-Point_Designer`|
 | [MATLAB_INSTALL_LOCATION](#build-an-image-with-matlab-installed-to-a-specific-location) | /opt/matlab/R2024b | The path to install MATLAB. |
 | [LICENSE_SERVER](#build-an-image-configured-to-use-a-license-server) | *unset* | The port and hostname of the machine that is running the Network License Manager, using the `port@hostname` syntax. For example: `27000@MyServerName` |

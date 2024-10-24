@@ -46,7 +46,7 @@ The [Dockerfile](Dockerfile) supports the following Docker build-time variables:
 
 | Argument Name | Default value | Effect |
 |---|---|---|
-| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | R2024b | The MATLAB release you want to install, in lower-case. For example: `R2022a` |
+| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | R2024b | The MATLAB release to install, for example, `R2023b`. |
 | [MATLAB_PRODUCT_LIST](#build-an-image-with-a-specific-set-of-products) | MATLAB | Products to install as a space-separated list. For more information, see [MPM.md](../../MPM.md). For example: `MATLAB Simulink Deep_Learning_Toolbox Fixed-Point_Designer` |
 | [MATLAB_INSTALL_LOCATION](#build-an-image-with-matlab-installed-to-a-specific-location) | /opt/matlab/R2024b | The path to install MATLAB. |
 
