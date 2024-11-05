@@ -113,6 +113,9 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 
 ## Changelog
 
+### v2024.10.0
+- **Fixed:** Robustness of error reporting.
+
 ### v2024.09.0
 - **Fixed:** Error reporting related to MATLAB shutdown.
  
