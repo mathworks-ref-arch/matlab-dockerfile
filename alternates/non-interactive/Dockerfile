@@ -62,9 +62,9 @@ RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \
     && sudo ln -s ${MATLAB_INSTALL_LOCATION}/bin/matlab /usr/local/bin/matlab
 
 # Install matlab-batch to enable the use of MATLAB batch licensing tokens.
-RUN wget -q https://ssd.mathworks.com/supportfiles/ci/matlab-batch/v1/glnxa64/matlab-batch \
-    && sudo mv matlab-batch /usr/local/bin \
-    && sudo chmod +x /usr/local/bin/matlab-batch
+RUN wget -q 'https://raw.githubusercontent.com/mathworks-ref-arch/matlab-dockerfile/main/alternates/non-interactive/install/install-matlab-batch.sh' \
+    && sudo bash ./install-matlab-batch.sh \
+    && rm ./install-matlab-batch.sh
 
 # The following environment variables allow MathWorks to understand how this MathWorks
 # product (MATLAB Non-Interactive Dockerfile) is being used. This information helps us make MATLAB even better.

@@ -5,25 +5,58 @@ MATLAB&reg; batch licensing executable (**matlab-batch**) is a command line tool
 The MATLAB batch licensing project is still in the pilot phase. To inquire about eligibility requirements, fill out this form on the MathWorks&reg; website: [Batch Licensing Pilot Eligibility](https://www.mathworks.com/support/batch-tokens.html).
 
 
-## Download MATLAB Batch Licensing Executable
+## Install MATLAB Batch Licensing Executable
 
-### Linux
+You can install the MATLAB batch licensing executable either by using the installer script or by downloading it and setting it up manually. 
 
-From a Linux&reg; terminal, use `wget` to download the latest version of `matlab-batch`.
+The installer script sets up the MATLAB Batch Licensing Executable in a default location and adds it to your system path for easy command line access. It also allows you to install the executable in a preferred location. 
+
+### Install MATLAB Batch Licensing Executable Using the Installer Script
+
+On macOS, Linux&reg;, and emulated Linux environments (Cygwin&trade;, MinGW&reg;, MSYS2) on Windows&reg;, use the following commands to install `matlab-batch`:
+```bash
+curl -s 'https://raw.githubusercontent.com/mathworks-ref-arch/matlab-dockerfile/main/alternates/non-interactive/install/install-matlab-batch.sh' -o 'install-matlab-batch.sh'
+sudo bash ./install-matlab-batch.sh 
+```
+
+To install it in a custom location, such as `/opt/my-custom-installs/`, use this command:
+```bash
+sudo bash ./install-matlab-batch.sh -i '/opt/my-custom-location'
+```
+> Note: the -i option accepts both absolute and relative paths.
+
+On Windows, use the following commands to install `matlab-batch` in a PowerShell session with elevated permissions (you must start PowerShell with the "Run as Administrator" option):
+```powershell
+Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/mathworks-ref-arch/matlab-dockerfile/main/alternates/non-interactive/install/install-matlab-batch.ps1' -OutFile 'install-matlab-batch.ps1'
+.\install-matlab-batch.ps1
+```
+
+To install it in a custom location, such as `C:\Program Files\my-custom-location`, use this command: 
+```powershell
+.\install-matlab-batch.ps1 -InstallLocation 'C:\Program Files\my-custom-location'
+```
+
+> Note: the -InstallLocation option accepts both absolute and relative paths.
+
+### Download MATLAB Batch Licensing Executable and Install Manually
+
+#### Linux
+
+From a Linux terminal, use `wget` to download the latest version of `matlab-batch`.
 
     wget https://ssd.mathworks.com/supportfiles/ci/matlab-batch/v1/glnxa64/matlab-batch
 
-Give the downloaded file executable permissions so that you can run `matlab-batch`.
+Grant the downloaded file executable permissions so that you can run `matlab-batch`.
 
     chmod +x matlab-batch
 
-### Windows
+#### Windows
 
-From a Windows&reg; PowerShell command prompt, use `Invoke-WebRequest` to download the latest version of `matlab-batch`.
+From a Windows PowerShell command prompt, use `Invoke-WebRequest` to download the latest version of `matlab-batch`.
 
     Invoke-WebRequest https://ssd.mathworks.com/supportfiles/ci/matlab-batch/v1/win64/matlab-batch.exe -OutFile matlab-batch.exe
 
-### macOS
+#### macOS
 
 From a macOS terminal, use `curl` to download the latest version of `matlab-batch` for your macOS architecture.
 
