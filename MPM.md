@@ -21,6 +21,10 @@ If you encounter a technical issue or have an enhancement request, create an iss
 
 ## Changelog
 
+### 2024.4 - December 11, 2024
+- **Added**: Support for installing IEC Certification Kit, DO Qualification Kit, and Simulink Code Inspector from source files downloaded using the interactive product installer, as described in [Download Products Without Installing](https://www.mathworks.com/help/install/ug/download-without-installing.html). You must have a license for these products to download them.
+- **Added**: When you download products using `mpm download`, the downloaded folder now includes platform-specific versions of `mpm` that you can use to install products on target computers.
+
 ### 2024.3 - October 2, 2024
 - **Added**: Use the `--inputfile` option of `mpm download` to download products by specifying options in an input file. Using this file, you can select the products and support packages you want to download without having to enter them at the command line.
 - **Added**: Use the `--platforms` option of `mpm download` to download products for multiple platforms. Previously, `mpm download` downloaded products only for the platform of the computer performing the download.
