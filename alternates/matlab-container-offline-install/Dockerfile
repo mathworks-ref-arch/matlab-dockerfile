@@ -50,7 +50,7 @@ WORKDIR /home/matlab
 # If mpm fails to install successfully, then print the logfile in the terminal, otherwise clean up.
 # Pass in $HOME variable to install support packages into the user's HOME folder.
 RUN --mount=type=bind,from=archive,source=/,target=/mpm-download/ \
-    sudo HOME=${HOME} /mpm-download/mpm install \
+    sudo HOME=${HOME} /mpm-download/mpm/glnxa64/mpm install \
     --source=/mpm-download/archives \
     --destination=${MATLAB_INSTALL_LOCATION} \
     ${MATLAB_PRODUCT_LIST} \

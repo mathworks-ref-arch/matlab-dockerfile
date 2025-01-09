@@ -43,6 +43,7 @@ RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \
     --release=${MATLAB_RELEASE} \
     --destination=${MPM_DOWNLOAD_DESTINATION} \
     --products ${MATLAB_PRODUCT_LIST} \
+    && chmod +x ${MPM_DOWNLOAD_DESTINATION}/mpm/glnxa64/mpm \
     || (echo "MPM Download Failure. See below for more information:" && cat /tmp/mathworks_root.log && false)
 
 # Move MPM and the installation files to a scratch image
@@ -52,4 +53,3 @@ FROM scratch
 ARG MPM_DOWNLOAD_DESTINATION
 
 COPY --from=download ${MPM_DOWNLOAD_DESTINATION} /
-COPY --from=download mpm /mpm
