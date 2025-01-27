@@ -146,6 +146,9 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 
 ## Changelog
 
+### v2025.01.0
+- **Added:** Support for MATLAB R2025a prerelease.
+
 ### v2024.10.0
 - **Fixed:** Robustness of error reporting.
 
@@ -174,7 +177,7 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 
 ### v2024.02.0
 
-- **Added:** Support for MATLAB R2024b.
+- **Added:** Support for MATLAB R2024a.
 - **Added:** Notifications when tokens are close to expiring.
 - **Added:** File details (including application version) integrated with Windows Explorer.
 - **Fixed:** **matlab-batch** supports Parallel Computing workflows.
