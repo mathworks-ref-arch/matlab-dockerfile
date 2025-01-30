@@ -56,8 +56,10 @@ class TestEntrypoint(unittest.TestCase):
         self.assertIn(expected_login_msg.lower(), output.lower())
 
     def test_shell_option(self):
-        """Test that if the '-shell' option is specified, then a '/bin/bash' process is started"""
-        expected_shell = "/bin/bash"
+        """Test that if the '-shell' option is specified, then a 'bash' process is started"""
+        expected_shell_before_22b = "/bin/bash"
+        expected_shell_after_23a = "bash"
+        expected_shell=expected_shell_after_23a if helpers.get_release().lower() >= "r2023a" else expected_shell_before_22b
         self.container = self.client.containers.run(
             image=self.image_name,
             detach=True,
@@ -65,7 +67,7 @@ class TestEntrypoint(unittest.TestCase):
             command="-shell",
         )
         host = testinfra.get_host("docker://" + self.container.id)
-        helpers.wait_for_cmd(self.container, expected_shell)
+        helpers.wait_for_cmd(self.container, expected_shell, timeout=5)
 
         running_procs = host.check_output("ps -x -o cmd")
         self.assertIn(expected_shell, running_procs)
