@@ -28,7 +28,8 @@ Build a container with a name and tag.
 docker build -t matlab-non-interactive:R2024b .
 ```
 
-You can then run the container and use the `matlab-batch` command. Test the container by running an example MATLAB command, such as `rand`.
+You can then run the container and use the `matlab-batch` command. Test the container by running an example MATLAB command, such as `rand`. Use the --init flag in the docker run command to ensure that the container stops gracefully when a docker stop or docker kill command is issued.
+
 ```bash
 docker run --init --rm matlab-non-interactive:R2024b matlab-batch -licenseToken "user@email.com|encodedToken" "rand"
 ```
