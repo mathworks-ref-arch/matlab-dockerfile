@@ -5,8 +5,9 @@ The Dockerfiles in this subfolder show you how to build and customize a Docker&r
 The solution uses two Docker images. The first image (archive image) contains the installation files that are required by *mpm* to install from source. The second image (product image) uses the archive image to get the installation files for MATLAB, toolboxes and support packages that you want to install.
 
 ### Requirements
+
 * [A Running Network License Manager for MATLAB](https://www.mathworks.com/help/install/administer-network-licenses.html)
-    * For more information, see [Use the Network License Manager](../../README.md#use-the-network-license-manager)
+  * For more information, see [Use the Network License Manager](../../README.md#use-the-network-license-manager)
 * Docker >= 20.10
 
 ## Build Instructions
@@ -19,12 +20,16 @@ Access the Dockerfiles either by directly downloading this repository from GitHu
 git clone https://github.com/mathworks-ref-arch/matlab-dockerfile.git
 cd matlab-dockerfile/alternates/matlab-container-offline-install
 ```
+
 ### Build the Archive Docker Image
-> :warning: Note: You must run this step in an online environment.
+>
+> [!WARNING]
+> You must run this step in an online environment.
 
 You can then store the generated Docker build and copy it to the offline or air-gapped environment for the next step.
 
 Build the archive image with a name and tag.
+
 ```bash
 docker build -t mpm-archive:R2024b -f archive.Dockerfile .
 ```
@@ -34,12 +39,15 @@ By default, the [archive.Dockerfile](archive.Dockerfile) downloads the latest av
 To customize the build of the archive image, refer to [Customize the Archive Docker Image](#customize-the-archive-docker-image).
 
 ### Build the Product Docker Image
+
 To run this step in an offline or air-gapped environment, you need:
+
 * The [mathworks/matlab-deps](https://hub.docker.com/r/mathworks/matlab-deps) image in your local Docker registry.
 * The mpm-archive image in your local Docker registry.
 * A Docker environment with [BuildKit enabled](https://docs.docker.com/build/buildkit/#getting-started).
 
 Build a container with a name and tag.
+
 ```bash
 DOCKER_BUILDKIT=1 docker build -t matlab-from-source:R2024b .
 ```
@@ -47,9 +55,11 @@ DOCKER_BUILDKIT=1 docker build -t matlab-from-source:R2024b .
 To customize the build of the product image, refer to [Customize the Product Docker Image](#customize-the-product-docker-image).
 
 ## Customization Instructions
+
 Follow these instructions if you want to customize the build of the archive and product Docker images.
 
 ### Customize the Archive Docker Image
+
 The [archive.Dockerfile](archive.Dockerfile) supports the following Docker build-time variables:
 
 | Argument Name | Default value | Effect |
@@ -63,6 +73,7 @@ Alternatively, you can change the default values for these arguments directly in
 #### Build an Archive Image for a Different Release of MATLAB
 
 For example, to build an archive image for MATLAB R2023b installation files, use the following command.
+
 ```bash
 docker build --build-arg MATLAB_RELEASE=R2023b -t mpm-archive:R2023b -f archive.Dockerfile .
 ```
@@ -70,11 +81,13 @@ docker build --build-arg MATLAB_RELEASE=R2023b -t mpm-archive:R2023b -f archive.
 #### Build an Archive Image with a specific set of products
 
 For example, to build an image with MATLAB and the Statistics and Machine Learning Toolbox&trade; installation files, use this command.
+
 ```bash
 docker build --build-arg MATLAB_PRODUCT_LIST="MATLAB Statistics_and_Machine_Learning_Toolbox" -t mpm-archive:R2024b -f archive.Dockerfile .
 ```
 
 ### Customize the Product Docker Image
+
 The [Dockerfile](Dockerfile) supports the following Docker build-time variables:
 
 | Argument Name | Default value | Effect |
@@ -88,18 +101,20 @@ The [Dockerfile](Dockerfile) supports the following Docker build-time variables:
 Use these arguments with the `docker build` command to customize your image.
 Alternatively, you can change the default values for these arguments directly in the [Dockerfile](Dockerfile).
 
-
 ### Build an Image for a Different Release of MATLAB
 
 For example, to build an image for MATLAB R2023b, use the following command.
+
 ```bash
 docker build --build-arg MATLAB_RELEASE=R2023b --build-arg ARCHIVE_BASE_IMAGE=mpm-archive:R2023b -t matlab-from-source:R2023b .
 ```
+
 Ensure that the release of the archive base image you set in `ARCHIVE_BASE_IMAGE` matches the one in `MATLAB_RELEASE`.
 
 ### Build an Image with a Specific Set of Products
 
 For example, to build an image with MATLAB and the Statistics and Machine Learning Toolbox, use this command.
+
 ```bash
 docker build --build-arg MATLAB_PRODUCT_LIST="MATLAB Statistics_and_Machine_Learning_Toolbox" -t matlab-stats-from-source:R2024b .
 ```
@@ -107,6 +122,7 @@ docker build --build-arg MATLAB_PRODUCT_LIST="MATLAB Statistics_and_Machine_Lear
 ### Build an Image with MATLAB Installed to a Specific Location
 
 For example, to build an image with MATLAB installed at `/opt/matlab`, use this command.
+
 ```bash
 docker build --build-arg MATLAB_INSTALL_LOCATION="/opt/matlab" -t matlab-from-source:R2024b .
 ```
@@ -114,6 +130,7 @@ docker build --build-arg MATLAB_INSTALL_LOCATION="/opt/matlab" -t matlab-from-so
 ### Build an Image from a Different Archive
 
 For example, to build an image using a different archive image, use the following command.
+
 ```bash
 docker build  --build-arg ARCHIVE_BASE_IMAGE=my-archive -t matlab-from-source:R2024b .
 ```
@@ -121,6 +138,7 @@ docker build  --build-arg ARCHIVE_BASE_IMAGE=my-archive -t matlab-from-source:R2
 #### Build an Image Configured to Use a License Server
 
 Including the license server information with the `docker build` command means you do not have to pass it when running the container.
+
 ```bash
 # Build container with the License Server.
 docker build --build-arg LICENSE_SERVER=27000@MyServerName -t matlab-from-source:R2024b .
@@ -132,10 +150,13 @@ docker run --init --rm matlab-from-source:R2024b -batch ver
 For more information, see [Use the Network License Manager](../../README.md#use-the-network-license-manager).
 
 ## More MATLAB Docker Resources
+
 For more MATLAB Docker resources, see [More MATLAB Docker Resources](../../README.md#more-matlab-docker-resources).
 
 ## Help Make MATLAB Even Better
+
 You can help improve MATLAB by providing user experience information on how you use MathWorks products. Your participation ensures that you are represented and helps us design better products. To opt out of this service, delete the following line in the Dockerfile:
+
 ```Dockerfile
 ENV MW_DDUX_FORCE_ENABLE=true MW_CONTEXT_TAGS=MATLAB:FROM_SOURCE:DOCKERFILE:V1
 ```
@@ -143,6 +164,7 @@ ENV MW_DDUX_FORCE_ENABLE=true MW_CONTEXT_TAGS=MATLAB:FROM_SOURCE:DOCKERFILE:V1
 To learn more, see the documentation: [Help Make MATLAB Even Better - Frequently Asked Questions](https://www.mathworks.com/support/faq/user_experience_information_faq.html).
 
 ## Feedback
+
 We encourage you to try this repository with your environment and provide feedback. If you encounter a technical issue or have an enhancement request, create an issue [here](https://github.com/mathworks-ref-arch/matlab-dockerfile/issues).
 
 ---

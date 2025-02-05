@@ -1,8 +1,9 @@
 # Create MATLAB Container Image Using MATLAB Installer
 
-This repository demonstrates how to create a Docker&reg; container image for MATLAB&reg; from local files using the MATLAB installer on a Linux&reg; Operating System. To create a container image for other operating systems, use the appropriate commands. This method provided here uses the MATLAB installer rather than [MATLAB Package Manager (`mpm`)](../../MPM.md). The MATLAB installer is the default graphical installer for MATLAB. 
+This repository demonstrates how to create a Docker&reg; container image for MATLAB&reg; from local files using the MATLAB installer on a Linux&reg; Operating System. To create a container image for other operating systems, use the appropriate commands. This method provided here uses the MATLAB installer rather than [MATLAB Package Manager (`mpm`)](../../MPM.md). The MATLAB installer is the default graphical installer for MATLAB.
 
 The Dockerfile in this subfolder shows you how to use the MATLAB installer with the `-mode silent` flag to install MATLAB without a graphical user interface. Use this Dockerfile if either of these conditions apply.
+
 - You need toolboxes that `mpm` cannot install.
 - You prefer using the MATLAB installer workflow, for example, if you have already set it up in your CI/CD pipeline.
 
@@ -11,22 +12,30 @@ If not, use the [simpler workflow](../../README.md) to build a container image u
 Use the container image as a scalable and reproducible method to deploy MATLAB in a variety of situations, including clouds and clusters.
 
 ## Requirements
-* Docker
-* Git&trade;
+
+- Docker
+
+- Git&trade;
 
 ## Step 1. Clone This Repository
+
 1. Clone this repository using this command.
+
 ```bash
 git clone https://github.com/mathworks-ref-arch/matlab-dockerfile.git
 ```
+
 2. Inside the cloned repository, navigate to the `alternates/matlab-installer` folder.
 3. Create a subfolder named `matlab-install`.
 
 ## Step 2. Choose MATLAB Installation Method
+
 To install MATLAB into the container image, choose a MATLAB installation method. You can either use MATLAB installation files or a MATLAB ISO image.
 
 ### MATLAB Installation Files
+
 To obtain the installation files, you must be an administrator for the license linked with your MathWorks&reg; account.
+
 1. From the [MathWorks Downloads](https://www.mathworks.com/downloads/) page, select the desired version of MATLAB.
 1. Download the Installer for Linux.
 1. Follow the steps at [Download Products Without Installation](https://www.mathworks.com/help/install/ug/download-without-installing.html).
@@ -35,21 +44,25 @@ To obtain the installation files, you must be an administrator for the license l
 1. Select the products you want to install in the container image.
 1. Confirm your selections and complete the download.
 1. **(For MATLAB releases after R2020a)** The installation files are extracted automatically into a subfolder with a date stamp. Move these files up a level using this command from the `matlab-installer` folder.
+
 ```bash
 mv ./matlab-install/<Time Stamp>/* ./matlab-install/
 ```
 
 ### MATLAB ISO
+
 1. From the [MathWorks Downloads](https://www.mathworks.com/downloads/) page, select the desired version of MATLAB.
 1. Next to the text "I WANT TO:" click on the dropdown and select "Get ISOs and DMGs".
 1. Download the Linux ISO image for your desired release of MATLAB.
 1. Extract the ISO into the `matlab-install` subfolder of the cloned repository.
 1. The permissions are not setup correctly on files extracted from an ISO downloaded from MathWorks. To remedy this, run the following command from the `alternates/matlab-installer` folder in the repository.
+
 ```bash
 chmod -R +x ./matlab-install/
 ```
 
 ## Step 3. Obtain the License File and File Installation Key
+
 1. Log in to your [MathWorks Account](https://www.mathworks.com/login). Select the license you want to use with the container.
 1. Select the **Install and Activate** tab.
 1. Click “Activate to Retrieve License File” link.
@@ -59,10 +72,13 @@ chmod -R +x ./matlab-install/
 1. Copy the file installation key into a safe location.
 
 ## Step 4. Define Installation Parameters
+
 1. Copy the file `installer_input.txt` from the `alternates/matlab-installer/matlab-install` folder into the `alternates/matlab-installer` folder and rename the file to `matlab_installer_input.txt`. Use this command to copy the folder and rename the file.
+
 ```bash
 cp ./matlab-install/installer_input.txt ./matlab_installer_input.txt
 ```
+
 2. Open `matlab_installer_input.txt` in a text editor and edit these sections.
     - `fileInstallationKey` - Paste your File Installation Key and uncomment the line.
     - `agreeToLicense` - Set the value to yes and uncomment the line.
@@ -87,18 +103,20 @@ docker build -t matlab:$RELEASE --build-arg MATLAB_RELEASE=$RELEASE --build-arg 
 
 Alternatively, you can change the default values for these arguments directly in the [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile).
 
+> [!NOTE]
+> Use the `LICENSE_SERVER` build argument to generate a valid network license file only if you cannot supply a license file. Omit this argument you have a network license file or no network licensing is required. Modify the commands within the Dockerfile as described within it.
 
-**Note**: Use the `LICENSE_SERVER` build argument to generate a valid network license file only if you cannot supply a license file. Omit this argument you have a network license file or no network licensing is required. Modify the commands within the Dockerfile as described within it.
-
-**Note**: The build process uses approximately 4GB of RAM, so ensure that the Docker service has sufficient resources.
-
+> [!NOTE]
+> The build process uses approximately 4GB of RAM, so ensure that the Docker service has sufficient resources.
 
 ## Step 6. Run Container
+
 Run the container using a command with this form.
 
 ```bash
 docker run --init -it --rm matlab:$RELEASE
 ```
+
 - `-it` option runs the container interactively.
 - `--rm` option automatically removes the container on exit.
 
@@ -120,9 +138,10 @@ Insert any extra arguments after the container tag to add as command line argume
 docker run --init -it --rm matlab:$RELEASE -batch "ver"
 ```
 
-
 ## Use a License File to Build Image
+
 If you have a `license.dat` file from your license administrator, use this file to provide the location of the license manager for the container image.
+
 1. Open the `license.dat` file. Copy the `SERVER` line into a new text file.
 2. Beneath it, add `USE_SERVER`. The file should now look similar to this.
 
