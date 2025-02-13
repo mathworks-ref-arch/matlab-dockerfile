@@ -138,6 +138,7 @@ If your batch licensing token expires in less than 30 days, **matlab-batch** pri
  - R2020b is the oldest release that **matlab-batch** supports on Linux and macOS with Intel&reg;.
  - R2021a is the oldest release that **matlab-batch** supports on Windows.
  - R2023b is the oldest release that **matlab-batch** supports on macOS with Apple silicon.
+ - **matlab-batch** does not support external language interfaces, including MATLAB Engine APIs for Python&reg;, Java&reg;, .NET, COM, C, C++, and Fortran.
 
 ## Feedback and Support
 To inquire about eligibility requirements for the MATLAB batch licensing pilot, fill out this form on the MathWorks website: [Batch Licensing Pilot Eligibility](https://www.mathworks.com/support/batch-tokens.html).
@@ -193,4 +194,4 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 - **Added:** Support for MATLAB R2020b to R2023a.
 
 ---
-Copyright 2024 The MathWorks, Inc.
+Copyright 2024-2025 The MathWorks, Inc.
