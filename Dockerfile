@@ -57,7 +57,7 @@ WORKDIR /home/matlab
 # Pass in $HOME variable to install support packages into the user's HOME folder.
 RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \
     && chmod +x mpm \
-    && sudo HOME=${HOME} ./mpm install \
+    && sudo HOME=${HOME} HTTP_PROXY=${HTTP_PROXY} HTTPS_PROXY=${HTTP_PROXY} ./mpm install \
     --release=${MATLAB_RELEASE} \
     --destination=${MATLAB_INSTALL_LOCATION} \
     --products ${MATLAB_PRODUCT_LIST} \
