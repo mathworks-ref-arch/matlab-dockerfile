@@ -147,6 +147,12 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 
 ## Changelog
 
+### v2025.03.1
+- **Added:** Internal changes to support new token formats.
+
+### v2025.03.0
+- **Added:** Internal changes to support upcoming features.
+
 ### v2025.01.0
 - **Added:** Support for MATLAB R2025a prerelease.
 
