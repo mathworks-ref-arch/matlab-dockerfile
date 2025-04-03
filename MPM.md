@@ -21,6 +21,9 @@ If you encounter a technical issue or have an enhancement request, create an iss
 
 ## Changelog
 
+### 2025.1 - April 2, 2025
+- **Added**: Use the `--no-deps` option of `mpm download` to download only the specified products and omit product dependencies. Specify this option when all required dependencies have already been downloaded or are currently installed.
+
 ### 2024.4 - December 11, 2024
 - **Added**: Support for installing IEC Certification Kit, DO Qualification Kit, and Simulink Code Inspector from source files downloaded using the interactive product installer, as described in [Download Products Without Installing](https://www.mathworks.com/help/install/ug/download-without-installing.html). You must have a license for these products to download them.
 - **Added**: When you download products using `mpm download`, the downloaded folder now includes platform-specific versions of `mpm` that you can use to install products on target computers.
