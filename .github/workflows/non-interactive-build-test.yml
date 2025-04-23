@@ -78,7 +78,7 @@ jobs:
         working-directory: tests
         env:
           IMAGE_NAME: ${{ env.IMAGE_BASE_NAME }}:${{ matrix.matlab-release }}
-          BATCH_TOKEN: ${{ secrets.MATLAB_BATCH_TOKEN_EXPIRES_03_2025 }}
+          BATCH_TOKEN: ${{ secrets.MATLAB_BATCH_TOKEN_EXPIRES_03_2026 }}
         run: python -m unittest -v ${{ env.ALT_PATH }}/*.py
 
       - name: Push the image to ghcr.io
