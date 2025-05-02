@@ -13,6 +13,10 @@
 # Use uppercase to specify the release, for example: ARG MATLAB_RELEASE=R2021b
 ARG MATLAB_RELEASE=R2024b
 
+# To (optionally) specify an update for the MATLAB release (e.g., "Update 1"), provide a value for MATLAB_UPDATE.
+# Use uppercase to specify the update, for example: ARG MATLAB_UPDATE=U1. If empty, the latest update is pulled.
+ARG MATLAB_UPDATE=""
+
 # Specify the list of products to install into MATLAB.
 ARG MATLAB_PRODUCT_LIST="MATLAB"
 
@@ -25,6 +29,7 @@ FROM mathworks/matlab-deps:${MATLAB_RELEASE}
 
 # Declare build arguments to use at the current build stage.
 ARG MATLAB_RELEASE
+ARG MATLAB_UPDATE
 ARG MATLAB_PRODUCT_LIST
 ARG MATLAB_INSTALL_LOCATION
 
@@ -54,7 +59,7 @@ WORKDIR /home/matlab
 RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm \
     && chmod +x mpm \
     && sudo HOME=${HOME} ./mpm install \
-    --release=${MATLAB_RELEASE} \
+    --release=${MATLAB_RELEASE}${MATLAB_UPDATE} \
     --destination=${MATLAB_INSTALL_LOCATION} \
     --products ${MATLAB_PRODUCT_LIST} \
     || (echo "MPM Installation Failure. See below for more information:" && cat /tmp/mathworks_root.log && false) \
