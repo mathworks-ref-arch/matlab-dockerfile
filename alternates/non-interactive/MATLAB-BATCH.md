@@ -94,17 +94,17 @@ Give the downloaded file executable permissions so that you can run `matlab-batc
 ### Hello, World.
 To execute a MATLAB statement, navigate to the folder containing the `matlab-batch` binary file and run the following command.
 
-    ./matlab-batch -licenseToken "user@email.com|encodedToken" "disp('Hello, World.')"
+    ./matlab-batch -licenseToken "user@email.com::encodedToken" "disp('Hello, World.')"
 
 You can also provide your MATLAB batch licensing token with the `MLM_LICENSE_TOKEN` environment variable.
 
-    export MLM_LICENSE_TOKEN="user@email.com|encodedToken"
+    export MLM_LICENSE_TOKEN="user@email.com::encodedToken"
     ./matlab-batch "disp('Hello, World.')"
 
 ### Run MATLAB with Startup Options
 To run MATLAB with any set of arguments, such as `-logfile`, execute:
 
-    ./matlab-batch -licenseToken "user@email.com|encodedToken" -logfile "logfilename.log" "myscript"
+    ./matlab-batch -licenseToken "user@email.com::encodedToken" -logfile "logfilename.log" "myscript"
 
 To learn more, see the documentation: [Commonly Used Startup Options](https://www.mathworks.com/help/matlab/matlab_env/commonly-used-startup-options.html).
 
@@ -119,15 +119,15 @@ To learn more, see the documentation: [Commonly Used Startup Options](https://ww
 ## Batch Options
 | Option          | Description | Example |
 | --------------- | ----------- | ------- |
-| `-licenseToken` | MATLAB batch licensing token. Related environment variable: `MLM_LICENSE_TOKEN`. | `user@email.com\|label\|encodedToken`, `user@email.com\|encodedToken` |
+| `-licenseToken` | MATLAB batch licensing token. Related environment variable: `MLM_LICENSE_TOKEN`. | `user@email.com::label::encodedToken`, `user@email.com::encodedToken` |
 
 ## MATLAB Batch Licensing Token
 
 MATLAB batch licensing tokens are strings that enable MATLAB to start in non-interactive environments. A token is a unique identifier that grants access to your MATLAB products.
 
 MATLAB batch licensing tokens come in two formats:
- - `user@email.com|encodedToken`
- - `user@email.com|label|encodedToken`
+ - `user@email.com::encodedToken`
+ - `user@email.com::label::encodedToken`
 
 These tokens can be used instead of, or in addition to, other types of licensing.
 
