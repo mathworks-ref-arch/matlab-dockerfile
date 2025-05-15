@@ -1,4 +1,4 @@
-# Copyright 2023 The MathWorks, Inc.
+# Copyright 2023-2025 The MathWorks, Inc.
 
 """
 Test class to validate the "building-on-matlab-docker-image" Dockerfile.
@@ -61,6 +61,13 @@ class TestContainer(base.TestCase):
                     self.host.package(pkg).is_installed,
                     f"Package {pkg} is not installed",
                 )
+
+    @unittest.skip(
+        "Skipping test as mathworks/matlab images are not always built with the mathworks matlab-deps default os"
+    )
+    def test_matlab_deps_packages_installed(self):
+        """Override the test of the same name defined in the inherited test class."""
+        pass
 
 
 ################################################################################
