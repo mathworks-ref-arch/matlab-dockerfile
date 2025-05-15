@@ -154,7 +154,7 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 - **Added:** Internal changes to support upcoming features.
 
 ### v2025.01.0
-- **Added:** Support for MATLAB R2025a prerelease.
+- **Added:** Support for MATLAB R2025a.
 
 ### v2024.10.0
 - **Fixed:** Robustness of error reporting.

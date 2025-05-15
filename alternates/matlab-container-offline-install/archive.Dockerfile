@@ -1,14 +1,14 @@
-# Copyright 2024 The MathWorks, Inc.
+# Copyright 2024-2025 The MathWorks, Inc.
 
 # Here is an example docker build command with the optional build arguments.
-# docker build --build-arg MATLAB_RELEASE=R2024b
+# docker build --build-arg MATLAB_RELEASE=R2025a
 #              --build-arg MATLAB_PRODUCT_LIST="MATLAB Deep_Learning_Toolbox Symbolic_Math_Toolbox"
 #              -f archive.Dockerfile
 #              -t mpm-archive .
 
 # To specify which MATLAB release to install in the container, edit the value of the MATLAB_RELEASE argument.
 # Use uppercase to specify the release, for example: ARG MATLAB_RELEASE=R2021b
-ARG MATLAB_RELEASE=R2024b
+ARG MATLAB_RELEASE=R2025a
 
 # Specify the list of products to install into MATLAB.
 ARG MATLAB_PRODUCT_LIST="MATLAB"

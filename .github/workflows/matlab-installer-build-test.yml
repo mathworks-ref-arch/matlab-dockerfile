@@ -1,4 +1,4 @@
-# Copyright 2023 The MathWorks, Inc.
+# Copyright 2023-2025 The MathWorks, Inc.
 
 name: Build and Test the "MATLAB installer" Dockerfile
 
@@ -32,6 +32,7 @@ jobs:
       fail-fast: false
       matrix:
         matlab-release:
+          - R2025a
           - R2024b
           - R2024a
           - R2023b

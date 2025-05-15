@@ -1,4 +1,4 @@
-# Copyright 2023 The MathWorks, Inc.
+# Copyright 2023-2025 The MathWorks, Inc.
 
 name: Build and Test the "Building on MATLAB Docker Image" Dockerfile
 
@@ -30,6 +30,7 @@ jobs:
       fail-fast: false
       matrix:
         matlab-release:
+          - R2025a
           - R2024b
           - R2024a
           - R2023b
@@ -66,7 +67,7 @@ jobs:
           if [ -f tests/requirements.txt ]; then pip install -r tests/requirements.txt; fi
 
       - name: Generate license file
-        run: echo '${{ secrets.MATLAB_LICENSE_FILE_R2024B }}' > ${{ env.LICENSE_FILE_PATH }}
+        run: echo '${{ secrets.MATLAB_LICENSE_FILE_R2025A }}' > ${{ env.LICENSE_FILE_PATH }}
 
       - name: Test container
         working-directory: tests

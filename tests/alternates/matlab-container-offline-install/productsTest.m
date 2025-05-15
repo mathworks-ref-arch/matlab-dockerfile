@@ -1,4 +1,4 @@
-%   Copyright 2024 The MathWorks, Inc.
+%   Copyright 2024-2025 The MathWorks, Inc.
 
 classdef productsTest < matlab.unittest.TestCase
 
@@ -12,6 +12,13 @@ classdef productsTest < matlab.unittest.TestCase
                 "Deep Learning Toolbox",...
                 "Symbolic Math Toolbox"...
                 ];
+
+            if ~ isMATLABReleaseOlderThan("R2025a")
+                expectedTbxNames = [expectedTbxNames, ...
+                    "Deep Learning Toolbox Model for ResNet-50 Network", ...
+                    ];
+            end
+
             installedTbxNames = matlab.addons.installedAddons().Name;
             testCase.verifyThat(installedTbxNames, IsSameSetAs(expectedTbxNames));
         end
