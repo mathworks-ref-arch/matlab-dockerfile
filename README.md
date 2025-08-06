@@ -2,13 +2,15 @@
 
 This repository shows you how to build and customize a Docker&reg; container for MATLAB&reg; and its toolboxes, using the [MATLAB Package Manager](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md) (`mpm`). You can use this container image as a scalable and reproducible method to deploy and test your MATLAB code.
 
-Use the [Dockerfile](Dockerfile) in this top-level repository if you want a lightweight and simple way to create a MATLAB container image. You can also download prebuilt images based on the Dockerfile from [here](https://github.com/mathworks-ref-arch/matlab-dockerfile/pkgs/container/matlab-dockerfile%2Fmatlab). 
-
+Use the [Dockerfile](Dockerfile) in this top-level repository if you want a lightweight and simple way to create a MATLAB container image. You can also download prebuilt images based on the Dockerfile from [this GitHub&reg; repository](https://github.com/mathworks-ref-arch/matlab-dockerfile/pkgs/container/matlab-dockerfile%2Fmatlab).
+ 
+To build a Windows&reg; container for MATLAB, see the [**windows folder**](windows). This container supports non-interactive MATLAB workflows only, such as running scripts, batch jobs, or automating tasks in continuous integration and continuous delivery (CI/CD) pipelines.
+ 
 For alternative resources, see the [**alternates folder**](alternates) that contains the following Dockerfiles: 
 
 * The Dockerfile in [matlab-installer](alternates/matlab-installer) uses the MATLAB installer rather than `mpm` to install MATLAB in the container. This allows you to install toolboxes that are not currently supported by mpm. Use this Dockerfile if you prefer using the MATLAB installer workflow, instead of `mpm`.
 * The Dockerfile in [building-on-matlab-docker-image](alternates/building-on-matlab-docker-image) shows you how to build on top of the [MATLAB Container Image on Docker Hub](https://hub.docker.com/r/mathworks/matlab). Use this Dockerfile if you want to install extra toolboxes on top of the `mathworks/matlab` container image. This Dockerfile contains the features of the MATLAB image on Docker Hub, allowing you to access the dockerised MATLAB through a browser, batch mode, or an interactive command prompt.
-* The Dockerfile in [non-interactive](alternates/non-interactive) allows you run MATLAB in non-interactive environments. This Dockerfile requires that you have a MATLAB batch licensing token to license MATLAB in the container. Use this Dockerfile in continuous integration and continuous delivery (CI/CD) pipelines or other automated environments where interactive licensing is not possible.
+* The Dockerfile in [non-interactive](alternates/non-interactive) allows you run MATLAB in non-interactive environments. This Dockerfile requires that you have a MATLAB batch licensing token to license MATLAB in the container. Use this Dockerfile in CI/CD pipelines or other automated environments where interactive licensing is not possible.
 * The Dockerfile in [matlab-container-offline-install](alternates/matlab-container-offline-install/) shows you how to build and customize a Docker container for MATLAB and its toolboxes in an offline environment. Use this Dockerfile if you must build your container image in an offline environment.
 
 For more Docker related resources, see [More MATLAB Docker Resources](#more-matlab-docker-resources). 
@@ -21,7 +23,7 @@ For more Docker related resources, see [More MATLAB Docker Resources](#more-matl
 
 ### Get Sources
 
-Access the Dockerfile either by directly downloading this repository from GitHub&reg;,
+Access the Dockerfile either by directly downloading this repository from GitHub,
 or by cloning this repository and
 then navigating to the appropriate folder.
 ```bash
