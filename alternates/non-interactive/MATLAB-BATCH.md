@@ -147,6 +147,9 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 
 ## Changelog
 
+### v2025.08.0
+- **Fixed:** Error messaging and logging.
+
 ### v2025.03.1
 - **Added:** Internal changes to support new token formats.
 
