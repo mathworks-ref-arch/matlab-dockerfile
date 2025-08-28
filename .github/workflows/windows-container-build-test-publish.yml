@@ -1,0 +1,67 @@
+# Copyright 2025 The MathWorks, Inc.
+
+name: Build, Test and Publish the Windows Dockerfile
+
+# Trigger this workflow either manually or when a new change is pushed to the
+# repo (except .md files)
+on:
+  workflow_dispatch:
+  push:
+    # Trigger the workflow is the Dockerfile or any file under tests/ is modified
+    paths:
+      - "windows/*"
+      - "windows/tests/*"
+      - ".github/workflows/windows-container-build-test-publish.yml"
+      - "!**.md"
+  schedule:
+    # Run at 00:00 on every Monday (1st Day of the Week)
+    - cron: "0 0 * * 1"
+
+env:
+  IMAGE_BASE_NAME: ghcr.io/${{ github.repository }}/matlab-windows
+  ALT_PATH: windows
+
+jobs:
+  windows-container-build-test-push-image:
+    runs-on: windows-2022
+    strategy:
+      fail-fast: false
+      matrix:
+        matlab-release:
+          - R2025a
+          - R2024b
+          - R2024a
+          - R2023b
+          - R2023a
+          - R2022b
+          - R2022a
+          - R2021b
+          - R2021a
+
+    defaults:
+      run:
+        working-directory: ./${{ env.ALT_PATH }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Build the Docker image
+        run: |
+          ./Makefile.ps1 Build -ImageName "${{ env.IMAGE_BASE_NAME }}" -Release "${{ matrix.matlab-release }}" -ProductList "MATLAB"
+
+      - name: Test container
+        run: |
+          ./Makefile.ps1 Test -ImageName ${{ env.IMAGE_BASE_NAME }} -Release ${{ matrix.matlab-release }} -Token ${{ secrets.MATLAB_BATCH_TOKEN_EXPIRES_03_2026 }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push the image to ghcr.io
+        run: |
+          ./Makefile.ps1 TagImage -ImageName ${{ env.IMAGE_BASE_NAME }} -Release ${{ matrix.matlab-release }}
+          ./Makefile.ps1 Publish -ImageName ${{ env.IMAGE_BASE_NAME }} -Release ${{ matrix.matlab-release }}
