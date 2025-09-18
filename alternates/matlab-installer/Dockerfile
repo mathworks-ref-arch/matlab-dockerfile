@@ -2,7 +2,7 @@
 
 # To specify which MATLAB release you wish to install in the container, edit the value of the MATLAB_RELEASE argument.
 # Use lower case to specify the release.
-ARG MATLAB_RELEASE=r2025a
+ARG MATLAB_RELEASE=r2025b
 
 FROM ubuntu as versioner
 

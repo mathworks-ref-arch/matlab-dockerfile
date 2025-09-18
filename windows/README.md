@@ -21,13 +21,13 @@ cd matlab-dockerfile/windows/
 
 Build container with a name and tag of your choice.
 ```powershell
-docker build -t matlab-on-windows:R2025a .
+docker build -t matlab-on-windows:R2025b .
 ```
-This [Dockerfile](./Dockerfile) defaults to building a Windows container for MATLAB R2025a. The Dockerfile is based on the Windows base image which contains the full Windows API set. For details, see the documentation on DockerHub for [Windows base image](https://hub.docker.com/r/microsoft/windows).
+This [Dockerfile](./Dockerfile) defaults to building a Windows container for MATLAB R2025b. The Dockerfile is based on the Windows base image which contains the full Windows API set. For details, see the documentation on DockerHub for [Windows base image](https://hub.docker.com/r/microsoft/windows).
 
 Test the container by running an example MATLAB command, such as `ver`. The entry point of the container is PowerShell.
 ```powershell
-docker run --rm matlab-on-windows:R2025a matlab-batch "-licenseToken" "user@email.com::encodedToken" "ver"
+docker run --rm matlab-on-windows:R2025b matlab-batch "-licenseToken" "user@email.com::encodedToken" "ver"
 ```
 For more information on running the container, see [Run the Container](#run-the-container).
 
@@ -42,7 +42,7 @@ The [Dockerfile](Dockerfile) supports these Docker build-time variables:
 
 | Argument Name | Default Value | Description |
 |---|---|---|
-| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | R2025a | MATLAB release to install, for example, `R2023b`. |
+| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | R2025b | MATLAB release to install, for example, `R2023b`. |
 | [MATLAB_PRODUCT_LIST](#build-an-image-with-a-specific-set-of-products) | MATLAB | Space-separated list of products to install. For help specifying the products to install, see the "products" input argument on the [documentation page for the mpm install function](https://www.mathworks.com/help/install/ug/mpminstall.html). For example: `MATLAB Simulink Deep_Learning_Toolbox Fixed-Point_Designer` |
 
 Use these arguments with the `docker build` command to customize your image.
@@ -63,14 +63,14 @@ For supported releases, see [MATLAB Batch Licensing support](../alternates/non-i
 
 For example, to build an image with MATLAB and the Statistics and Machine Learning Toolbox&trade;, use this command.
 ```powershell
-docker build --build-arg MATLAB_PRODUCT_LIST="MATLAB Statistics_and_Machine_Learning_Toolbox" -t matlab-stats-windows:R2025a .
+docker build --build-arg MATLAB_PRODUCT_LIST="MATLAB Statistics_and_Machine_Learning_Toolbox" -t matlab-stats-windows:R2025b .
 ```
 
 ## Run the Container
 To start a container and run MATLAB with a MATLAB batch licensing token, open a Windows PowerShell and enter this command:
 ```powershell
 # Start MATLAB, display 'hello world', and exit.
-docker run --rm matlab-on-windows:R2025a matlab-batch -licenseToken 'user@email.com::encodedToken' '\"disp(''hello world'')\"'
+docker run --rm matlab-on-windows:R2025b matlab-batch -licenseToken 'user@email.com::encodedToken' '\"disp(''hello world'')\"'
 ```
 Note that you must use the rules for using single and double quotation marks in PowerShell. For details, see [about quoting rules](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_quoting_rules).
 
@@ -78,14 +78,14 @@ Alternatively, you can run a script `myscript.m` containing MATLAB code:
 
 ```powershell
 # Launch MATLAB, run `myscript.m` and exit:
-docker run --mount "type=bind,src=C:\scripts,target=C:\pwd" --workdir "C:\pwd" --rm matlab-on-windows:R2025a matlab-batch -licenseToken 'user@email.com::encodedToken' 'myscript'
+docker run --mount "type=bind,src=C:\scripts,target=C:\pwd" --workdir "C:\pwd" --rm matlab-on-windows:R2025b matlab-batch -licenseToken 'user@email.com::encodedToken' 'myscript'
 ```
 
 You can also set your MATLAB batch licensing token at the container level by setting the `MLM_LICENSE_TOKEN` environment variable. For example:
 
 ```powershell
 # Start MATLAB, display 'hello world', and exit.
-docker run -e MLM_LICENSE_TOKEN='user@email.com::encodedToken' --rm matlab-on-windows:R2025a matlab-batch '\"disp(''hello world'')\"'
+docker run -e MLM_LICENSE_TOKEN='user@email.com::encodedToken' --rm matlab-on-windows:R2025b matlab-batch '\"disp(''hello world'')\"'
 ```
 
 ## Feedback

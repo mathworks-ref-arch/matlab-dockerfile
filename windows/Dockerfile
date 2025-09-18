@@ -4,13 +4,13 @@
 # customize the version of MATLAB, and the list of products to install.
 
 # Here is an example docker build command with the optional build arguments.
-# docker build --build-arg MATLAB_RELEASE=R2025a
+# docker build --build-arg MATLAB_RELEASE=R2025b
 #              --build-arg MATLAB_PRODUCT_LIST="MATLAB Deep_Learning_Toolbox Symbolic_Math_Toolbox"
 #              -t my_matlab_image_name .
 
 # To specify which MATLAB release to install in the container, edit the value of the MATLAB_RELEASE argument.
 # Use uppercase to specify the release, for example: ARG MATLAB_RELEASE=R2021b
-ARG MATLAB_RELEASE="R2025a"
+ARG MATLAB_RELEASE="R2025b"
 
 # Specify the list of products to install into MATLAB.
 ARG MATLAB_PRODUCT_LIST="MATLAB"

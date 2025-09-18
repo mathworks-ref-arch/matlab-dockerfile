@@ -26,7 +26,7 @@ You can then store the generated Docker build and copy it to the offline or air-
 
 Build the archive image with a name and tag.
 ```bash
-docker build -t mpm-archive:R2025a -f archive.Dockerfile .
+docker build -t mpm-archive:R2025b -f archive.Dockerfile .
 ```
 
 By default, the [archive.Dockerfile](archive.Dockerfile) downloads the latest available MATLAB release without any additional toolboxes or products.
@@ -41,7 +41,7 @@ To run this step in an offline or air-gapped environment, you need:
 
 Build a container with a name and tag.
 ```bash
-DOCKER_BUILDKIT=1 docker build -t matlab-from-source:R2025a .
+DOCKER_BUILDKIT=1 docker build -t matlab-from-source:R2025b .
 ```
 
 To customize the build of the product image, refer to [Customize the Product Docker Image](#customize-the-product-docker-image).
@@ -54,7 +54,7 @@ The [archive.Dockerfile](archive.Dockerfile) supports the following Docker build
 
 | Argument Name | Default value | Effect |
 |---|---|---|
-| [MATLAB_RELEASE](#build-an-archive-image-for-a-different-release-of-matlab) | R2025a | The MATLAB release to install, for example, `R2023b`. |
+| [MATLAB_RELEASE](#build-an-archive-image-for-a-different-release-of-matlab) | R2025b | The MATLAB release to install, for example, `R2023b`. |
 | [MATLAB_PRODUCT_LIST](#build-an-archive-image-with-a-specific-set-of-products) | MATLAB | Products to install as a space-separated list. For more information, see [MPM.md](../../MPM.md). For example: `MATLAB Simulink Deep_Learning_Toolbox Fixed-Point_Designer` |
 
 Use these arguments with the `docker build` command to customize your image.
@@ -71,7 +71,7 @@ docker build --build-arg MATLAB_RELEASE=R2023b -t mpm-archive:R2023b -f archive.
 
 For example, to build an image with MATLAB and the Statistics and Machine Learning Toolbox&trade; installation files, use this command.
 ```bash
-docker build --build-arg MATLAB_PRODUCT_LIST="MATLAB Statistics_and_Machine_Learning_Toolbox" -t mpm-archive:R2025a -f archive.Dockerfile .
+docker build --build-arg MATLAB_PRODUCT_LIST="MATLAB Statistics_and_Machine_Learning_Toolbox" -t mpm-archive:R2025b -f archive.Dockerfile .
 ```
 
 ### Customize the Product Docker Image
@@ -79,10 +79,10 @@ The [Dockerfile](Dockerfile) supports the following Docker build-time variables:
 
 | Argument Name | Default value | Effect |
 |---|---|---|
-| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | R2025a | The MATLAB release you want to install, in lower-case. For example: `R2022a`. :warning: This release must match the `MATLAB_RELEASE` you use to build the archive image. |
+| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | R2025b | The MATLAB release you want to install, in lower-case. For example: `R2022a`. :warning: This release must match the `MATLAB_RELEASE` you use to build the archive image. |
 | [MATLAB_PRODUCT_LIST](#build-an-image-with-a-specific-set-of-products) | MATLAB | Products to install as a space-separated list. For more information, see [MPM.md](../../MPM.md). For example: `MATLAB Simulink Deep_Learning_Toolbox Fixed-Point_Designer`. The list of products to install must be a subset of the installation files available in the archive image. |
-| [MATLAB_INSTALL_LOCATION](#build-an-image-with-matlab-installed-to-a-specific-location) | /opt/matlab/R2025a | The path to install MATLAB. |
-| [ARCHIVE_BASE_IMAGE](#build-an-image-from-a-different-archive) | mpm-archive:R2025a | The name of the Docker&reg; image containing the product installation files. |
+| [MATLAB_INSTALL_LOCATION](#build-an-image-with-matlab-installed-to-a-specific-location) | /opt/matlab/R2025b | The path to install MATLAB. |
+| [ARCHIVE_BASE_IMAGE](#build-an-image-from-a-different-archive) | mpm-archive:R2025b | The name of the Docker&reg; image containing the product installation files. |
 | [LICENSE_SERVER](#build-an-image-configured-to-use-a-license-server) | *unset* | The port and hostname of the machine that is running the Network License Manager, using the `port@hostname` syntax. For example: `27000@MyServerName` |
 
 Use these arguments with the `docker build` command to customize your image.
@@ -101,21 +101,21 @@ Ensure that the release of the archive base image you set in `ARCHIVE_BASE_IMAGE
 
 For example, to build an image with MATLAB and the Statistics and Machine Learning Toolbox, use this command.
 ```bash
-docker build --build-arg MATLAB_PRODUCT_LIST="MATLAB Statistics_and_Machine_Learning_Toolbox" -t matlab-stats-from-source:R2025a .
+docker build --build-arg MATLAB_PRODUCT_LIST="MATLAB Statistics_and_Machine_Learning_Toolbox" -t matlab-stats-from-source:R2025b .
 ```
 
 ### Build an Image with MATLAB Installed to a Specific Location
 
 For example, to build an image with MATLAB installed at `/opt/matlab`, use this command.
 ```bash
-docker build --build-arg MATLAB_INSTALL_LOCATION="/opt/matlab" -t matlab-from-source:R2025a .
+docker build --build-arg MATLAB_INSTALL_LOCATION="/opt/matlab" -t matlab-from-source:R2025b .
 ```
 
 ### Build an Image from a Different Archive
 
 For example, to build an image using a different archive image, use the following command.
 ```bash
-docker build  --build-arg ARCHIVE_BASE_IMAGE=my-archive -t matlab-from-source:R2025a .
+docker build  --build-arg ARCHIVE_BASE_IMAGE=my-archive -t matlab-from-source:R2025b .
 ```
 
 #### Build an Image Configured to Use a License Server
@@ -123,10 +123,10 @@ docker build  --build-arg ARCHIVE_BASE_IMAGE=my-archive -t matlab-from-source:R2
 Including the license server information with the `docker build` command means you do not have to pass it when running the container.
 ```bash
 # Build container with the License Server.
-docker build --build-arg LICENSE_SERVER=27000@MyServerName -t matlab-from-source:R2025a .
+docker build --build-arg LICENSE_SERVER=27000@MyServerName -t matlab-from-source:R2025b .
 
 # Run the container, without needing to pass license information.
-docker run --init --rm matlab-from-source:R2025a -batch ver
+docker run --init --rm matlab-from-source:R2025b -batch ver
 ```
 
 For more information, see [Use the Network License Manager](../../README.md#use-the-network-license-manager).
