@@ -21,6 +21,12 @@ If you encounter a technical issue or have an enhancement request, create an iss
 
 ## Changelog
 
+### 2025.2 - October 15, 2025
+- **Fixed**: Addressed issues to improve the quality and stability of `mpm`.
+
+> **Note:**
+> `mpm` was not updated on Intel Macs for 2025.2. When you download the latest version of `mpm` on Intel Macs, you get 2025.1.
+
 ### 2025.1 - April 2, 2025
 - **Added**: Use the `--no-deps` option of `mpm download` to download only the specified products and omit product dependencies. Specify this option when all required dependencies have already been downloaded or are currently installed.
 
