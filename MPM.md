@@ -21,6 +21,9 @@ If you encounter a technical issue or have an enhancement request, create an iss
 
 ## Changelog
 
+### 2025.2.1 - October 29, 2025
+- **Fixed**: Updated Intel Mac `mpm` to include all 2025.2 quality and stability improvements addressed on other platforms. The latest `mpm` release for all platforms is now 2025.2.1.
+
 ### 2025.2 - October 15, 2025
 - **Fixed**: Addressed issues to improve the quality and stability of `mpm`.
 
