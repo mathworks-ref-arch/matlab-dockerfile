@@ -139,6 +139,10 @@ If your batch licensing token expires in less than 30 days, **matlab-batch** pri
  - R2021a is the oldest release that **matlab-batch** supports on Windows.
  - R2023b is the oldest release that **matlab-batch** supports on macOS with Apple silicon.
  - **matlab-batch** does not support MATLAB Engine APIs for Python&reg;, Java&reg;, .NET, COM, C, C++, and Fortran.
+ - **matlab-batch** does not support startup scripts `matlabrc.m` or `startup.m`. To use a startup script, rename `startup.m` to, for example, `startup_batch.m`, and then run this command.
+ ```bash
+ matlab-batch "startup_batch; custom_code"
+ ```
 
 ## Feedback and Support
 To inquire about eligibility requirements for the MATLAB batch licensing pilot, fill out this form on the MathWorks website: [Batch Licensing Pilot Eligibility](https://www.mathworks.com/support/batch-tokens.html).
