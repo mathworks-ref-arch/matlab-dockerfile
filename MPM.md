@@ -26,6 +26,7 @@ If you encounter a technical issue or have an enhancement request, create an iss
 
 ### 2025.2 - October 15, 2025
 - **Fixed**: Addressed issues to improve the quality and stability of `mpm`.
+- **Removed**: `mpm` is no longer supported on Red Hat Enterprise Linux 7 (RHEL 7). The last version of `mpm` that supports RHEL 7 is 2025.1. To get earlier versions of `mpm`, [contact support](https://www.mathworks.com/support/contact_us.html).
 
 > **Note:**
 > `mpm` was not updated on Intel Macs for 2025.2. When you download the latest version of `mpm` on Intel Macs, you get 2025.1.
