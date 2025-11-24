@@ -8,6 +8,7 @@
 #              --build-arg MATLAB_PRODUCT_LIST="MATLAB Deep_Learning_Toolbox Symbolic_Math_Toolbox"
 #              --build-arg MATLAB_INSTALL_LOCATION="/opt/matlab/R2025b"
 #              --build-arg LICENSE_SERVER=12345@hostname.com
+#              --build-arg UBUNTU_VERSION=24.04
 #              -t my_matlab_image_name .
 
 # To specify which MATLAB release to install in the container, edit the value of the MATLAB_RELEASE argument.
@@ -20,12 +21,15 @@ ARG MATLAB_PRODUCT_LIST="MATLAB"
 # Specify MATLAB Install Location.
 ARG MATLAB_INSTALL_LOCATION="/opt/matlab/${MATLAB_RELEASE}"
 
+# Specify a ubuntu version to use for the container
+ARG UBUNTU_VERSION
+
 # Specify license server information using the format: port@hostname
 ARG LICENSE_SERVER
 
 # When you start the build stage, this Dockerfile by default uses the Ubuntu-based matlab-deps image.
 # To check the available matlab-deps images, see: https://hub.docker.com/r/mathworks/matlab-deps
-FROM mathworks/matlab-deps:${MATLAB_RELEASE}
+FROM mathworks/matlab-deps:${MATLAB_RELEASE}${UBUNTU_VERSION:+-ubuntu${UBUNTU_VERSION}}
 
 # Declare build arguments to use at the current build stage.
 ARG MATLAB_RELEASE

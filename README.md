@@ -68,6 +68,7 @@ The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/ma
 | [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | R2025b | MATLAB release to install, for example, `R2023b`.|
 | [MATLAB_PRODUCT_LIST](#build-an-image-with-a-specific-set-of-products) | MATLAB | Space-separated list of products to install, for example, `MATLAB Simulink Deep_Learning_Toolbox Fixed-Point_Designer`. For more information, see [MPM.md](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md).|
 | [MATLAB_INSTALL_LOCATION](#build-an-image-with-matlab-installed-to-a-specific-location) | /opt/matlab/R2025b | Path to install MATLAB. |
+| [UBUNTU_VERSION](#build-an-image-based-on-a-specific-os) | *unset* | The base OS that should be used to build on top of. For example: 24.04|
 | [LICENSE_SERVER](#build-an-image-configured-to-use-a-license-server) | *unset* | Port and hostname of the machine that is running the network license manager, using the `port@hostname` syntax. For example: `27000@MyServerName` |
 
 Use these arguments with the `docker build` command to customize your image.
@@ -89,6 +90,15 @@ docker build --build-arg MATLAB_PRODUCT_LIST='MATLAB Simulink' -t matlab:R2025b 
 For example, to build an image with MATLAB installed at /opt/matlab, use this command.
 ```bash
 docker build --build-arg MATLAB_INSTALL_LOCATION='/opt/matlab' -t matlab:R2025b .
+```
+
+#### Build an Image Based on a Specific OS
+
+You can specify a base OS image to build upon using the `UBUNTU_VERSION` build argument. These should follow th convention used for the `mathworks/matlab-deps` images. For more information see the [list of matlab-deps base images](https://hub.docker.com/r/mathworks/matlab-deps#supported-tags). For example:
+
+```bash
+# Build a container based on a specific OS.
+docker build --build-arg UBUNTU_VERSION=24.04 -t matlab:R2025a .
 ```
 
 #### Build an Image Configured to Use a License Server
