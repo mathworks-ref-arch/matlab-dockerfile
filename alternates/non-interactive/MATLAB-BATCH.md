@@ -151,6 +151,9 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 
 ## Changelog
 
+### v2025.11.0
+- **Added:** Support for MATLAB R2026a Prerelease.
+
 ### v2025.10.0
 - **Added:** Support for using tokens beyond their offline expiration date. Requires connection to MathWorks online services. MATLAB connects to these services automatically when online.
 
@@ -158,7 +161,7 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 - **Added:** Internal changes to support new token formats.
 
 ### v2025.09.0
-- **Added:** Internal changes to support upcoming features.
+- **Added:** Support for MATLAB R2025b.
 
 ### v2025.08.0
 - **Fixed:** Error messaging and logging.
