@@ -7,6 +7,12 @@ ARG MATLAB_RELEASE=R2025b
 # Specify the extra products to install into the image. These products can either be toolboxes or support packages.
 ARG ADDITIONAL_PRODUCTS="Symbolic_Math_Toolbox Deep_Learning_Toolbox_Model_for_ResNet-50_Network"
 
+# Specify the fonts packages to install into the image. The default value below installs fonts for ja_JP-UTF-8 locales support.
+ARG FONTS_PACKAGES="fonts-vlgothic ibus-mozc"
+
+# Specify the extra Ubuntu APT packages to install into the image.
+ARG ADDITIONAL_APT_PACKAGES="" 
+
 # This Dockerfile builds on the Ubuntu-based mathworks/matlab image.
 # To check the available matlab images, see: https://hub.docker.com/r/mathworks/matlab
 FROM mathworks/matlab:$MATLAB_RELEASE
@@ -14,6 +20,8 @@ FROM mathworks/matlab:$MATLAB_RELEASE
 # Declare the global argument to use at the current build stage
 ARG MATLAB_RELEASE
 ARG ADDITIONAL_PRODUCTS
+ARG FONTS_PACKAGES
+ARG ADDITIONAL_APT_PACKAGES
 
 # By default, the MATLAB container runs as user "matlab". To install mpm dependencies, switch to root.
 USER root
@@ -24,6 +32,8 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get install --no-install-recommends --yes \
         wget \
         ca-certificates \
+        ${FONTS_PACKAGES} \
+        ${ADDITIONAL_APT_PACKAGES} \
     && apt-get clean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*

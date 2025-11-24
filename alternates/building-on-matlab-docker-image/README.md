@@ -69,6 +69,8 @@ The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/ma
 |---|---|---|
 | [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | R2025b | MATLAB release to install, for example, `R2023b`.|
 | [ADDITIONAL_PRODUCTS](#customize-products-to-install-using-matlab-package-manager-mpm) | `Symbolic_Math_Toolbox Deep_Learning_Toolbox_Model_for_ResNet-50_Network` | Space-separated list of toolboxes and support packages to install. For more details, see  [MATLAB Package Manager](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md).|
+| [FONTS_PACKAGES](#build-an-image-with-modified-fonts-packages) | `fonts-vlgothic ibus-mozc` | Space-separated list of fonts packages to install. |
+| [ADDITIONAL_APT_PACKAGES](#build-an-image-with-additional-ubuntu-apt-packages) | *unset* | Space-separated list of APT packages to install. |
 | [LICENSE_SERVER](#build-an-image-with-license-server-information) | *unset* | Port and hostname of a machine that is running a Network License Manager, using the `port@hostname` syntax, for example, `27000@MyServerName`. To use this build argument, the corresponding lines must be uncommented in the Dockerfile. |
 
 Use these arguments with the `docker build` command to customize the image.
@@ -86,6 +88,19 @@ To build an image for MATLAB R2022b with Deep Learning Toolbox and Parallel Comp
 docker build --build-arg MATLAB_RELEASE=R2022b --build-arg ADDITIONAL_PRODUCTS="Deep_Learning_Toolbox Parallel_Computing_Toolbox" -t matlab_with_add_ons:R2022b .
 ```
 For supported releases see [MATLAB Container Image on Docker Hub](https://hub.docker.com/r/mathworks/matlab).
+
+### Build an Image with Modified Fonts Packages
+Use the `FONTS_PACKAGES` argument to build an image with a modified set of font packages. By default, it installs font support packages for a single locale (`ja_JP-UTF-8`). To override the default, specify other packages in the argument, for example, `fonts-arphic-gbsn00lp` (for Chinese) and `fonts-unfonts-core` (for Korean).
+```bash
+docker build --build-arg FONTS_PACKAGES="fonts-arphic-gbsn00lp fonts-unfonts-core" -t matlab_with_add_ons:R2025b .
+```
+
+### Build an Image with Additional Ubuntu APT Packages 
+Use the `ADDITIONAL_APT_PACKAGES` argument to build an image with additional Ubuntu APT packages. By default, it installs font support packages for various locales. To override the default, specify other packages in the argument, for example, `vim`.
+```bash
+docker build --build-arg ADDITIONAL_APT_PACKAGES="vim" -t matlab_with_add_ons:R2025b .
+```
+
 ### Build an Image with License Server Information
 If you include the license server information with the `docker build` command, you do not need to pass the information while running the container.
 To use this build argument, uncomment the corresponding lines in the Dockerfile.
@@ -94,7 +109,7 @@ server or the browser mode will not start successfully.
 
 Build container with the license server.
 ```bash
-docker build -t matlab_with_add_ons:R2025b --build-arg LICENSE_SERVER=27000@MyServerName .
+docker build --build-arg LICENSE_SERVER=27000@MyServerName -t matlab_with_add_ons:R2025b .
 ```
 
 Run the container, without needing to pass license information.
@@ -105,6 +120,16 @@ docker run --init matlab_with_add_ons:R2025b -batch ver
 The Docker container you build using this Dockerfile inherits run options from its base image.
 See the documentation for the base image, [MATLAB Container Image on Docker Hub](https://hub.docker.com/r/mathworks/matlab) (hosted on Docker Hub) for instructions on how to use the base image features. The features include interacting with MATLAB using a web browser, batch mode, or an interactive command prompt, as well as how to provide license information when running the container.
 Run the commands provided in the instructions using the name of the Docker image that you build using this Dockerfile.
+
+#### Set Custom Locale for Container
+
+To set a custom locale for the MATLAB Docker container, install the appropriate fonts when building the Docker image. For example, use `fonts-vlgothic` for Japanese. These fonts are installed by default, unless you modify the `ADDITIONAL_APT_PACKAGES` argument. 
+
+After building the image, when you run the container, use the `-e` flag with the `LANG` environment variable to specify language and character encoding settings.
+
+```bash
+docker run -it --rm -e LANG=ja_JP.UTF-8 --shm-size=512M matlab_with_add_ons:R2025b
+```
 
 ## More MATLAB Docker Resources
 For more resources, see [More MATLAB Docker Resources](https://github.com/mathworks-ref-arch/matlab-dockerfile#more-matlab-docker-resources).
