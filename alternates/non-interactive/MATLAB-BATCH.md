@@ -151,6 +151,9 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 
 ## Changelog
 
+### v2025.11.1
+- **Fixed:** Compatibility with MATLAB R2026a Prerelease after recent updates.
+
 ### v2025.11.0
 - **Added:** Support for MATLAB R2026a Prerelease.
 
