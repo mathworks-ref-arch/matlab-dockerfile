@@ -1,0 +1,31 @@
+# GitHub runners come preinstalled with a lot of software that
+# is not needed for this workflow. To increase available space
+# these packages are removed.
+# https://github.com/actions/runner-images/issues/2840
+
+# Copyright 2025 The MathWorks, Inc.
+
+name: Cleanup Runner
+description: This action removes unnecessary software from the GitHub runner to free up disk space.
+
+runs:
+  using: "composite"
+  steps:
+      - name: Cleanup
+        shell: bash
+        run: |
+          sudo rm -rf \
+            "$AGENT_TOOLSDIRECTORY" \
+            /opt/google/chrome \
+            /opt/microsoft/msedge \
+            /opt/microsoft/powershell \
+            /opt/pipx \
+            /usr/lib/mono \
+            /usr/local/julia* \
+            /usr/local/lib/android \
+            /usr/local/lib/node_modules \
+            /usr/local/share/chromium \
+            /usr/local/share/powershell \
+            /usr/share/dotnet \
+            /usr/share/swift
+          df -h /

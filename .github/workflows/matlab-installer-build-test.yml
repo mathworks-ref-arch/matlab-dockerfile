@@ -47,6 +47,9 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+    
+      - name: Cleanup runner
+        uses: ./.github/actions/cleanup-runner
 
       - name: Move matlab-install mock to right location
         run: |
