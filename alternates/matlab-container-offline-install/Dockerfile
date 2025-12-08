@@ -78,7 +78,7 @@ ENV MLM_LICENSE_FILE=$LICENSE_SERVER
 # To opt out of this service, delete the environment variables defined in the following line.
 # See the Help Make MATLAB Even Better section in the accompanying README to learn more:
 # https://github.com/mathworks-ref-arch/matlab-dockerfile/alternates/matlab-container-offline-install#help-make-matlab-even-better
-ENV MW_DDUX_FORCE_ENABLE=true MW_CONTEXT_TAGS=$MW_CONTEXT_TAGS,MATLAB:FROM_SOURCE:DOCKERFILE:V1
+ENV MW_DDUX_FORCE_ENABLE=true MW_CONTEXT_TAGS=MATLAB:FROM_SOURCE:DOCKERFILE:V1
 
 ENTRYPOINT ["matlab"]
 CMD [""]
