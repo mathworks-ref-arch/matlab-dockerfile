@@ -21,6 +21,9 @@ If you encounter a technical issue or have an enhancement request, create an iss
 
 ## Changelog
 
+### 2025.3 - December 10, 2025
+- **Deprecated**: Support for `mpm` on Intel Macs will be removed in a future release. `mpm` will continue to support Apple silicon Macs.
+
 ### 2025.2.1 - October 29, 2025
 - **Fixed**: Updated Intel Mac `mpm` to include all 2025.2 quality and stability improvements addressed on other platforms. The latest `mpm` release for all platforms is now 2025.2.1.
 
