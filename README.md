@@ -1,215 +1,143 @@
-# Create MATLAB Container Image
+# Building on MATLAB Docker Image
 
-This repository shows you how to build and customize a Docker&reg; container for MATLAB&reg; and its toolboxes, using the [MATLAB Package Manager](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md) (`mpm`). You can use this container image as a scalable and reproducible method to deploy and test your MATLAB code.
+The Dockerfile in this subfolder builds on the [MATLAB Container Image on Docker Hub](https://hub.docker.com/r/mathworks/matlab)
+by installing MATLAB&reg; toolboxes and support packages using [MATLAB Package Manager](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md) (`mpm`).
 
-Use the [Dockerfile](Dockerfile) in this top-level repository if you want a lightweight and simple way to create a MATLAB container image. You can also download prebuilt images based on the Dockerfile from [this GitHub&reg; repository](https://github.com/mathworks-ref-arch/matlab-dockerfile/pkgs/container/matlab-dockerfile%2Fmatlab).
- 
-To build a Windows&reg; container for MATLAB, see the [**windows folder**](windows). This container supports non-interactive MATLAB workflows only, such as running scripts, batch jobs, or automating tasks in continuous integration and continuous delivery (CI/CD) pipelines.
- 
-For alternative resources, see the [**alternates folder**](alternates) that contains the following Dockerfiles: 
-
-* The Dockerfile in [matlab-installer](alternates/matlab-installer) uses the MATLAB installer rather than `mpm` to install MATLAB in the container. This allows you to install toolboxes that are not currently supported by mpm. Use this Dockerfile if you prefer using the MATLAB installer workflow, instead of `mpm`.
-* The Dockerfile in [building-on-matlab-docker-image](alternates/building-on-matlab-docker-image) shows you how to build on top of the [MATLAB Container Image on Docker Hub](https://hub.docker.com/r/mathworks/matlab). Use this Dockerfile if you want to install extra toolboxes on top of the `mathworks/matlab` container image. This Dockerfile contains the features of the MATLAB image on Docker Hub, allowing you to access the dockerised MATLAB through a browser, batch mode, or an interactive command prompt.
-* The Dockerfile in [non-interactive](alternates/non-interactive) allows you run MATLAB in non-interactive environments. This Dockerfile requires that you have a MATLAB batch licensing token to license MATLAB in the container. Use this Dockerfile in CI/CD pipelines or other automated environments where interactive licensing is not possible.
-* The Dockerfile in [matlab-container-offline-install](alternates/matlab-container-offline-install/) shows you how to build and customize a Docker container for MATLAB and its toolboxes in an offline environment. Use this Dockerfile if you must build your container image in an offline environment.
-
-For more Docker related resources, see [More MATLAB Docker Resources](#more-matlab-docker-resources). 
+Use the Dockerfile as an example of how to build a custom image that contains the features of the MATLAB image on Docker&reg; Hub.
+These features include accessing the dockerized MATLAB through a browser, batch mode, or an interactive command prompt.
+For details of the features in the image, see [MATLAB Container Image on Docker Hub](https://hub.docker.com/r/mathworks/matlab).
 
 ### Requirements
-* [A running network license manager for MATLAB](https://www.mathworks.com/help/install/administer-network-licenses.html) — For more information, see [Using the Network License Manager](#use-the-network-license-manager).
-* Docker.
+* Docker
 
 ## Build Instructions
 
-### Get Sources
+### Get the Dockerfile
 
-Access the Dockerfile either by directly downloading this repository from GitHub,
+Access the Dockerfile either by directly downloading this repository from GitHub&reg;,
 or by cloning this repository and
-then navigating to the appropriate folder.
+then navigating to the appropriate subfolder.
 ```bash
 git clone https://github.com/mathworks-ref-arch/matlab-dockerfile.git
-cd matlab-dockerfile
+cd matlab-dockerfile/alternates/building-on-matlab-docker-image
 ```
 
-### Build and Run Docker Image
-
-Build container with a name and tag of your choice.
+### Quick Start
+Build a container with a name and tag.
 ```bash
-docker build -t matlab:R2025b .
+docker build -t matlab_with_add_ons:R2025b .
 ```
 
-Run the container. Test the container by running an example MATLAB command, such as `ver`.
+You can then run the container with the `batch` option. Test the container by running an example MATLAB command, such as `ver`, to display the installed toolboxes.
 ```bash
-docker run --init --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:R2025b -batch ver
+docker run --init --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab_with_add_ons:R2025b -batch ver
 ```
-The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile) defaults to building a container for MATLAB R2025b.
+You can check the installed support packages using the MATLAB command `matlabshared.supportpkg.getInstalled`.
 
-The example command `ver` displays the version number of MATLAB and other installed products. For more information, see [`ver`](https://www.mathworks.com/help/matlab/ref/ver.html). For more information on running the container, see the [Run the Container](#run-the-container) section.
-
-> **Note**
->
-> Use the `--init` flag in the `docker run` command to ensure that the container stops gracefully when a `docker stop` or `docker kill` command is issued.
-> For more information, see these links:
-> * [Reference page for `docker run`](https://docs.docker.com/reference/cli/docker/container/run/#init)
-> * [Blog post on the usage of init](https://www.baeldung.com/ops/docker-init-parameter)
-
+You can also run the container with the `browser` option to access MATLAB in a browser.
+```bash
+docker run --init --rm -it -p 8888:8888 matlab_with_add_ons:R2025b -browser
+```
+For more information, see [Run the Container](#run-the-container).
 
 ## Customize the Image
+### Customize Products to Install Using MATLAB Package Manager
+This Dockerfile installs any specified products
+into the MATLAB installation on the MATLAB Docker Hub image.
 
-By default, the [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile) installs the latest available MATLAB release without any additional toolboxes or products in the `/opt/matlab/${MATLAB_RELEASE}` folder.
+To customize the build, either pass a list of products into the `ADDITIONAL_PRODUCTS`
+argument when building the Docker image, or edit the default value of that argument in the Dockerfile.
+The `ADDITIONAL_PRODUCTS` argument must be a space-separated list surrounded by quotation marks.
+By default, `ADDITIONAL_PRODUCTS` includes example products, which you can replace.
+For example, to build an image containing MATLAB and the Deep Learning Toolbox&trade;, use this command.
+```bash
+docker build --build-arg ADDITIONAL_PRODUCTS="Deep_Learning_Toolbox" -t matlab_with_add_ons:R2025b .
+```
 
-Use the options below to customize your build.
+For a successful build, include at least one product.
+`mpm` automatically installs any toolboxes and support packages
+required by the products specified in `ADDITIONAL_PRODUCTS`.
+For more information, see [MATLAB Package Manager](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md).
 
-### Customize MATLAB Release, MATLAB Product List, MATLAB Install Location, and License Server
-The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile) supports these Docker build-time variables:
+You can modify the products argument of `mpm`, but not the destination folder default value, which is
+set to match the default value of the MATLAB image on Docker Hub. If you modify the default value for the `--destination` argument, the build might fail.
 
-| Argument Name | Default value | Description |
+### Docker Build-Time Variables
+The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile) supports the Docker build-time variables listed in the table.
+
+| Argument Name | Default value | Effect |
 |---|---|---|
 | [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | R2025b | MATLAB release to install, for example, `R2023b`.|
-| [MATLAB_PRODUCT_LIST](#build-an-image-with-a-specific-set-of-products) | MATLAB | Space-separated list of products to install, for example, `MATLAB Simulink Deep_Learning_Toolbox Fixed-Point_Designer`. For more information, see [MPM.md](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md).|
-| [MATLAB_INSTALL_LOCATION](#build-an-image-with-matlab-installed-to-a-specific-location) | /opt/matlab/R2025b | Path to install MATLAB. |
-| [UBUNTU_VERSION](#build-an-image-based-on-a-specific-os) | *unset* | The base OS that should be used to build on top of. For example: 24.04|
-| [LICENSE_SERVER](#build-an-image-configured-to-use-a-license-server) | *unset* | Port and hostname of the machine that is running the network license manager, using the `port@hostname` syntax. For example: `27000@MyServerName` |
+| [ADDITIONAL_PRODUCTS](#customize-products-to-install-using-matlab-package-manager-mpm) | `Symbolic_Math_Toolbox Deep_Learning_Toolbox_Model_for_ResNet-50_Network` | Space-separated list of toolboxes and support packages to install. For more details, see  [MATLAB Package Manager](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md).|
+| [FONTS_PACKAGES](#build-an-image-with-modified-fonts-packages) | `fonts-vlgothic ibus-mozc` | Space-separated list of fonts packages to install. |
+| [ADDITIONAL_APT_PACKAGES](#build-an-image-with-additional-ubuntu-apt-packages) | *unset* | Space-separated list of APT packages to install. |
+| [LICENSE_SERVER](#build-an-image-with-license-server-information) | *unset* | Port and hostname of a machine that is running a Network License Manager, using the `port@hostname` syntax, for example, `27000@MyServerName`. To use this build argument, the corresponding lines must be uncommented in the Dockerfile. |
 
-Use these arguments with the `docker build` command to customize your image.
-Alternatively, you can change the default values for these arguments directly in the [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/Dockerfile).
+Use these arguments with the `docker build` command to customize the image.
+Alternatively, change the default values for these arguments directly in the Dockerfile.
 
-#### Build an Image for a Different MATLAB Release
-For example, to build an image for MATLAB R2019b, use this command.
+### Build an Image for a Different MATLAB Release
+
+For example, to build an image for MATLAB R2022b, use this command.
 ```bash
-docker build --build-arg MATLAB_RELEASE=R2019b -t matlab:R2019b .
+docker build --build-arg MATLAB_RELEASE=R2022b -t matlab_with_add_ons:R2022b .
 ```
 
-#### Build an Image with a Specific Set of Products
-For example, to build an image with MATLAB and Simulink&reg;, use this command.
+To build an image for MATLAB R2022b with Deep Learning Toolbox and Parallel Computing Toolbox&trade;, use this command.
 ```bash
-docker build --build-arg MATLAB_PRODUCT_LIST='MATLAB Simulink' -t matlab:R2025b .
+docker build --build-arg MATLAB_RELEASE=R2022b --build-arg ADDITIONAL_PRODUCTS="Deep_Learning_Toolbox Parallel_Computing_Toolbox" -t matlab_with_add_ons:R2022b .
+```
+For supported releases see [MATLAB Container Image on Docker Hub](https://hub.docker.com/r/mathworks/matlab).
+
+### Build an Image with Modified Fonts Packages
+Use the `FONTS_PACKAGES` argument to build an image with a modified set of font packages. By default, it installs font support packages for a single locale (`ja_JP-UTF-8`). To override the default, specify other packages in the argument, for example, `fonts-arphic-gbsn00lp` (for Chinese) and `fonts-unfonts-core` (for Korean).
+```bash
+docker build --build-arg FONTS_PACKAGES="fonts-arphic-gbsn00lp fonts-unfonts-core" -t matlab_with_add_ons:R2025b .
 ```
 
-#### Build an Image with MATLAB Installed to a Specific Location
-For example, to build an image with MATLAB installed at /opt/matlab, use this command.
+### Build an Image with Additional Ubuntu APT Packages 
+Use the `ADDITIONAL_APT_PACKAGES` argument to build an image with additional Ubuntu APT packages. By default, it installs font support packages for various locales. To override the default, specify other packages in the argument, for example, `vim`.
 ```bash
-docker build --build-arg MATLAB_INSTALL_LOCATION='/opt/matlab' -t matlab:R2025b .
+docker build --build-arg ADDITIONAL_APT_PACKAGES="vim" -t matlab_with_add_ons:R2025b .
 ```
 
-#### Build an Image Based on a Specific OS
+### Build an Image with License Server Information
+If you include the license server information with the `docker build` command, you do not need to pass the information while running the container.
+To use this build argument, uncomment the corresponding lines in the Dockerfile.
+If the lines are uncommented, `$LICENSE_SERVER` must be a valid license
+server or the browser mode will not start successfully.
 
-You can specify a base OS image to build upon using the `UBUNTU_VERSION` build argument. These should follow th convention used for the `mathworks/matlab-deps` images. For more information see the [list of matlab-deps base images](https://hub.docker.com/r/mathworks/matlab-deps#supported-tags). For example:
-
+Build container with the license server.
 ```bash
-# Build a container based on a specific OS.
-docker build --build-arg UBUNTU_VERSION=24.04 -t matlab:R2025a .
+docker build --build-arg LICENSE_SERVER=27000@MyServerName -t matlab_with_add_ons:R2025b .
 ```
 
-#### Build an Image Configured to Use a License Server
-
-Including the license server information with the `docker build` command means you do not have to pass it when running the container.
+Run the container, without needing to pass license information.
 ```bash
-# Build container with the license server.
-docker build --build-arg LICENSE_SERVER=27000@MyServerName -t matlab:R2025b .
-
-# Run the container without needing to pass license information.
-docker run --init --rm matlab:R2025b -batch ver
+docker run --init matlab_with_add_ons:R2025b -batch ver
 ```
-
-## Use the Network License Manager
-This container requires a network license manager to license and run MATLAB. You need either the port and hostname of the network license manager or a `network.lic` file.
-
-**Step 1**: Contact your system administrator, who can provide one of the following:
-
-* The address to your server, and the port it is running on, for example, `27000@MyServerName.example.com`
-
-* A `network.lic` file containing these lines.
-    ```bash
-    # Sample network.lic
-    SERVER MyServerName.example.com <optional-mac-address> 27000
-    USE_SERVER
-    ```
-
-* A `license.dat` file. Open the `license.dat` file, find the `SERVER` line, and either extract the `port@hostname`, or create a `network.lic` file by copying the `SERVER` line and adding a `USE_SERVER` line below it.
-
-    ```bash
-    # Snippet from sample license.dat
-    SERVER MyServerName.example.com <mac-address> 27000
-    ```
----
-**Step 2**: Use `port@hostname` or the `network.lic` file with either the `docker build` **or** the `docker run` command.
-
-With the `docker build` command, either:
-
-- Specify the `LICENSE_SERVER` build-arg.
-
-    ```bash
-    # Example
-    docker build -t matlab:R2025b --build-arg LICENSE_SERVER=27000@MyServerName .
-    ```
-- Use the `network.lic` file.
-    1. Place the `network.lic` file in the same folder as the Dockerfile.
-    1. Uncomment the line `COPY network.lic /opt/matlab/licenses/` in the Dockerfile.
-    1. Run the `docker build` command **without** the `LICENSE_SERVER` build-arg:
-
-    ```bash
-    # Example
-    docker build -t matlab:R2025b .
-    ```
-    
-With the `docker run` command, use the `MLM_LICENSE_FILE` environment variable. 
-
-```bash
-docker run --init --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:R2025b -batch ver
-```
-
 ## Run the Container
-If you did not provide the license server information when building the image, then provide it when running the container. Set the environment variable `MLM_LICENSE_FILE` using the `-e` flag, with the  network license manager's location in the format `port@hostname`.
+The Docker container you build using this Dockerfile inherits run options from its base image.
+See the documentation for the base image, [MATLAB Container Image on Docker Hub](https://hub.docker.com/r/mathworks/matlab) (hosted on Docker Hub) for instructions on how to use the base image features. The features include interacting with MATLAB using a web browser, batch mode, or an interactive command prompt, as well as how to provide license information when running the container.
+Run the commands provided in the instructions using the name of the Docker image that you build using this Dockerfile.
+
+#### Set Custom Locale for Container
+
+To set a custom locale for the MATLAB Docker container, install the appropriate fonts when building the Docker image. For example, use `fonts-vlgothic` for Japanese. These fonts are installed by default, unless you modify the `ADDITIONAL_APT_PACKAGES` argument. 
+
+After building the image, when you run the container, use the `-e` flag with the `LANG` environment variable to specify language and character encoding settings.
 
 ```bash
-# Start MATLAB, print version information, and exit.
-docker run --init --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab:R2025b -batch ver
+docker run -it --rm -e LANG=ja_JP.UTF-8 --shm-size=512M matlab_with_add_ons:R2025b
 ```
-
-You can run the container **without** specifying `MLM_LICENSE_FILE` if you provided the license server information when building the image, as shown in the examples below.
-
-### Run MATLAB in an Interactive Command Prompt
-To start the container and run MATLAB in an interactive command prompt, use this command.
-```bash
-docker run --init -it --rm matlab:R2025b
-```
-### Run MATLAB in Batch Mode
-To start the container, run a MATLAB command, and then exit, use this command.
-```bash
-# Container runs the command RAND in MATLAB and exits.
-docker run --init --rm matlab:R2025b -batch rand
-```
-
-### Run MATLAB with Startup Options
-To override the default behavior of the container and run MATLAB with any set of arguments, such as `-logfile`, use this command.
-```bash
-docker run --init -it --rm matlab:R2025b -logfile "logfilename.log"
-```
-To learn more, see the documentation: [Commonly Used Startup Options](https://www.mathworks.com/help/matlab/matlab_env/commonly-used-startup-options.html).
-
 
 ## More MATLAB Docker Resources
-* Explore prebuilt MATLAB Docker Containers on Docker Hub: https://hub.docker.com/r/mathworks.
-    * [MATLAB Containers on Docker Hub](https://hub.docker.com/r/mathworks/matlab) hosts container images for multiple releases of MATLAB.
-    * [MATLAB Deep Learning Containers on Docker Hub](https://hub.docker.com/r/mathworks/matlab-deep-learning) hosts container images with toolboxes suitable for Deep Learning.
-* Enable additional capabilities using the [MATLAB Dependencies repository](https://github.com/mathworks-ref-arch/container-images/tree/main/matlab-deps). 
-For some workflows and toolboxes, you must specify dependencies. You must do this if you want to do these tasks:
-    * Install extended localization support for MATLAB
-    * Play media files from MATLAB
-    * Generate code from Simulink
-    * Use mex functions with gcc, g++, or gfortran
-    * Use the MATLAB Engine API for C and Fortran&reg;
-    * Use the Polyspace&reg; 32-bit tcc compiler
-    
-    The [MATLAB Dependencies repository](https://github.com/mathworks-ref-arch/container-images/tree/main/matlab-deps) lists Dockerfiles for various releases and platforms. To view the Dockerfile for R2025b, click [here](https://github.com/mathworks-ref-arch/container-images/blob/main/matlab-deps/r2025b/ubuntu24.04/Dockerfile).
-
-    These Dockerfiles contain commented lines with the libraries that support additional capabilities. Copy and uncomment these lines into your Dockerfile.
+For more resources, see [More MATLAB Docker Resources](https://github.com/mathworks-ref-arch/matlab-dockerfile#more-matlab-docker-resources).
 
 ## Help Make MATLAB Even Better
 You can help improve MATLAB by providing user experience information on how you use MathWorks products. Your participation ensures that you are represented and helps us design better products. To opt out of this service, delete this line in the Dockerfile.
 ```Dockerfile
-ENV MW_DDUX_FORCE_ENABLE=true MW_CONTEXT_TAGS=MATLAB:DOCKERFILE:V1
+ENV MW_DDUX_FORCE_ENABLE=true MW_CONTEXT_TAGS=$MW_CONTEXT_TAGS,MATLAB:TOOLBOXES:DOCKERFILE:V1
 ```
 
 To learn more, see the documentation: [Help Make MATLAB Even Better - Frequently Asked Questions](https://www.mathworks.com/support/faq/user_experience_information_faq.html).
@@ -219,6 +147,6 @@ We encourage you to try this repository with your environment and provide feedba
 
 ----
 
-Copyright 2021-2025 The MathWorks, Inc.
+Copyright 2023-2025 The MathWorks, Inc.
 
 ----

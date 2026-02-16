@@ -1,1 +1,0 @@
-# This empty file is required to reproduce the silent installation.
