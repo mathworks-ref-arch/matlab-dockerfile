@@ -21,6 +21,11 @@ If you encounter a technical issue or have an enhancement request, create an iss
 
 ## Changelog
 
+### 2026.2 - March 4, 2026
+- **Added**: Install support packages from an Artifactory repository using the `--repo-config` option of `mpm install`. Previously, only products were supported. For more details, see [Configure Installation from Artifactory Repository](https://www.mathworks.com/help/install/ug/configure-installation-from-artifactory-repository.html).
+
+  > **Limitation:** In offline environments, `mpm` is unable to install support packages containing third-party packages from Artifactory. During installation, `mpm` attempts to download the third-party packages from vendor sites instead of retrieving them from Artifactory. If the vendor sites are unreachable, `mpm` issues an error. To install support packages containing third-party packages outside of Artifactory, see [Install Support Packages on Offline Computer](https://www.mathworks.com/help/install/ug/install-support-packages-on-offline-computer.html).
+
 ### 2026.1 - February 11, 2026
 - **Added**: Install products from your organization's Artifactory repository using the `--repo-config` option of `mpm install`. For details on configuring an Artifactory repository to install MathWorks products, see [Configure Installation from Artifactory Repository](https://www.mathworks.com/help/install/ug/configure-installation-from-artifactory-repository.html).
 - **Removed**: `mpm` is no longer available on Intel Mac platforms. The last version of `mpm` for Intel Macs is 2025.3. When you download the latest version of `mpm` on these platforms, you get 2025.3.
