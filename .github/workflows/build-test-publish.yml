@@ -1,4 +1,4 @@
-# Copyright 2022-2025 The MathWorks, Inc.
+# Copyright 2022-2026 The MathWorks, Inc.
 
 name: Build, Test and Publish the Dockerfile
 
@@ -7,7 +7,7 @@ name: Build, Test and Publish the Dockerfile
 on:
   workflow_dispatch:
   push:
-    # Trigger the workflow is the Dockerfile or any file under tests/ is modified
+    # Trigger the workflow when the Dockerfile or any file under tests/ is modified
     paths:
       - "Dockerfile"
       - "tests/*"
@@ -25,6 +25,11 @@ env:
 jobs:
   build-test-push-image:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
     strategy:
       fail-fast: false
       matrix:
@@ -82,9 +87,9 @@ jobs:
         run: echo '${{ secrets.MATLAB_LICENSE_FILE }}' > ${{ env.LICENSE_FILE_PATH }}
 
       - name: Test container
+        working-directory: tests
         env:
           IMAGE_NAME: ${{ env.IMAGE_BASE_NAME }}:${{ matrix.matlab-release }}
-        working-directory: tests
         run: python -m unittest -v
 
       - name: Push the image to ghcr.io

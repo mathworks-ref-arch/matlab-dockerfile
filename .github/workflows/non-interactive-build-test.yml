@@ -1,6 +1,6 @@
-# Copyright 2024-2025 The MathWorks, Inc.
+# Copyright 2024-2026 The MathWorks, Inc.
 
-name: Build and Test the "Non-Interactive" Dockerfile
+name: Build, Test and Publish the "Non-Interactive" Dockerfile
 
 # Trigger this workflow either manually or when a new change is pushed to the
 # repo (except .md files)
@@ -23,8 +23,13 @@ env:
   ALT_PATH: alternates/non-interactive
 
 jobs:
-  build-test-image:
+  build-test-push-image:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
     strategy:
       fail-fast: false
       matrix:

@@ -1,4 +1,4 @@
-# Copyright 2023-2025 The MathWorks, Inc.
+# Copyright 2023-2026 The MathWorks, Inc.
 
 name: Build and Test the "Building on MATLAB Docker Image" Dockerfile
 
@@ -26,6 +26,10 @@ env:
 jobs:
   build-test-image:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
     strategy:
       fail-fast: false
       matrix:

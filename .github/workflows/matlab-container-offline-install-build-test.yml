@@ -1,4 +1,4 @@
-# Copyright 2024-2025 The MathWorks, Inc.
+# Copyright 2024-2026 The MathWorks, Inc.
 
 name: Build and Test the "MATLAB Container Offline Install" Dockerfiles
 
@@ -29,6 +29,10 @@ env:
 jobs:
   build-test-image:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
     strategy:
       fail-fast: false
       matrix:

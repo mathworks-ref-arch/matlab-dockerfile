@@ -1,4 +1,4 @@
-# Copyright 2025 The MathWorks, Inc.
+# Copyright 2025-2026 The MathWorks, Inc.
 
 name: Build, Test and Publish the Windows Dockerfile
 
@@ -24,6 +24,11 @@ env:
 jobs:
   windows-container-build-test-push-image:
     runs-on: windows-2022
+
+    permissions:
+      contents: read
+      packages: write
+
     strategy:
       fail-fast: false
       matrix:

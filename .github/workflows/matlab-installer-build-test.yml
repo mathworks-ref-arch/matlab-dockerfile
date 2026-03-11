@@ -1,4 +1,4 @@
-# Copyright 2023-2025 The MathWorks, Inc.
+# Copyright 2023-2026 The MathWorks, Inc.
 
 name: Build and Test the "MATLAB installer" Dockerfile
 
@@ -25,6 +25,10 @@ env:
 jobs:
   build-test-image:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
     defaults:
       run:
         shell: bash
@@ -47,7 +51,7 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-    
+
       - name: Cleanup runner
         uses: ./.github/actions/cleanup-runner
 
