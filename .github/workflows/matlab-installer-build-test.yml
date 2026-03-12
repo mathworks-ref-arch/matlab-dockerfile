@@ -61,7 +61,7 @@ jobs:
           cp tests/${{ env.ALT_PATH }}/mocks/matlab_installer_input.txt ./${{ env.ALT_PATH }}
 
       - name: Set up Python 3
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.10"
 
