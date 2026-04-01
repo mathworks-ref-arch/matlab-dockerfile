@@ -21,6 +21,15 @@ If you encounter a technical issue or have an enhancement request, create an iss
 
 ## Changelog
 
+### 2026.3 - April 1, 2026
+- **Added**: Download and install support packages that require accepting vendor license agreements using the `--accept-vendor-licenses` option of `mpm download` and `mpm install`. The following support packages are now supported with this option:
+    - Image Acquisition Toolbox™ Support Package for GenICam™ Interface
+    - Image Acquisition Toolbox Support Package for GigE Vision® Hardware
+    - MATLAB Support Package for IP Cameras
+    - MATLAB Support Package for Parrot® Drones
+    - MATLAB Support Package for Ryze™ Tello Drones
+    - Simulink Coder™ Support Package for BBC micro:bit
+
 ### 2026.2 - March 4, 2026
 - **Added**: Install support packages from an Artifactory repository using the `--repo-config` option of `mpm install`. Previously, only products were supported. For more details, see [Configure Installation from Artifactory Repository](https://www.mathworks.com/help/install/ug/configure-installation-from-artifactory-repository.html).
 
