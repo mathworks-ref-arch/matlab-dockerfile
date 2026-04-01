@@ -57,6 +57,17 @@
 
 # destinationFolder=
 
+########################################################################
+## ACCEPT VENDOR LICENSE AGREEMENTS
+########################################################################
+##
+## To install support packages that contain vendor licenses, you must agree
+## to accept these licenses.
+##
+## Uncomment the following line to accept all vendor license agreements. 
+## When you run mpm with this option, mpm displays the accepted agreements.
+
+# acceptVendorLicenses=yes
 
 ########################################################################
 ## PRODUCTS
@@ -224,9 +235,9 @@
 #product.Embedded_Coder_Support_Package_for_Texas_Instruments_C2000_Processors
 #product.Embedded_Coder_Support_Package_for_Xilinx_Zynq_Platform
 #product.Ephemeris_Data_for_Aerospace_Toolbox
+#product.Geoid_Data_for_Aerospace_Toolbox
 #product.GPU_Coder_Interface_for_Deep_Learning_Libraries
 #product.GUIDE_to_App_Designer_Migration_Tool_for_MATLAB
-#product.Geoid_Data_for_Aerospace_Toolbox
 #product.HDL_Coder_Support_Package_for_Intel_FPGA_Boards
 #product.HDL_Coder_Support_Package_for_Intel_SoC_Devices
 #product.HDL_Coder_Support_Package_for_Xilinx_FPGA_Boards
@@ -235,6 +246,8 @@
 #product.HDL_Verifier_Support_Package_for_Microsemi_FPGA_Boards
 #product.HDL_Verifier_Support_Package_for_Xilinx_FPGA_Boards
 #product.Image_Acquisition_Toolbox_Support_Package_for_DCAM_Hardware
+#product.Image_Acquisition_Toolbox_Support_Package_for_GenICam_Interface
+#product.Image_Acquisition_Toolbox_Support_Package_for_GigE_Vision_Hardware
 #product.Image_Acquisition_Toolbox_Support_Package_for_Hamamatsu_Hardware
 #product.Image_Acquisition_Toolbox_Support_Package_for_Kinect_for_Windows_Sensor
 #product.Image_Acquisition_Toolbox_Support_Package_for_Matrox_Hardware
@@ -262,15 +275,16 @@
 #product.MATLAB_Basemap_Data_-_landcover
 #product.MATLAB_Client_for_MATLAB_Production_Server
 #product.MATLAB_Coder_Interface_for_Deep_Learning_Libraries
+#product.MATLAB_Support_for_MinGW-w64_C/C++_Compiler
 #product.MATLAB_Support_Package_for_Android_Sensors
 #product.MATLAB_Support_Package_for_Apple_iOS_Sensors
 #product.MATLAB_Support_Package_for_Arduino_Hardware
 #product.MATLAB_Support_Package_for_BeagleBone_Black_Hardware
 #product.MATLAB_Support_Package_for_IP_Cameras
 #product.MATLAB_Support_Package_for_LEGO_MINDSTORMS_EV3_Hardware
+#product.MATLAB_Support_Package_for_Parrot_Drones
 #product.MATLAB_Support_Package_for_Raspberry_Pi_Hardware
 #product.MATLAB_Support_Package_for_USB_Webcams
-#product.MATLAB_Support_for_MinGW-w64_C/C++_Compiler
 #product.Mixed-Signal_Blockset_Models
 #product.Parallel_Computing_Toolbox_plugin_for_MATLAB_Parallel_Server_with_AWS_Batch
 #product.Parallel_Computing_Toolbox_plugin_for_MATLAB_Parallel_Server_with_Grid_Engine
@@ -279,10 +293,12 @@
 #product.Parallel_Computing_Toolbox_plugin_for_MATLAB_Parallel_Server_with_Slurm
 #product.Powertrain_Blockset_Drive_Cycle_Data
 #product.RF_Blockset_Models_for_Analog_Devices_RF_Transceivers
+#product.Robotics_System_Toolbox_UAV_Library
 #product.ROS_Toolbox_Interface_for_ROS_Custom_Messages
 #product.ROS_Toolbox_Support_Package_for_TurtleBot-Based_Robots
 #product.SerDes_Toolbox_Interface_for_SiSoft_Quantum_Channel_Designer_and_QSI_Software
 #product.Simulink_Coder_Support_Package_for_ARM_Cortex-based_VEX_Microcontroller
+#product.Simulink_Coder_Support_Package_for_BBC_microbit_Board
 #product.Simulink_Coder_Support_Package_for_BeagleBone_Blue_Hardware
 #product.Simulink_Coder_Support_Package_for_NXP_FRDM-K64F_Board
 #product.Simulink_Coder_Support_Package_for_NXP_FRDM-KL25Z_Board
@@ -305,7 +321,6 @@
 #product.Vehicle_Network_Toolbox_Support_Package_for_PEAK-System_CAN_devices
 #product.Vehicle_Network_Toolbox_Support_Package_for_Vector_CAN_devices
 #product.WINNER_II_Channel_Model_for_Communications_Toolbox
-
 
 ########################################################################
 ## CHECKSUM

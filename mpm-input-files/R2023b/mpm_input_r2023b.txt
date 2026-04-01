@@ -71,6 +71,17 @@
 
 # destinationFolder=
 
+########################################################################
+## ACCEPT VENDOR LICENSE AGREEMENTS
+########################################################################
+##
+## To install support packages that contain vendor licenses, you must agree
+## to accept these licenses.
+##
+## Uncomment the following line to accept all vendor license agreements. 
+## When you run mpm with this option, mpm displays the accepted agreements.
+
+# acceptVendorLicenses=yes
 
 ########################################################################
 ## PRODUCTS
@@ -206,11 +217,11 @@
 ##
 ## Uncomment the lines for the support packages you want to install or download.
 
-#product.Automated_Driving_Toolbox_Model_for_Lidar_Lane_Detection
-#product.ASIC_Testbench_for_HDL_Verifier
 #product.Aerospace_Blockset_Interface_for_Unreal_Engine_Projects
+#product.ASIC_Testbench_for_HDL_Verifier
 #product.Automated_Driving_Toolbox_Importer_for_Zenrin_Japan_Map_API_3.0_(Itsumo_NAVI_API_3.0)_Service
 #product.Automated_Driving_Toolbox_Interface_for_Unreal_Engine_4_Projects
+#product.Automated_Driving_Toolbox_Model_for_Lidar_Lane_Detection
 #product.CI/CD_Automation_for_Simulink_Check
 #product.Communications_Toolbox_Support_Package_for_Analog_Devices_ADALM-Pluto_Radio
 #product.Communications_Toolbox_Support_Package_for_RTL-SDR_Radio
@@ -226,8 +237,8 @@
 #product.Computer_Vision_Toolbox_Model_for_Mask_R-CNN_Instance_Segmentation
 #product.Computer_Vision_Toolbox_Model_for_Object_Keypoint_Detection
 #product.Computer_Vision_Toolbox_Model_for_R(2+1)D_Video_Classification
-#product.Computer_Vision_Toolbox_Model_for_SOLOv2_Instance_Segmentation
 #product.Computer_Vision_Toolbox_Model_for_SlowFast_Video_Classification
+#product.Computer_Vision_Toolbox_Model_for_SOLOv2_Instance_Segmentation
 #product.Computer_Vision_Toolbox_Model_for_Text_Detection
 #product.Computer_Vision_Toolbox_Model_for_Vision_Transformer_Network
 #product.Computer_Vision_Toolbox_Model_for_YOLO_v2_Object_Detection
@@ -247,7 +258,6 @@
 #product.Deep_Learning_Toolbox_Converter_for_TensorFlow_models
 #product.Deep_Learning_Toolbox_Importer_for_Caffe_Models
 #product.Deep_Learning_Toolbox_Interface_for_TensorFlow_Lite
-#product.Deep_Learning_Toolbox_Model_Quantization_Library
 #product.Deep_Learning_Toolbox_Model_for_AlexNet_Network
 #product.Deep_Learning_Toolbox_Model_for_DarkNet-19_Network
 #product.Deep_Learning_Toolbox_Model_for_DarkNet-53_Network
@@ -267,23 +277,24 @@
 #product.Deep_Learning_Toolbox_Model_for_VGG-16_Network
 #product.Deep_Learning_Toolbox_Model_for_VGG-19_Network
 #product.Deep_Learning_Toolbox_Model_for_Xception_Network
+#product.Deep_Learning_Toolbox_Model_Quantization_Library
 #product.Deep_Learning_Toolbox_Verification_Library
 #product.Embedded_Coder_Interface_to_QEMU_Emulator
-#product.Embedded_Coder_Support_Package_For_Linux_Applications
 #product.Embedded_Coder_Support_Package_for_ARM_Cortex-A_Processors
 #product.Embedded_Coder_Support_Package_for_ARM_Cortex-M_Processors
 #product.Embedded_Coder_Support_Package_for_ARM_Cortex-R_Processors
 #product.Embedded_Coder_Support_Package_for_BeagleBone_Black_Hardware
 #product.Embedded_Coder_Support_Package_for_Infineon_AURIX_TC4x_Microcontrollers
 #product.Embedded_Coder_Support_Package_for_Intel_SoC_Devices
+#product.Embedded_Coder_Support_Package_For_Linux_Applications
 #product.Embedded_Coder_Support_Package_for_STMicroelectronics_STM32_Processors
 #product.Embedded_Coder_Support_Package_for_Xilinx_Zynq_Platform
 #product.Ephemeris_Data_for_Aerospace_Toolbox
 #product.Extended_Tire_Features_for_Vehicle_Dynamics_Blockset
 #product.FMU_Builder_For_Simulink
+#product.Geoid_Data_for_Aerospace_Toolbox
 #product.GPU_Coder_Interface_for_Deep_Learning_Libraries
 #product.GUIDE_to_App_Designer_Migration_Tool_for_MATLAB
-#product.Geoid_Data_for_Aerospace_Toolbox
 #product.HDL_Coder_Support_Package_for_Intel_FPGA_Boards
 #product.HDL_Coder_Support_Package_for_Intel_SoC_Devices
 #product.HDL_Coder_Support_Package_for_Microchip_FPGA_and_SoC_Devices
@@ -294,6 +305,8 @@
 #product.HDL_Verifier_Support_Package_for_Microsemi_FPGA_Boards
 #product.HDL_Verifier_Support_Package_for_Xilinx_FPGA_Boards
 #product.Image_Acquisition_Toolbox_Support_Package_for_DCAM_Hardware
+#product.Image_Acquisition_Toolbox_Support_Package_for_GenICam_Interface
+#product.Image_Acquisition_Toolbox_Support_Package_for_GigE_Vision_Hardware
 #product.Image_Acquisition_Toolbox_Support_Package_for_Kinect_for_Windows_Sensor
 #product.Image_Acquisition_Toolbox_Support_Package_for_Matrox_Hardware
 #product.Image_Acquisition_Toolbox_Support_Package_for_National_Instruments_Frame_Grabbers
@@ -325,35 +338,41 @@
 #product.MATLAB_Coder_Interface_for_Deep_Learning_Libraries
 #product.MATLAB_Coder_Interface_for_Visual_Studio_Code_Debugging
 #product.MATLAB_Coder_Support_Package_for_NVIDIA_Jetson_and_NVIDIA_DRIVE_Platforms
+#product.MATLAB_Support_for_MinGW-w64_C/C++_Compiler
 #product.MATLAB_Support_Package_for_Android_Sensors
 #product.MATLAB_Support_Package_for_Apple_iOS_Sensors
 #product.MATLAB_Support_Package_for_Arduino_Hardware
 #product.MATLAB_Support_Package_for_BeagleBone_Black_Hardware
+#product.MATLAB_Support_Package_for_IP_Cameras
 #product.MATLAB_Support_Package_for_LEGO_MINDSTORMS_EV3_Hardware
+#product.MATLAB_Support_Package_for_Parrot_Drones
 #product.MATLAB_Support_Package_for_Quantum_Computing
 #product.MATLAB_Support_Package_for_Raspberry_Pi_Hardware
+#product.MATLAB_Support_Package_for_Ryze_Tello_Drones
 #product.MATLAB_Support_Package_for_USB_Webcams
-#product.MATLAB_Support_for_MinGW-w64_C/C++_Compiler
 #product.Medical_Imaging_Toolbox_Interface_for_Cellpose
 #product.Mixed-Signal_Blockset_Models
 #product.Modelscape_for_MATLAB
+#product.New_Desktop_for_MATLAB_Tech_Preview
 #product.Powertrain_Blockset_Drive_Cycle_Data
-#product.RF_Blockset_Models_for_Analog_Devices_RF_Transceivers
-#product.ROS_Toolbox_Support_Package_for_TurtleBot-Based_Robots
 #product.Radar_Toolbox_Support_Package_for_Texas_Instruments_mmWave_Radar_Sensors
+#product.RF_Blockset_Models_for_Analog_Devices_RF_Transceivers
 #product.Robotics_System_Toolbox_Robot_Library_Data
 #product.Robotics_System_Toolbox_Support_Package_for_KINOVA_Gen3_Manipulators
 #product.Robotics_System_Toolbox_Support_Package_for_Universal_Robots_UR_Series_Manipulators
+#product.ROS_Toolbox_Support_Package_for_TurtleBot-Based_Robots
 #product.Scenario_Builder_for_Automated_Driving_Toolbox
 #product.Scenario_Variant_Generator_for_Automated_Driving_Toolbox
 #product.Signal_Processing_Toolbox_Support_Package_for_Linux_IIO_Devices
 #product.Simulink_Coder_Support_Package_for_ARM_Cortex-based_VEX_Microcontroller
+#product.Simulink_Coder_Support_Package_for_BBC_microbit_Board
 #product.Simulink_Coder_Support_Package_for_BeagleBone_Blue_Hardware
 #product.Simulink_Coder_Support_Package_for_NXP_FRDM-K64F_Board
 #product.Simulink_Coder_Support_Package_for_NXP_FRDM-KL25Z_Board
 #product.Simulink_Coder_Support_Package_for_STMicroelectronics_Nucleo_Boards
 #product.Simulink_Coder_Support_Package_for_VEX_EDR_V5_Robot_Brain
 #product.Simulink_Interface_for_Siemens_MF-Tyre/MF-Swift_Tire_Model
+#product.Simulink_Real-Time_Target_Support_Package
 #product.Simulink_Real-Time_XIL_Support_Package
 #product.Simulink_Support_Package_for_Android_Devices
 #product.Simulink_Support_Package_for_Arduino_Hardware
@@ -384,7 +403,6 @@
 #product.Vision_HDL_Toolbox_Support_Package_for_Xilinx_Zynq-Based_Hardware
 #product.WINNER_II_Channel_Model_for_Communications_Toolbox
 #product.Wireless_Testbench_Support_Package_for_NI_USRP_Radios
-
 
 ########################################################################
 ## CHECKSUM
