@@ -1,8 +1,8 @@
-# Copyright 2023-2025 The MathWorks, Inc.
+# Copyright 2023-2026 The MathWorks, Inc.
 
 # To specify which MATLAB release you wish to install in the container, edit the value of the MATLAB_RELEASE argument.
 # Use lower case to specify the release.
-ARG MATLAB_RELEASE=r2025b
+ARG MATLAB_RELEASE=r2026a
 
 FROM ubuntu as versioner
 

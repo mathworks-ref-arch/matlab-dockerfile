@@ -1,16 +1,16 @@
-# Copyright 2025 The MathWorks, Inc.
+# Copyright 2025-2026 The MathWorks, Inc.
 # This Dockerfile allows you to build a Windows® Docker® image with MATLAB® using the MATLAB Package Manager.
 # You can then use a MATLAB batch licensing token to license MATLAB in the container. Use the optional build arguments to
 # customize the version of MATLAB, and the list of products to install.
 
 # Here is an example docker build command with the optional build arguments.
-# docker build --build-arg MATLAB_RELEASE=R2025b
+# docker build --build-arg MATLAB_RELEASE=R2026a
 #              --build-arg MATLAB_PRODUCT_LIST="MATLAB Deep_Learning_Toolbox Symbolic_Math_Toolbox"
 #              -t my_matlab_image_name .
 
 # To specify which MATLAB release to install in the container, edit the value of the MATLAB_RELEASE argument.
 # Use uppercase to specify the release, for example: ARG MATLAB_RELEASE=R2021b
-ARG MATLAB_RELEASE="R2025b"
+ARG MATLAB_RELEASE="R2026a"
 
 # Specify the list of products to install into MATLAB.
 ARG MATLAB_PRODUCT_LIST="MATLAB"

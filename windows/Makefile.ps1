@@ -1,4 +1,4 @@
-# Copyright 2025 The MathWorks, Inc.
+# Copyright 2025-2026 The MathWorks, Inc.
 # This script allows you to run build and test targets of a GitHub actions pipeline in an identical manner on your local machine.
 # This ensures that the build and test actions are easily reproducible outside of a CI/CD pipeline.
 param(
@@ -12,7 +12,7 @@ param(
 
     [Parameter(Mandatory=$False, ValueFromPipeline=$false)]
     [System.String]
-    $Release = "R2025b",
+    $Release = "R2026a",
     
     [Parameter(Mandatory=$False, ValueFromPipeline=$false)]
     [System.String]

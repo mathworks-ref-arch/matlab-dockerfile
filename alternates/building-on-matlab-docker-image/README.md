@@ -25,18 +25,18 @@ cd matlab-dockerfile/alternates/building-on-matlab-docker-image
 ### Quick Start
 Build a container with a name and tag.
 ```bash
-docker build -t matlab_with_add_ons:R2025b .
+docker build -t matlab_with_add_ons:R2026a .
 ```
 
 You can then run the container with the `batch` option. Test the container by running an example MATLAB command, such as `ver`, to display the installed toolboxes.
 ```bash
-docker run --init --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab_with_add_ons:R2025b -batch ver
+docker run --init --rm -e MLM_LICENSE_FILE=27000@MyServerName matlab_with_add_ons:R2026a -batch ver
 ```
 You can check the installed support packages using the MATLAB command `matlabshared.supportpkg.getInstalled`.
 
 You can also run the container with the `browser` option to access MATLAB in a browser.
 ```bash
-docker run --init --rm -it -p 8888:8888 matlab_with_add_ons:R2025b -browser
+docker run --init --rm -it -p 8888:8888 matlab_with_add_ons:R2026a -browser
 ```
 For more information, see [Run the Container](#run-the-container).
 
@@ -51,7 +51,7 @@ The `ADDITIONAL_PRODUCTS` argument must be a space-separated list surrounded by 
 By default, `ADDITIONAL_PRODUCTS` includes example products, which you can replace.
 For example, to build an image containing MATLAB and the Deep Learning Toolbox&trade;, use this command.
 ```bash
-docker build --build-arg ADDITIONAL_PRODUCTS="Deep_Learning_Toolbox" -t matlab_with_add_ons:R2025b .
+docker build --build-arg ADDITIONAL_PRODUCTS="Deep_Learning_Toolbox" -t matlab_with_add_ons:R2026a .
 ```
 
 For a successful build, include at least one product.
@@ -67,7 +67,7 @@ The [Dockerfile](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/ma
 
 | Argument Name | Default value | Effect |
 |---|---|---|
-| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | R2025b | MATLAB release to install, for example, `R2023b`.|
+| [MATLAB_RELEASE](#build-an-image-for-a-different-release-of-matlab) | R2026a | MATLAB release to install, for example, `R2023b`.|
 | [ADDITIONAL_PRODUCTS](#customize-products-to-install-using-matlab-package-manager-mpm) | `Symbolic_Math_Toolbox Deep_Learning_Toolbox_Model_for_ResNet-50_Network` | Space-separated list of toolboxes and support packages to install. For more details, see  [MATLAB Package Manager](https://github.com/mathworks-ref-arch/matlab-dockerfile/blob/main/MPM.md).|
 | [FONTS_PACKAGES](#build-an-image-with-modified-fonts-packages) | `fonts-vlgothic ibus-mozc` | Space-separated list of fonts packages to install. |
 | [ADDITIONAL_APT_PACKAGES](#build-an-image-with-additional-ubuntu-apt-packages) | *unset* | Space-separated list of APT packages to install. |
@@ -92,13 +92,13 @@ For supported releases see [MATLAB Container Image on Docker Hub](https://hub.do
 ### Build an Image with Modified Fonts Packages
 Use the `FONTS_PACKAGES` argument to build an image with a modified set of font packages. By default, it installs font support packages for a single locale (`ja_JP-UTF-8`). To override the default, specify other packages in the argument, for example, `fonts-arphic-gbsn00lp` (for Chinese) and `fonts-unfonts-core` (for Korean).
 ```bash
-docker build --build-arg FONTS_PACKAGES="fonts-arphic-gbsn00lp fonts-unfonts-core" -t matlab_with_add_ons:R2025b .
+docker build --build-arg FONTS_PACKAGES="fonts-arphic-gbsn00lp fonts-unfonts-core" -t matlab_with_add_ons:R2026a .
 ```
 
 ### Build an Image with Additional Ubuntu APT Packages 
 Use the `ADDITIONAL_APT_PACKAGES` argument to build an image with additional Ubuntu APT packages. By default, it installs font support packages for various locales. To override the default, specify other packages in the argument, for example, `vim`.
 ```bash
-docker build --build-arg ADDITIONAL_APT_PACKAGES="vim" -t matlab_with_add_ons:R2025b .
+docker build --build-arg ADDITIONAL_APT_PACKAGES="vim" -t matlab_with_add_ons:R2026a .
 ```
 
 ### Build an Image with License Server Information
@@ -109,12 +109,12 @@ server or the browser mode will not start successfully.
 
 Build container with the license server.
 ```bash
-docker build --build-arg LICENSE_SERVER=27000@MyServerName -t matlab_with_add_ons:R2025b .
+docker build --build-arg LICENSE_SERVER=27000@MyServerName -t matlab_with_add_ons:R2026a .
 ```
 
 Run the container, without needing to pass license information.
 ```bash
-docker run --init matlab_with_add_ons:R2025b -batch ver
+docker run --init matlab_with_add_ons:R2026a -batch ver
 ```
 ## Run the Container
 The Docker container you build using this Dockerfile inherits run options from its base image.
@@ -128,7 +128,7 @@ To set a custom locale for the MATLAB Docker container, install the appropriate 
 After building the image, when you run the container, use the `-e` flag with the `LANG` environment variable to specify language and character encoding settings.
 
 ```bash
-docker run -it --rm -e LANG=ja_JP.UTF-8 --shm-size=512M matlab_with_add_ons:R2025b
+docker run -it --rm -e LANG=ja_JP.UTF-8 --shm-size=512M matlab_with_add_ons:R2026a
 ```
 
 ## More MATLAB Docker Resources
@@ -147,6 +147,6 @@ We encourage you to try this repository with your environment and provide feedba
 
 ----
 
-Copyright 2023-2025 The MathWorks, Inc.
+Copyright 2023-2026 The MathWorks, Inc.
 
 ----

@@ -37,6 +37,7 @@ jobs:
       fail-fast: false
       matrix:
         matlab-release:
+          - R2026a
           - R2025b
           - R2025a
           - R2024b

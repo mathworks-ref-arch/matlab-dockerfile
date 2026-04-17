@@ -161,7 +161,7 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 - **Fixed:** Compatibility with MATLAB R2026a Prerelease after recent updates.
 
 ### v2025.11.0
-- **Added:** Support for MATLAB R2026a Prerelease.
+- **Added:** Support for MATLAB R2026a.
 
 ### v2025.10.0
 - **Added:** Support for using tokens beyond their offline expiration date. Requires connection to MathWorks online services. MATLAB connects to these services automatically when online.
