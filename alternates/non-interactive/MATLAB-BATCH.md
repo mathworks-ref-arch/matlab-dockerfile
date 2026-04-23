@@ -151,6 +151,9 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 
 ## Changelog
 
+### v2026.04.0
+- **Fixed:** Unintended printing of "Sponsored Third Party" license text in generated code.
+
 ### v2026.02.1
 - **Added:** Internal changes to support new token formats.
 
