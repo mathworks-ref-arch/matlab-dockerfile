@@ -21,6 +21,9 @@ If you encounter a technical issue or have an enhancement request, create an iss
 
 ## Changelog
 
+### 2026.4 - May 27, 2026
+- **Added**: Use `mpm list` to display all products installed in a specified MATLAB root folder.
+
 ### 2026.3 - April 1, 2026
 - **Added**: Download and install support packages that require accepting vendor license agreements using the `--accept-vendor-licenses` option of `mpm download` and `mpm install`. The following support packages are now supported with this option:
     - Image Acquisition Toolbox™ Support Package for GenICam™ Interface
