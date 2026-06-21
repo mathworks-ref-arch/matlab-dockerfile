@@ -1,4 +1,4 @@
-# Copyright 2023 The MathWorks, Inc.
+# Copyright 2023-2026 The MathWorks, Inc.
 
 """
 Test class to validate the entrypoint options of the "building-on-matlab-docker-image" Dockerfile.
@@ -82,7 +82,7 @@ class TestEntrypoint(unittest.TestCase):
             command="-vnc",
         )
         host = testinfra.get_host("docker://" + self.container.id)
-        helpers.wait_for_cmd(self.container, "vnc", 30)
+        helpers.wait_for_cmd(self.container, "Xtigervnc", 30)
 
         vnc_list_cmd = f"/usr/bin/vncserver -list -rbfport {expected_port}"
         # run "vncserver -list -rbfport 5901" in the Docker container
