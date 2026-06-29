@@ -151,6 +151,9 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 
 ## Changelog
 
+### v2026.06.1
+- **Added:** Support for MATLAB R2026b Prerelease.
+
 ### v2026.05.0
 - **Fixed:** Unintended printing of "Sponsored Third Party" license text in the terminal.
 
