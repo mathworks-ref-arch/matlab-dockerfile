@@ -21,6 +21,11 @@ If you encounter a technical issue or have an enhancement request, create an iss
 
 ## Changelog
 
+### 2026.5 - July 22, 2026
+- **Added**: Install support packages to a custom folder using the `--support-package-destination` option of `mpm install`.
+- **Added**: Progress indicator on the command line during download and install.
+- **Added**: Version availablity check with `mpm --version`. If a new version of `mpm` is avilable, the output includes an update notification and a download link.
+
 ### 2026.4 - May 27, 2026
 - **Added**: Use `mpm list` to display all products installed in a specified MATLAB root folder.
 
