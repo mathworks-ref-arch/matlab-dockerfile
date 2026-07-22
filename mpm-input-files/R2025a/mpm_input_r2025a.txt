@@ -72,6 +72,24 @@
 # destinationFolder=
 
 ########################################################################
+## SUPPORT PACKAGE DESTINATION
+########################################################################
+##
+## Specify the full path to the folder where you want to install
+## support packages. If not specified, support packages are installed
+## to the default support package location.
+##
+##   Example:
+##   (Windows) supportPackageDestinationFolder=C:\shared\spkgs
+##   (Linux) supportPackageDestinationFolder=/home/<USER>/spkgs
+##   (Mac) supportPackageDestinationFolder=/home/<USER>/spkgs
+##
+## Set the desired value for supportPackageDestinationFolder and
+## uncomment the following line.
+
+# supportPackageDestinationFolder=
+
+########################################################################
 ## ACCEPT VENDOR LICENSE AGREEMENTS
 ########################################################################
 ##
