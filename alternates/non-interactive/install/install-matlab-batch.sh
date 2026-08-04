@@ -52,6 +52,10 @@ else
     echo "Using default install location."
 fi
 
+# Propagate proxy variables to lowercase form expected by wget
+export https_proxy="${https_proxy:-${HTTPS_PROXY:-}}"
+export http_proxy="${http_proxy:-${HTTP_PROXY:-}}"
+
 # Function to download the matlab-batch executable binary
 download() {
   url=$1
