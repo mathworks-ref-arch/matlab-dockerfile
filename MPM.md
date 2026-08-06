@@ -21,6 +21,9 @@ If you encounter a technical issue or have an enhancement request, create an iss
 
 ## Changelog
 
+### 2026.5.1 - August 6, 2026
+- **Changed**: Internal improvements and bug fixes. 
+
 ### 2026.5 - July 22, 2026
 - **Added**: Install support packages to a custom folder using the `--support-package-destination` option of `mpm install`.
 - **Added**: Progress indicator on the command line during download and install.
