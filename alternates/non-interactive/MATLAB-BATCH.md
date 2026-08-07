@@ -131,7 +131,7 @@ MATLAB batch licensing tokens come in two formats:
 
 These tokens can be used instead of, or in addition to, other types of licensing.
 
-If your batch licensing token expires in less than 30 days, **matlab-batch** prints a warning message. To suppress this message, you can set the environment variable MW_DISABLE_TOKEN_EXPIRY_WARNING to 1. To continue using the token beyond the offline expiration date, you must connect to MathWorks online services when you use matlab-batch. MATLAB connects to these services automatically when online.
+If your batch licensing token expires in less than 30 days, **matlab-batch** prints a warning message. To suppress this message, you can set the environment variable MW_DISABLE_TOKEN_EXPIRY_WARNING to 1. To continue using the token beyond the offline expiration date, you must connect to MathWorks&reg; online services (`mathworks.com`) when you use **matlab-batch**. MATLAB connects to these services automatically when online.
 
 ## Limitations
 
@@ -150,6 +150,9 @@ To inquire about eligibility requirements for the MATLAB batch licensing pilot, 
 For support, contact [MathWorks Technical Support](https://www.mathworks.com/support/contact_us.html).
 
 ## Changelog
+
+### v2026.08.0
+- **Fixed:** Robustness against poor network conditions.
 
 ### v2026.06.1
 - **Added:** Support for MATLAB R2026b Prerelease.
