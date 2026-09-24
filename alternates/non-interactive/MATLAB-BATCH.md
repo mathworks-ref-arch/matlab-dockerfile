@@ -155,7 +155,7 @@ For support, contact [MathWorks Technical Support](https://www.mathworks.com/sup
 - **Fixed:** Robustness against poor network conditions.
 
 ### v2026.06.1
-- **Added:** Support for MATLAB R2026b Prerelease.
+- **Added:** Support for MATLAB R2026b.
 
 ### v2026.05.0
 - **Fixed:** Unintended printing of "Sponsored Third Party" license text in the terminal.
