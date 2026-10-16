@@ -21,6 +21,9 @@ If you encounter a technical issue or have an enhancement request, create an iss
 
 ## Changelog
 
+### 2026.8 - October 15, 2026
+- **Changed**: Internal improvements and bug fixes.
+
 ### 2026.7.1 - October 1, 2026
 - **Changed**: Internal improvements and bug fixes.
 
