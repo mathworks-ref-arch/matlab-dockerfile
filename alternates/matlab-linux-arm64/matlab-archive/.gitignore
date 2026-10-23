@@ -1,0 +1,6 @@
+# Copyright 2026 The MathWorks, Inc.
+# Ignore everything in this folder (notably the large MATLAB archive)...
+*
+# ...except the files needed to describe the folder.
+!.gitignore
+!README.md

@@ -1,0 +1,121 @@
+# Copyright 2026 The MathWorks, Inc.
+
+name: Build, Test and Publish the Linux ARM64 Dockerfile
+
+# Trigger this workflow either manually or when a new change is pushed to the
+# repo (except .md files)
+on:
+  workflow_dispatch:
+  push:
+    # Trigger the workflow when the Dockerfile or the workflow itself is modified
+    paths:
+      - "alternates/matlab-linux-arm64/Dockerfile"
+      - ".github/workflows/matlab-linux-arm64-build-test-publish.yml"
+      - "!**.md"
+  schedule:
+    # Run at 00:00 on every Monday (1st Day of the Week). The weekly rebuild picks
+    # up new matlab-proxy releases from PyPI and updates to the matlab-deps base images.
+    - cron: "0 0 * * 1"
+
+env:
+  # Published image name, e.g. ghcr.io/<owner>/matlab-dockerfile/matlab-arm64
+  IMAGE_BASE_NAME: ghcr.io/${{ github.repository }}/matlab-arm64
+  ALT_PATH: alternates/matlab-linux-arm64
+
+jobs:
+  build-test-push-image:
+    # Build natively on an ARM64 runner. GitHub provides these for public repositories.
+    runs-on: ubuntu-24.04-arm
+
+    permissions:
+      contents: read
+      packages: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # One image per MATLAB release and matlab-deps base operating system. Each
+        # release-os combination must match a published matlab-deps-arm64 tag. To build
+        # a new release, add it to matlab_release.
+        matlab_release:
+          - R2026b
+        os:
+          - ubuntu26.04
+          - ubuntu24.04
+          - ubuntu22.04
+          - debian13
+          - debian12
+          - ubi10
+          - ubi9
+          - ubi8
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+
+      - name: Cleanup runner
+        uses: ./.github/actions/cleanup-runner
+
+      # Publish the image under both release casings, e.g. r2026b-ubuntu26.04 and
+      # R2026b-ubuntu26.04, matching how the matlab-deps-arm64 base images are tagged.
+      - name: Compute published image tags
+        id: tags
+        env:
+          MATLAB_RELEASE: ${{ matrix.matlab_release }}
+          OS_FLAVOR: ${{ matrix.os }}
+        run: |
+          LOWERCASE_RELEASE=${MATLAB_RELEASE,,}
+          echo "image=${IMAGE_BASE_NAME}:${LOWERCASE_RELEASE}-${OS_FLAVOR}" >> "$GITHUB_OUTPUT"
+          echo "image_release_case=${IMAGE_BASE_NAME}:${MATLAB_RELEASE}-${OS_FLAVOR}" >> "$GITHUB_OUTPUT"
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      # Build the image without a MATLAB archive in the build context. The matlab-archive
+      # folder in the repo contains only placeholder files, so the resulting image does not
+      # contain MATLAB; users mount their own MATLAB installation at run time.
+      - name: Build image locally
+        uses: docker/build-push-action@v7
+        with:
+          context: ${{ env.ALT_PATH }}
+          file: ${{ env.ALT_PATH }}/Dockerfile
+          platforms: linux/arm64
+          load: true
+          build-args: |
+            MATLAB_RELEASE=${{ matrix.matlab_release }}
+            OS=${{ matrix.os }}
+          tags: |
+            ${{ steps.tags.outputs.image }}
+            ${{ steps.tags.outputs.image_release_case }}
+
+      # MATLAB is not installed in these images, so there is nothing to license or run here.
+      # Verify that the parts this Dockerfile adds are in place: the "matlab" launcher
+      # symlink exists (it resolves once MATLAB is mounted) and, on the Ubuntu and Debian
+      # images, matlab-proxy-app is on the PATH. The Red Hat UBI images are command-line
+      # only and do not install matlab-proxy, so that check is skipped for them.
+      - name: Smoke-test image
+        env:
+          IMAGE_NAME: ${{ steps.tags.outputs.image }}
+          OS_FLAVOR: ${{ matrix.os }}
+        run: |
+          docker run --rm --entrypoint bash "${IMAGE_NAME}" -c "
+            set -eux
+            test -L /usr/local/bin/matlab
+            case '${OS_FLAVOR}' in
+              ubi*) echo 'UBI image: command-line only, skipping matlab-proxy-app check' ;;
+              *)    command -v matlab-proxy-app ;;
+            esac
+          "
+          echo "Smoke test passed for ${IMAGE_NAME}"
+
+      - name: Push the image to ghcr.io
+        run: |
+          docker push "${{ steps.tags.outputs.image }}"
+          docker push "${{ steps.tags.outputs.image_release_case }}"
