@@ -124,7 +124,7 @@ Follow these steps to build and use an image that, like the prebuilt images, req
     git clone https://github.com/mathworks-ref-arch/matlab-dockerfile.git
     cd matlab-dockerfile/alternates/matlab-linux-arm64
     ```
-2. Move the `.tar.gz` archive into the `matlab-linux-arm64` folder.
+2. Move the `.tar.gz` archive into the `matlab-archive` folder inside `matlab-linux-arm64`.
     > **Note**: Do not extract the archive.
 3. Build the image. By default, the Dockerfile builds on a prebuilt Ubuntu 26.04 base image.
     ```bash
@@ -151,7 +151,7 @@ To customize your image, you can use the following optional arguments with the `
 | Argument | Default value | Description |
 |---|---|---|
 | `OS` | `ubuntu26.04` | Sets the operating system of the base image. For more information, see [Build with a Different Base Image](#build-with-a-different-base-image). |
-| `MATLAB_TGZ` | `MATLABR2026b_OpenBeta_aarch64_v3.1.1.tar.gz` | The file name of the MATLAB `tar.gz` archive in the `matlab-linux-arm64` folder. |
+| `MATLAB_TGZ` | `MATLABR2026b_OpenBeta_aarch64_v3.1.1.tar.gz` | The file name of the MATLAB `tar.gz` archive in the `matlab-linux-arm64/matlab-archive` folder. |
 | `PIP_INDEX_URL` | *unset* | A custom pip package index URL, for example a private PyPI mirror. Leave unset to install matlab-proxy from the public Python Package Index. |
 
 
