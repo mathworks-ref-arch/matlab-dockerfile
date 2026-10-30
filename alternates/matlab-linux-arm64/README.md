@@ -17,7 +17,7 @@ To run MATLAB in a container, you need:
 
 ## Sign Up and Download Software
 
-To sign up for the beta, go to [MATLAB R2026b Linux ARM 64 Open Beta](https://www.mathworks.com/support/aarch64-r2026b-beta.html), complete the sign up form, and accept the Software Licensing Agreement. Then click the link provided to download the `.tar.gz` archive.
+To sign up for the beta, go to [MATLAB R2026b Linux ARM 64 Open Beta](https://www.mathworks.com/support/aarch64-r2026b-beta.html), complete the sign-up form, and accept the Software Licensing Agreement. Then click the link provided to download the `.tar.gz` archive.
 
 ## Run MATLAB in a Container
 
@@ -29,16 +29,16 @@ To run MATLAB in a container, follow these steps:
     sudo tar -xf MATLABR2026b_OpenBeta_aarch64_v3.1.1.tar.gz -C /opt/matlab
     ```
 
-2. Run the prebuilt Docker image and mount the extracted files into the `/opt/matlab` folder inside the container. The first time you run this command, Docker pulls the image from the GitHub&reg; container repository.
+2. Run the prebuilt Docker image and mount the extracted files into the `/opt/matlab` folder inside the container. The first time you run this command, Docker pulls the image from the GitHub&reg; Container Registry.
     ```bash
     docker run --init -it --rm \
     -v /opt/matlab:/opt/matlab:ro \
     ghcr.io/mathworks-ref-arch/matlab-dockerfile/matlab-arm64:r2026b-ubuntu26.04
     ```
-    This starts MATLAB in an interactive command prompt with an Ubuntu 26.04 base image. For information about using alternative base operating systems and startup options, see the following sections.
+    This command starts MATLAB in an interactive command prompt with an Ubuntu 26.04 base image. For information about using alternative base operating systems and startup options, see the following sections.
     > **Tip**
     >
-    > To give the container access to the GPUs on your system, include `-gpus all` in your Docker run command. For more information, see [Use GPUs in Containers](https://www.mathworks.com/help/cloudcenter/ug/use-gpus-in-containers.html).
+    > To give the container access to the GPUs on your system, include `--gpus all` in your Docker run command. For more information, see [Use GPUs in Containers](https://www.mathworks.com/help/cloudcenter/ug/use-gpus-in-containers.html).
 
 ## Use an Image with a Different Base Operating System
 
@@ -58,7 +58,7 @@ MathWorks&reg; publishes prebuilt images for several base operating systems, fol
 | `r2026b-ubi9`         | Red Hat UBI 9       | No                           |
 | `r2026b-ubi8`         | Red Hat UBI 8       | No                           |
 
-Only the Ubuntu and Debian images support running MATLAB in a browser using [MATLAB Proxy](https://github.com/mathworks/matlab-proxy).
+Only the Ubuntu and Debian images support using [MATLAB Proxy](https://github.com/mathworks/matlab-proxy) to run MATLAB in a browser.
 
 ## Run MATLAB in a Browser with MATLAB Proxy
 
@@ -70,11 +70,11 @@ docker run --init -it --rm -p 8888:8888 \
   ghcr.io/mathworks-ref-arch/matlab-dockerfile/matlab-arm64:r2026b-ubuntu26.04
 ```
 
-You can then access MATLAB by opening the URL (by default `http://localhost:8888`) printed to the terminal.
+You can then access MATLAB by opening the URL that prints to the terminal. The default URL is `http://localhost:8888`.
 
 ## Run MATLAB in Batch Mode
 
-To run a MATLAB script, statement, or function non-interactively, add `-batch` followed by the MATLAB code to run. For example, this command runs the script `myscript`.
+To run a MATLAB script, statement, or function noninteractively, add `-batch` followed by the MATLAB code to run. For example, this command runs the script `myscript`.
 
 ```bash
 docker run --init --rm \
@@ -84,13 +84,11 @@ docker run --init --rm \
 
 ## Build Your Own Image
 
-Instead of using the prebuilt image, you can build your own image that you can use to run MATLAB on Linux ARM. Use these steps only if you need to build your own image, for example if you need to customize the image.
+Instead of using the prebuilt image, you can build your own image and use it to run MATLAB on Linux ARM. Use these steps only if you need to build your own image, for example, if you need to customize the image.
 
 ### Additional Requirements
 
-In addition to the [requirements](#requirements) above, to build the image you also need:
-
-* A Docker environment with BuildKit enabled. This is the default in current Docker releases.
+To build the image, in addition to the [requirements](#requirements) above, you need a Docker environment with BuildKit enabled. In current Docker releases, BuildKit is enabled by default.
 
 ### Sign Up and Download Software
 
@@ -98,12 +96,12 @@ To sign up for the beta, go to [MATLAB R2026b Linux ARM 64 Open Beta](https://ww
 
 ### Build Container Image Without MATLAB Installed
 Follow these steps to build and use an image that, like the prebuilt images, requires you to mount MATLAB at run time:
-1. Access the Dockerfile either by directly downloading this repository from GitHub, or by cloning this repository and then navigating to the appropriate subfolder.
+1. Access the Dockerfile either by directly downloading this repository from GitHub, or by cloning this repository and then navigating to the `matlab-linux-arm64` folder.
     ```bash
     git clone https://github.com/mathworks-ref-arch/matlab-dockerfile.git
     cd matlab-dockerfile/alternates/matlab-linux-arm64
     ```
-2. Build the image. By default, the Dockerfile builds on a prebuilt Ubuntu 26.04 base image.
+2. Build the image. By default, the Dockerfile builds on a prebuilt Ubuntu 26.04 base image. To build on a different operating system, see the [Build with a Different Base Image](#build-with-a-different-base-image) section below.
     ```bash
     docker build -t matlab:r2026b-ubuntu26.04-arm64 .
     ```
@@ -113,10 +111,11 @@ Follow these steps to build and use an image that, like the prebuilt images, req
     -v /opt/matlab:/opt/matlab:ro \
     matlab:r2026b-ubuntu26.04-arm64
     ```
-    This starts MATLAB in an interactive command prompt, but you can alternatively run MATLAB in a browser or in batch mode, as described above.
+    These commands start MATLAB in an interactive command prompt, but you can instead run MATLAB in a browser or in batch mode, as described above.
     
 
-### Build Container Image With MATLAB Installed
+### Build Container Image with MATLAB Installed
+Follow these steps to build and use an image that includes a MATLAB installation:
 
 1. Access the Dockerfile either by directly downloading this repository from GitHub, or by cloning this repository and then navigating to the appropriate subfolder.
 
@@ -126,7 +125,7 @@ Follow these steps to build and use an image that, like the prebuilt images, req
     ```
 2. Move the `.tar.gz` archive into the `matlab-archive` folder inside `matlab-linux-arm64`.
     > **Note**: Do not extract the archive.
-3. Build the image. By default, the Dockerfile builds on a prebuilt Ubuntu 26.04 base image.
+3. Build the image. By default, the Dockerfile builds on a prebuilt Ubuntu 26.04 base image. To build on a different operating system, see the [Build with a Different Base Image](#build-with-a-different-base-image) section below.
     ```bash
     docker build -t matlab:r2026b-ubuntu26.04-arm64 .
     ```
@@ -134,7 +133,7 @@ Follow these steps to build and use an image that, like the prebuilt images, req
     ```bash
     docker run --init -it --rm matlab:r2026b-ubuntu26.04-arm64
     ```
-    This starts MATLAB in an interactive command prompt, but you can alternatively run MATLAB in a browser or in batch mode, as described above.
+    These commands start MATLAB in an interactive command prompt, but you can instead run MATLAB in a browser or in batch mode, as described above.
 
 ### Build with a Different Base Image
 
@@ -146,13 +145,13 @@ docker build --build-arg OS=ubi9 -t matlab:r2026b-ubi9-arm64 .
 
 ### Customize the Image
 
-To customize your image, you can use the following optional arguments with the `docker build` command by specifying them after `--build-arg`.
+To customize your image, you can use the following optional arguments with the `docker build` command. Specify these arguments after `--build-arg`.
 
 | Argument | Default value | Description |
 |---|---|---|
 | `OS` | `ubuntu26.04` | Sets the operating system of the base image. For more information, see [Build with a Different Base Image](#build-with-a-different-base-image). |
 | `MATLAB_TGZ` | `MATLABR2026b_OpenBeta_aarch64_v3.1.1.tar.gz` | The file name of the MATLAB `tar.gz` archive in the `matlab-linux-arm64/matlab-archive` folder. |
-| `PIP_INDEX_URL` | *unset* | A custom pip package index URL, for example a private PyPI mirror. Leave unset to install matlab-proxy from the public Python Package Index. |
+| `PIP_INDEX_URL` | *unset* | A custom pip package index URL, for example, a private PyPI mirror. Leave this argument unset to install matlab-proxy from the public Python Package Index. |
 
 
 ## More MATLAB Docker Resources
